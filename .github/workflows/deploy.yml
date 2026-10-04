@@ -1,0 +1,52 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-poke-bar-www
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Test
+        run: pnpm test
+
+      - name: Build
+        env:
+          SITE_URL: ${{ vars.SITE_URL || 'https://apps.azersoft.nc' }}
+          BASE_PATH: ${{ vars.BASE_PATH || '/poke-bar' }}
+        run: pnpm build
+
+      - name: Deploy to droplet
+        if: ${{ secrets.DEPLOY_HOST != '' && secrets.DEPLOY_KEY != '' }}
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER || 'deploy' }}
+          key: ${{ secrets.DEPLOY_KEY }}
+          source: 'dist/*'
+          target: ${{ secrets.DEPLOY_PATH || '/var/www/apps/poke-bar' }}
+          strip_components: 1
+          overwrite: true

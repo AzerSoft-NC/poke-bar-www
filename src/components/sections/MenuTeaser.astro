@@ -1,0 +1,47 @@
+---
+import { menuCategories } from '../../config/menu.config';
+import { siteConfig } from '../../config/site.config';
+import Button from '../ui/Button.astro';
+import { withBase } from '../../lib/withBase';
+
+const teaser = menuCategories.slice(0, 3);
+---
+
+<section id="menu" class="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-24" aria-labelledby="menu-teaser-heading">
+  <div class="reveal flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
+    <div class="max-w-2xl">
+      <h2 id="menu-teaser-heading" class="font-display text-4xl font-extrabold tracking-tight md:text-5xl">
+        Un aperçu du menu
+      </h2>
+      <p class="mt-4 text-lg text-[var(--pb-ink-soft)]">
+        Quelques catégories pour vous mettre l’eau à la bouche — le détail complet est en PDF.
+      </p>
+    </div>
+    <div class="flex flex-wrap gap-3">
+      <Button href="/menu" variant="primary">Voir le menu</Button>
+      <Button href={siteConfig.menuPdf} variant="secondary" external>Télécharger le PDF</Button>
+    </div>
+  </div>
+
+  <ul class="reveal mt-12 grid gap-10 md:grid-cols-3">
+    {
+      teaser.map((category) => (
+        <li>
+          <h3 class="font-display text-2xl font-bold text-[var(--pb-avocado)]">{category.name}</h3>
+          <p class="mt-2 text-[var(--pb-ink-soft)]">{category.blurb}</p>
+          <ul class="mt-4 space-y-2 text-[var(--pb-ink)]">
+            {category.items.slice(0, 2).map((item) => (
+              <li class="border-l-2 border-[var(--pb-mango)] pl-3">{item.name}</li>
+            ))}
+          </ul>
+        </li>
+      ))
+    }
+  </ul>
+
+  <p class="reveal mt-10 text-sm text-[var(--pb-ink-soft)]">
+    <a class="font-medium text-[var(--pb-sea)] underline underline-offset-2" href={withBase('/menu')}>
+      Toutes les catégories
+    </a>
+  </p>
+</section>

@@ -1,0 +1,42 @@
+---
+import { siteConfig } from '../../config/site.config';
+import Button from '../ui/Button.astro';
+import Logo from '../ui/Logo.astro';
+import { withBase } from '../../lib/withBase';
+---
+
+<section class="relative isolate min-h-[100svh] overflow-hidden" aria-labelledby="hero-heading">
+  <div class="hero-visual absolute inset-0 -z-10">
+    <img
+      src={withBase('/hero.svg')}
+      alt=""
+      class="h-full w-full object-cover"
+      width="1920"
+      height="1080"
+      decoding="async"
+      fetchpriority="high"
+    />
+    <div
+      class="absolute inset-0 bg-gradient-to-t from-[rgb(26_42_36_/_0.72)] via-[rgb(26_42_36_/_0.35)] to-[rgb(26_42_36_/_0.2)]"
+      aria-hidden="true"
+    >
+    </div>
+  </div>
+
+  <div class="hero-copy mx-auto flex min-h-[100svh] max-w-6xl flex-col justify-end px-4 pb-16 pt-28 md:px-6 md:pb-24">
+    <Logo size="hero" tone="foam" class="mb-6 drop-shadow-sm" />
+    <h1 id="hero-heading" class="sr-only">{siteConfig.name}</h1>
+    <p class="max-w-xl font-display text-2xl font-medium text-[var(--pb-foam)] sm:text-3xl md:text-4xl">
+      {siteConfig.tagline}
+    </p>
+    <p class="mt-4 max-w-lg text-lg text-[var(--pb-foam)]/85">
+      Pokés personnalisables et douceurs tropicales aux Quais, Nouméa.
+    </p>
+    <div class="mt-8 flex flex-wrap gap-3">
+      <Button href="/menu" variant="primary" size="lg">Voir le menu</Button>
+      <Button href={`tel:${siteConfig.phone.tel}`} variant="secondary" size="lg" external class="!text-[var(--pb-foam)] !ring-[var(--pb-foam)]/40 hover:!bg-white/10">
+        Appeler
+      </Button>
+    </div>
+  </div>
+</section>

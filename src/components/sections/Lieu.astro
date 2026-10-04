@@ -1,0 +1,57 @@
+---
+import { primaryLocation } from '../../config/locations.config';
+import Icon from '../ui/Icon.astro';
+---
+
+<section id="lieu" class="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-24" aria-labelledby="lieu-heading">
+  <div class="reveal grid gap-10 md:grid-cols-2 md:items-start">
+    <div>
+      <h2 id="lieu-heading" class="font-display text-4xl font-extrabold tracking-tight md:text-5xl">
+        Les Quais
+      </h2>
+      <p class="mt-4 text-lg text-[var(--pb-ink-soft)]">
+        Retrouvez-nous en rez-de-chaussée de la galerie commerciale, à deux pas de la mer.
+      </p>
+      <address class="mt-8 not-italic text-lg leading-relaxed text-[var(--pb-ink)]">
+        {
+          primaryLocation.addressLines.map((line) => (
+            <>
+              {line}
+              <br />
+            </>
+          ))
+        }
+        {primaryLocation.postalCode}
+        {' '}
+        {primaryLocation.city}
+      </address>
+      {
+        primaryLocation.mapsUrl && (
+          <a
+            href={primaryLocation.mapsUrl}
+            class="mt-6 inline-flex items-center gap-2 font-medium text-[var(--pb-sea)] underline underline-offset-2"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Icon name="lucide:map-pin" class="size-5" aria-hidden="true" />
+            Ouvrir dans Maps
+          </a>
+        )
+      }
+    </div>
+
+    <div>
+      <h3 class="font-display text-2xl font-bold">Horaires</h3>
+      <dl class="mt-6 space-y-3">
+        {
+          primaryLocation.hours.map((row) => (
+            <div class="flex flex-wrap items-baseline justify-between gap-2 border-b border-[var(--pb-ink)]/10 pb-3">
+              <dt class="font-medium text-[var(--pb-ink)]">{row.label}</dt>
+              <dd class="text-[var(--pb-ink-soft)]">{row.value}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </div>
+</section>

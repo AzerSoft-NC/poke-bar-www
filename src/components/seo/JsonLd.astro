@@ -1,0 +1,36 @@
+---
+import { siteConfig } from '../../config/site.config';
+import { primaryLocation } from '../../config/locations.config';
+import { withBase } from '../../lib/withBase';
+
+const site = Astro.site?.href?.replace(/\/$/, '') ?? '';
+const pageUrl = new URL(Astro.url.pathname, site || 'https://apps.azersoft.nc').href;
+
+const data = {
+  '@context': 'https://schema.org',
+  '@type': 'Restaurant',
+  name: siteConfig.name,
+  description: siteConfig.description,
+  url: pageUrl,
+  telephone: siteConfig.phone.tel,
+  email: siteConfig.email,
+  image: withBase(siteConfig.og.image),
+  servesCuisine: ['Poke', 'Hawaiian', 'Healthy'],
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: [...primaryLocation.addressLines].join(', '),
+    addressLocality: primaryLocation.city,
+    postalCode: primaryLocation.postalCode,
+    addressCountry: 'NC',
+  },
+  geo: undefined,
+  openingHoursSpecification: primaryLocation.hours.map((h) => ({
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: h.label,
+    opens: h.value,
+  })),
+  sameAs: [siteConfig.social.instagram, siteConfig.social.facebook].filter(Boolean),
+};
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(data)} />

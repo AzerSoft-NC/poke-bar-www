@@ -1,0 +1,79 @@
+---
+import { legalLinks } from '../../config/legal.config';
+import { siteConfig } from '../../config/site.config';
+import { primaryLocation } from '../../config/locations.config';
+import { withBase } from '../../lib/withBase';
+import Logo from '../ui/Logo.astro';
+import Icon from '../ui/Icon.astro';
+
+const year = new Date().getFullYear();
+const social = [
+  { label: 'Instagram', href: siteConfig.social.instagram, icon: 'lucide:instagram' },
+  { label: 'Facebook', href: siteConfig.social.facebook, icon: 'lucide:facebook' },
+  ...(siteConfig.social.tiktok
+    ? [{ label: 'TikTok', href: siteConfig.social.tiktok, icon: 'lucide:music-2' }]
+    : []),
+].filter((s) => Boolean(s.href));
+---
+
+<footer class="mt-20 border-t border-[var(--pb-ink)]/10 bg-[var(--pb-ink)] text-[var(--pb-foam)]">
+  <div class="mx-auto grid max-w-6xl gap-10 px-4 py-12 md:grid-cols-[1.2fr_1fr_1fr] md:px-6">
+    <div class="space-y-4">
+      <Logo size="lg" tone="foam" />
+      <p class="max-w-sm text-[var(--pb-foam)]/80">{siteConfig.tagline}</p>
+      <p class="text-sm text-[var(--pb-foam)]/65">{primaryLocation.name} · {primaryLocation.city}</p>
+    </div>
+
+    <div class="space-y-3">
+      <h2 class="font-display text-lg font-bold">Contact</h2>
+      <a class="block hover:underline" href={`tel:${siteConfig.phone.tel}`}>{siteConfig.phone.display}</a>
+      <a class="block hover:underline" href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a>
+      <a
+        class="block hover:underline"
+        href={`https://wa.me/${siteConfig.phone.whatsapp}`}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        WhatsApp
+      </a>
+    </div>
+
+    <div class="space-y-3">
+      <h2 class="font-display text-lg font-bold">Liens</h2>
+      <ul class="space-y-2">
+        {
+          legalLinks.map((link) => (
+            <li>
+              <a class="hover:underline" href={withBase(link.href)}>
+                {link.label}
+              </a>
+            </li>
+          ))
+        }
+        <li>
+          <a class="hover:underline" href={withBase('/menu')}>Menu</a>
+        </li>
+      </ul>
+      {
+        social.length > 0 && (
+          <div class="flex gap-3 pt-2">
+            {social.map((item) => (
+              <a
+                href={item.href}
+                class="grid size-10 place-items-center rounded-md bg-white/10 transition hover:bg-white/20"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={item.label}
+              >
+                <Icon name={item.icon} class="size-5" aria-hidden="true" />
+              </a>
+            ))}
+          </div>
+        )
+      }
+    </div>
+  </div>
+  <div class="border-t border-white/10 px-4 py-4 text-center text-sm text-[var(--pb-foam)]/55 md:px-6">
+    © {year} {siteConfig.name}. Tous droits réservés.
+  </div>
+</footer>
