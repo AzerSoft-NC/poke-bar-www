@@ -1,0 +1,61 @@
+---
+import { cva, type VariantProps } from 'class-variance-authority';
+import { withBase } from '../../lib/withBase';
+
+const button = cva(
+  'inline-flex items-center justify-center gap-2 rounded-md font-display font-bold tracking-wide transition duration-200 focus-visible:outline focus-visible:outline-3 focus-visible:outline-offset-3 focus-visible:outline-[var(--pb-focus)] disabled:opacity-50',
+  {
+    variants: {
+      variant: {
+        primary:
+          'bg-[var(--pb-orange)] text-white shadow-[0_10px_30px_-12px_rgb(232_137_44_/_0.8)] hover:brightness-105',
+        secondary:
+          'bg-transparent text-[var(--pb-ink)] ring-2 ring-[var(--pb-ink)]/15 hover:bg-white/50',
+        ghost: 'bg-transparent text-[var(--pb-sea)] hover:bg-[var(--pb-sea)]/8',
+      },
+      size: {
+        md: 'px-5 py-3 text-base',
+        lg: 'px-6 py-3.5 text-lg',
+      },
+    },
+    defaultVariants: {
+      variant: 'primary',
+      size: 'md',
+    },
+  },
+);
+
+type Props = VariantProps<typeof button> & {
+  href?: string;
+  class?: string;
+  external?: boolean;
+};
+
+const { href, variant, size, class: className, external = false } = Astro.props;
+const classes = button({ variant, size, className });
+// Always apply BASE_PATH to site-relative hrefs; `external` only controls target/rel for http(s)/pdf.
+const resolvedHref = href ? withBase(href) : undefined;
+const isHttpExternal =
+  external &&
+  typeof resolvedHref === 'string' &&
+  (resolvedHref.startsWith('http://') ||
+    resolvedHref.startsWith('https://') ||
+    resolvedHref.endsWith('.pdf'));
+---
+
+{
+  resolvedHref ? (
+    <a
+      href={resolvedHref}
+      class={classes}
+      target={isHttpExternal ? '_blank' : undefined}
+      rel={isHttpExternal ? 'noopener noreferrer' : undefined}
+    >
+      <slot />
+    </a>
+  ) : (
+    <button type="button" class={classes}>
+      <slot />
+    </button>
+  )
+}

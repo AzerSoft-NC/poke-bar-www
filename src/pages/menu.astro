@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/ui/Button.astro';
+import { menuCategories } from '../config/menu.config';
+import { siteConfig } from '../config/site.config';
+---
+
+<BaseLayout
+  title="Menu"
+  description="Aperçu des catégories du menu Poke Bar et accès au PDF complet."
+>
+  <div class="mx-auto max-w-6xl px-4 py-14 md:px-6 md:py-20">
+    <header class="max-w-2xl">
+      <h1 class="font-display text-4xl font-extrabold tracking-tight md:text-6xl">Menu</h1>
+      <p class="mt-4 text-lg text-[var(--pb-ink-soft)]">
+        Résumé par catégorie. Pour les prix et la composition complète, ouvrez le PDF.
+      </p>
+    </header>
+
+    <div class="mt-10 space-y-14">
+      {
+        menuCategories.map((category) => (
+          <section aria-labelledby={`cat-${category.id}`} class="reveal">
+            <h2 id={`cat-${category.id}`} class="font-display text-3xl font-bold text-[var(--pb-avocado)]">
+              {category.name}
+            </h2>
+            <p class="mt-2 max-w-2xl text-[var(--pb-ink-soft)]">{category.blurb}</p>
+            <ul class="mt-6 grid gap-4 sm:grid-cols-2">
+              {category.items.map((item) => (
+                <li class="border-l-2 border-[var(--pb-mango)] pl-4">
+                  <p class="font-display text-xl font-semibold">{item.name}</p>
+                  {item.description && <p class="mt-1 text-[var(--pb-ink-soft)]">{item.description}</p>}
+                </li>
+              ))}
+            </ul>
+          </section>
+        ))
+      }
+    </div>
+  </div>
+
+  <div
+    class="sticky bottom-0 z-30 border-t border-[var(--pb-ink)]/10 bg-[rgb(255_250_243_/_0.92)] px-4 py-3 backdrop-blur-md md:px-6"
+  >
+    <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3">
+      <p class="text-sm font-medium text-[var(--pb-ink-soft)]">Menu complet en PDF</p>
+      <Button href={siteConfig.menuPdf} variant="primary" external>Télécharger le menu</Button>
+    </div>
+  </div>
+</BaseLayout>

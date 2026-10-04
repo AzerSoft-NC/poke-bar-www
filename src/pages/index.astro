@@ -1,0 +1,17 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/sections/Hero.astro';
+import Offre from '../components/sections/Offre.astro';
+import MenuTeaser from '../components/sections/MenuTeaser.astro';
+import Lieu from '../components/sections/Lieu.astro';
+import Contact from '../components/sections/Contact.astro';
+import { siteConfig } from '../config/site.config';
+---
+
+<BaseLayout title={siteConfig.og.title} description={siteConfig.description}>
+  <Hero />
+  <Offre />
+  <MenuTeaser />
+  <Lieu />
+  <Contact />
+</BaseLayout>

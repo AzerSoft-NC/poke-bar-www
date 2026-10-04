@@ -1,0 +1,41 @@
+---
+import { cva, type VariantProps } from 'class-variance-authority';
+import { withBase } from '../../lib/withBase';
+import { siteConfig } from '../../config/site.config';
+
+const logo = cva('inline-flex items-center gap-2 font-display font-extrabold tracking-tight', {
+  variants: {
+    size: {
+      sm: 'text-lg',
+      md: 'text-xl',
+      lg: 'text-3xl md:text-5xl',
+      hero: 'text-5xl sm:text-6xl md:text-7xl lg:text-8xl',
+    },
+    tone: {
+      ink: 'text-[var(--pb-ink)]',
+      foam: 'text-[var(--pb-foam)]',
+    },
+  },
+  defaultVariants: {
+    size: 'md',
+    tone: 'ink',
+  },
+});
+
+type Props = VariantProps<typeof logo> & {
+  href?: string;
+  class?: string;
+};
+
+const { size, tone, href = '/', class: className } = Astro.props;
+---
+
+<a href={withBase(href)} class={logo({ size, tone, className })} aria-label={`${siteConfig.name} — accueil`}>
+  <span
+    class="grid size-[0.9em] place-items-center rounded-full bg-[var(--pb-avocado)] text-[0.45em] text-white"
+    aria-hidden="true"
+  >
+    PB
+  </span>
+  <span>{siteConfig.name}</span>
+</a>

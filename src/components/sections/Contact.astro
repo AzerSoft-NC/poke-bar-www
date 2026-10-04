@@ -1,0 +1,77 @@
+---
+import { siteConfig } from '../../config/site.config';
+import Icon from '../ui/Icon.astro';
+import Button from '../ui/Button.astro';
+
+const channels = [
+  {
+    label: 'Téléphone',
+    value: siteConfig.phone.display,
+    href: `tel:${siteConfig.phone.tel}`,
+    icon: 'lucide:phone',
+  },
+  {
+    label: 'E-mail',
+    value: siteConfig.email,
+    href: `mailto:${siteConfig.email}`,
+    icon: 'lucide:mail',
+  },
+  {
+    label: 'WhatsApp',
+    value: 'Écrire sur WhatsApp',
+    href: `https://wa.me/${siteConfig.phone.whatsapp}`,
+    icon: 'lucide:message-circle',
+    external: true,
+  },
+];
+
+const social = [
+  { label: 'Instagram', href: siteConfig.social.instagram, icon: 'lucide:instagram' },
+  { label: 'Facebook', href: siteConfig.social.facebook, icon: 'lucide:facebook' },
+].filter((s) => Boolean(s.href));
+---
+
+<section id="contact" class="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-24" aria-labelledby="contact-heading">
+  <div class="reveal max-w-2xl">
+    <h2 id="contact-heading" class="font-display text-4xl font-extrabold tracking-tight md:text-5xl">
+      Contact
+    </h2>
+    <p class="mt-4 text-lg text-[var(--pb-ink-soft)]">
+      Une question, une réservation de groupe ou juste envie de passer ? Écrivez-nous ou appelez.
+    </p>
+  </div>
+
+  <ul class="reveal mt-10 grid gap-6 sm:grid-cols-3">
+    {
+      channels.map((channel) => (
+        <li>
+          <a
+            href={channel.href}
+            class="group block transition"
+            target={channel.external ? '_blank' : undefined}
+            rel={channel.external ? 'noopener noreferrer' : undefined}
+          >
+            <span class="inline-flex items-center gap-2 font-display text-lg font-bold text-[var(--pb-avocado)]">
+              <Icon name={channel.icon} class="size-5" aria-hidden="true" />
+              {channel.label}
+            </span>
+            <span class="mt-2 block text-[var(--pb-ink)] group-hover:underline">{channel.value}</span>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+
+  {
+    social.length > 0 && (
+      <div class="reveal mt-10 flex flex-wrap items-center gap-3">
+        {social.map((item) => (
+          <Button href={item.href} variant="ghost" external>
+            <Icon name={item.icon} class="size-5" aria-hidden="true" />
+            {item.label}
+          </Button>
+        ))}
+      </div>
+    )
+  }
+</section>
