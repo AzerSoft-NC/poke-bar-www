@@ -1,90 +1,81 @@
 ---
-import '@fontsource/outfit/500.css';
-import '@fontsource/outfit/700.css';
-import '@fontsource/outfit/800.css';
-import '@fontsource/dm-sans/400.css';
-import '@fontsource/dm-sans/500.css';
-import '@fontsource/dm-sans/700.css';
-import '../styles/global.css';
-import Header from '../components/layout/Header.astro';
-import Footer from '../components/layout/Footer.astro';
-import JsonLd from '../components/seo/JsonLd.astro';
-import { siteConfig } from '../config/site.config';
-import { withBase } from '../lib/withBase';
-import { loadEnv } from '../lib/env';
+import "../styles.css";
+import SeoHead from "../components/SeoHead.astro";
+import { siteConfig } from "../config/site";
 
 type Props = {
   title?: string;
   description?: string;
-  ogImage?: string;
+  image?: string;
+  structuredData?: Record<string, unknown>;
+  enableReveal?: boolean;
 };
 
-const {
-  title = siteConfig.og.title,
-  description = siteConfig.description,
-  ogImage = siteConfig.og.image,
-} = Astro.props;
-
-const canonical = new URL(Astro.url.pathname, Astro.site);
-const { googleSiteVerification } = loadEnv();
-const fullTitle = title.includes(siteConfig.name) ? title : `${title} · ${siteConfig.name}`;
+const { title, description, image, structuredData, enableReveal = siteConfig.effects.reveal } = Astro.props;
 ---
 
 <!doctype html>
-<html lang={siteConfig.lang} data-theme="poke-bar">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="generator" content={Astro.generator} />
-    <meta name="description" content={description} />
-    <meta name="theme-color" content={siteConfig.themeColor} />
-    {googleSiteVerification && <meta name="google-site-verification" content={googleSiteVerification} />}
-    <link rel="canonical" href={canonical.href} />
-    <link rel="icon" type="image/svg+xml" href={withBase('/favicon.svg')} />
-    <link rel="icon" href={withBase('/favicon.ico')} />
-    <link rel="manifest" href={withBase('/manifest.webmanifest')} />
-    <meta property="og:type" content="website" />
-    <meta property="og:locale" content={siteConfig.locale} />
-    <meta property="og:title" content={fullTitle} />
-    <meta property="og:description" content={description} />
-    <meta property="og:url" content={canonical.href} />
-    <meta property="og:image" content={new URL(withBase(ogImage), Astro.site).href} />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={fullTitle} />
-    <meta name="twitter:description" content={description} />
-    <title>{fullTitle}</title>
-    <JsonLd />
+    <meta name="theme-color" content="#17130f" />
+    {enableReveal && (
+      <script is:inline>
+        document.documentElement.classList.add("reveal-ready");
+      </script>
+    )}
+    <SeoHead title={title} description={description} image={image} structuredData={structuredData} />
   </head>
   <body>
-    <a
-      href="#main"
-      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-white focus:px-4 focus:py-2"
-    >
-      Aller au contenu
-    </a>
-    <Header />
-    <main id="main">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="site-shell">
       <slot />
-    </main>
-    <Footer />
-    <script>
-      const nodes = document.querySelectorAll('.reveal');
-      if ('IntersectionObserver' in window && nodes.length) {
-        const io = new IntersectionObserver(
-          (entries) => {
-            for (const entry of entries) {
-              if (entry.isIntersecting) {
-                entry.target.classList.add('is-visible');
-                io.unobserve(entry.target);
-              }
-            }
-          },
-          { threshold: 0.15 },
-        );
-        nodes.forEach((el) => io.observe(el));
-      } else {
-        nodes.forEach((el) => el.classList.add('is-visible'));
-      }
-    </script>
+    </div>
+    {enableReveal && (
+      <script is:inline>
+        (() => {
+          const header = document.querySelector(".site-header");
+          const updateHeader = () => {
+            header?.classList.toggle("is-scrolled", window.scrollY > 12);
+          };
+
+          updateHeader();
+          window.addEventListener("scroll", updateHeader, { passive: true });
+
+          const elements = Array.from(document.querySelectorAll(".reveal"));
+
+          if (!elements.length) {
+            return;
+          }
+
+          const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+          if (prefersReducedMotion || !("IntersectionObserver" in window)) {
+            elements.forEach((element) => element.classList.add("is-visible"));
+            return;
+          }
+
+          const observer = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                if (!entry.isIntersecting) {
+                  return;
+                }
+
+                entry.target.classList.add("is-visible");
+                observer.unobserve(entry.target);
+              });
+            },
+            {
+              rootMargin: "0px 0px -12% 0px",
+              threshold: 0.12,
+            },
+          );
+
+          elements.forEach((element) => observer.observe(element));
+        })();
+      </script>
+    )}
   </body>
 </html>

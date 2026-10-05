@@ -1,7 +1,6 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
-import icon from 'astro-icon';
 import { loadEnv } from './src/lib/env.ts';
 import { rehypeBaseUrl } from './src/plugins/rehype-base-url.ts';
 
@@ -11,7 +10,13 @@ export default defineConfig({
   site: siteUrl,
   base: basePath,
   output: 'static',
-  integrations: [sitemap(), icon({ include: { lucide: ['*'] } })],
+  trailingSlash: 'never',
+  integrations: [sitemap()],
+  image: {
+    service: {
+      entrypoint: 'astro/assets/services/sharp',
+    },
+  },
   markdown: {
     rehypePlugins: [[rehypeBaseUrl, { base: basePath }]],
   },
