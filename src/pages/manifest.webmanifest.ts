@@ -9,7 +9,7 @@ export const GET: APIRoute = () => {
     description: siteConfig.description,
     start_url: withBase('/'),
     display: 'standalone',
-    background_color: siteConfig.branding.sand,
+    background_color: siteConfig.branding.mist,
     theme_color: siteConfig.themeColor,
     lang: siteConfig.lang,
     icons: [

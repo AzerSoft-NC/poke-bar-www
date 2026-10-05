@@ -21,13 +21,13 @@ import { siteConfig } from '../config/site.config';
       {
         menuCategories.map((category) => (
           <section aria-labelledby={`cat-${category.id}`} class="reveal">
-            <h2 id={`cat-${category.id}`} class="font-display text-3xl font-bold text-[var(--pb-avocado)]">
+            <h2 id={`cat-${category.id}`} class="font-display text-3xl font-bold text-[var(--pb-lagoon)]">
               {category.name}
             </h2>
             <p class="mt-2 max-w-2xl text-[var(--pb-ink-soft)]">{category.blurb}</p>
             <ul class="mt-6 grid gap-4 sm:grid-cols-2">
               {category.items.map((item) => (
-                <li class="border-l-2 border-[var(--pb-mango)] pl-4">
+                <li class="border-l-2 border-[var(--pb-reef)] pl-4">
                   <p class="font-display text-xl font-semibold">{item.name}</p>
                   {item.description && <p class="mt-1 text-[var(--pb-ink-soft)]">{item.description}</p>}
                 </li>
@@ -40,7 +40,7 @@ import { siteConfig } from '../config/site.config';
   </div>
 
   <div
-    class="sticky bottom-0 z-30 border-t border-[var(--pb-ink)]/10 bg-[rgb(255_250_243_/_0.92)] px-4 py-3 backdrop-blur-md md:px-6"
+    class="sticky bottom-0 z-30 border-t border-[var(--pb-ink)]/10 bg-[rgb(248_252_252_/_0.92)] px-4 py-3 backdrop-blur-md md:px-6"
   >
     <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3">
       <p class="text-sm font-medium text-[var(--pb-ink-soft)]">Menu complet en PDF</p>

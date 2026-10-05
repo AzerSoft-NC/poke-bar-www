@@ -1,32 +1,41 @@
 @import 'tailwindcss';
 
 @theme {
-  --font-display: 'Outfit', ui-sans-serif, sans-serif;
-  --font-sans: 'DM Sans', ui-sans-serif, sans-serif;
+  --font-display: 'Syne', ui-sans-serif, sans-serif;
+  --font-sans: 'Figtree', ui-sans-serif, sans-serif;
 
-  --color-mango: #e8a838;
-  --color-avocado: #5b8c3e;
-  --color-orange: #e8892c;
-  --color-sea: #1f6f7a;
-  --color-sand: #f7f1e6;
-  --color-sand-deep: #efe4d2;
-  --color-ink: #1a2a24;
-  --color-ink-soft: #3d5248;
-  --color-foam: #fffaf3;
+  --color-lagoon: #0a5c68;
+  --color-lagoon-deep: #073a44;
+  --color-reef: #1fa8a0;
+  --color-coral: #e85d4c;
+  --color-leaf: #2f9e6b;
+  --color-mist: #f3f8f9;
+  --color-mist-deep: #e2eef0;
+  --color-ink: #0c2428;
+  --color-ink-soft: #3a555a;
+  --color-foam: #f8fcfc;
 }
 
 :root,
 [data-theme='poke-bar'] {
-  --pb-mango: var(--color-mango);
-  --pb-avocado: var(--color-avocado);
-  --pb-orange: var(--color-orange);
-  --pb-sea: var(--color-sea);
-  --pb-sand: var(--color-sand);
-  --pb-sand-deep: var(--color-sand-deep);
+  --pb-lagoon: var(--color-lagoon);
+  --pb-lagoon-deep: var(--color-lagoon-deep);
+  --pb-reef: var(--color-reef);
+  --pb-coral: var(--color-coral);
+  --pb-leaf: var(--color-leaf);
+  --pb-mist: var(--color-mist);
+  --pb-mist-deep: var(--color-mist-deep);
   --pb-ink: var(--color-ink);
   --pb-ink-soft: var(--color-ink-soft);
   --pb-foam: var(--color-foam);
-  --pb-focus: #c45f12;
+  --pb-focus: #c44738;
+  /* Legacy aliases kept for any leftover references during migration */
+  --pb-sea: var(--color-lagoon);
+  --pb-avocado: var(--color-leaf);
+  --pb-mango: var(--color-reef);
+  --pb-orange: var(--color-coral);
+  --pb-sand: var(--color-mist);
+  --pb-sand-deep: var(--color-mist-deep);
   color-scheme: light;
 }
 
@@ -54,14 +63,14 @@ body {
   font-family: var(--font-sans);
   color: var(--pb-ink);
   background:
-    radial-gradient(1200px 600px at 10% -10%, rgb(232 168 56 / 0.28), transparent 55%),
-    radial-gradient(900px 500px at 100% 0%, rgb(91 140 62 / 0.18), transparent 50%),
-    linear-gradient(180deg, var(--pb-foam) 0%, var(--pb-sand) 45%, var(--pb-sand-deep) 100%);
+    radial-gradient(1000px 520px at 85% -5%, rgb(31 168 160 / 0.16), transparent 55%),
+    radial-gradient(900px 480px at -5% 15%, rgb(10 92 104 / 0.1), transparent 50%),
+    linear-gradient(180deg, var(--pb-foam) 0%, var(--pb-mist) 42%, var(--pb-mist-deep) 100%);
   background-attachment: fixed;
 }
 
 ::selection {
-  background: rgb(232 168 56 / 0.35);
+  background: rgb(31 168 160 / 0.28);
   color: var(--pb-ink);
 }
 
@@ -101,10 +110,19 @@ button:focus-visible {
 
 @keyframes hero-drift {
   from {
-    transform: scale(1.06) translate3d(0, 2%, 0);
+    transform: scale(1.05) translate3d(0, 1.5%, 0);
   }
   to {
     transform: scale(1) translate3d(0, 0, 0);
+  }
+}
+
+@keyframes reef-shimmer {
+  from {
+    opacity: 0.35;
+  }
+  to {
+    opacity: 0.7;
   }
 }
 
@@ -114,6 +132,10 @@ button:focus-visible {
 
 .hero-visual {
   animation: hero-drift 1.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.hero-shimmer {
+  animation: reef-shimmer 3.2s ease-in-out infinite alternate;
 }
 
 .prose-legal {
@@ -134,7 +156,7 @@ button:focus-visible {
 }
 
 .prose-legal a {
-  color: var(--pb-sea);
+  color: var(--pb-lagoon);
   text-decoration: underline;
   text-underline-offset: 0.15em;
 }

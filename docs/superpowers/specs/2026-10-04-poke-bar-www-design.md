@@ -14,7 +14,7 @@ Ship a French static marketing site for **Poke Bar** (Nouméa), modeled on `plei
 - Landing communicates brand, offer, location (Les Quais), and contact (tel / mailto / WhatsApp).
 - `/menu` shows category summary and links to a full PDF.
 - Config is ready for more locations later; **v1 content = Les Quais only**.
-- Visual theme = **Mango green** palette (gold / avocado / orange CTA).
+- Visual theme = **Lagoon** palette (deep teal / reef / coral CTA).
 
 ### Out of scope (v1)
 
@@ -78,8 +78,8 @@ Ship a French static marketing site for **Poke Bar** (Nouméa), modeled on `plei
 
 ### Visual / brand
 
-- **Palette D — Mango green:** light warm surfaces, mango gold, avocado green, orange CTA (`themeColor` ≈ orange/green brand tokens in CSS).
-- Fonts (self-hosted Fontsource): **Outfit** (display/brand) + **DM Sans** (body).
+- **Palette Lagoon:** cool mist surfaces, lagoon teal dominant, reef mint accent, coral CTA (`themeColor` ≈ lagoon).
+- Fonts (self-hosted Fontsource): **Syne** (display/brand) + **Figtree** (body).
 - Logo: placeholder until assets provided.
 
 ---
@@ -127,7 +127,7 @@ No client secrets. Do not commit `.env.prod` / `.env.local`.
 | Scripts | `dev`, `build`, `preview`, `astro:check`, `lint`, `format`, `format:check`, `test`; optional `og` |
 | Tests | Vitest: `withBase` behavior; config sanity (≥1 location, menu categories non-empty) |
 | Lint / format | ESLint + Prettier with Astro plugins |
-| A11y | Semantic links/buttons; focus rings; CTA contrast checked against mango/orange |
+| A11y | Semantic links/buttons; focus rings; CTA contrast checked against coral on mist |
 | Package name | `poke-bar-www` (private, UNLICENSED) |
 
 ### Repo init
@@ -150,7 +150,7 @@ No client secrets. Do not commit `.env.prod` / `.env.local`.
 ## Implementation notes (for planning)
 
 1. Copy/adapt plein-cap tree (configs, layouts, styles pipeline, plugins, tooling).
-2. Replace theme with mango-green tokens; swap fonts.
+2. Replace theme with lagoon tokens; swap fonts.
 3. Build food sections + `/menu`; wire locations[0] + contact channels.
 4. Stub legal MD and PDF/logo placeholders.
 5. Wire `deploy.yml` + `.env.example`.
@@ -166,5 +166,5 @@ No client secrets. Do not commit `.env.prod` / `.env.local`.
 | Primary CTA | Menu (page + PDF) |
 | Hosting v1 | Temp subpath like plein-cap |
 | Contact | tel + mailto + WhatsApp |
-| Palette | D — Mango green |
+| Palette | Lagoon (teal / reef / coral) |
 | Build approach | Adapt plein-cap www |
