@@ -1,6 +1,7 @@
 ---
-import { homeContent } from "../config/home";
-import { siteConfig } from "../config/site";
+import { homeContent } from '../config/home';
+import { siteConfig } from '../config/site';
+import { withBase } from '../lib/withBase';
 
 const year = new Date().getFullYear();
 ---
@@ -13,31 +14,39 @@ const year = new Date().getFullYear();
     </div>
 
     <div class="footer-col">
-      <p class="label-eyebrow">Visit</p>
+      <p class="label-eyebrow">Nous trouver</p>
       <p>{siteConfig.address.street}</p>
-      <p>{siteConfig.address.postalCode} - {siteConfig.address.country}</p>
-      <p>{siteConfig.phone}</p>
+      <p>{siteConfig.address.postalCode} {siteConfig.address.locality}</p>
+      <p><a href={`tel:${siteConfig.phoneTel}`}>{siteConfig.phone}</a></p>
       <p><a href={`mailto:${siteConfig.email}`}>{siteConfig.email}</a></p>
     </div>
 
     <div class="footer-col">
-      <p class="label-eyebrow">Hours</p>
-      <p>{siteConfig.hours.serviceDays}</p>
-      <p>{siteConfig.hours.seatings}</p>
-      <p>Closed {siteConfig.hours.closed}</p>
+      <p class="label-eyebrow">Horaires</p>
+      {siteConfig.hours.lines.map((line) => (
+        <p>{line.label} : {line.value}</p>
+      ))}
+      <p>Fermé {siteConfig.hours.closed}</p>
     </div>
 
     <div class="footer-col">
-      <p class="label-eyebrow">Elsewhere</p>
+      <p class="label-eyebrow">Réseaux</p>
       <ul>
         {siteConfig.social.map((item) => (
-          <li><a href={item.href} target="_blank" rel="noreferrer">{item.label}</a></li>
+          <li>
+            <a href={item.href} target="_blank" rel="noreferrer">{item.label}</a>
+          </li>
+        ))}
+        {siteConfig.legal.map((item) => (
+          <li>
+            <a href={withBase(item.href)}>{item.label}</a>
+          </li>
         ))}
       </ul>
     </div>
 
     <div class="footer-bottom">
-      <p>&copy; {year} {siteConfig.name}. All rights reserved.</p>
+      <p>&copy; {year} {siteConfig.name}. Tous droits réservés.</p>
       <p><span class="ember-dot" aria-hidden="true"></span> {homeContent.footer.signal}</p>
     </div>
   </div>

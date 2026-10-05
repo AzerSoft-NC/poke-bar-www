@@ -1,33 +1,36 @@
 ---
-import { Image } from "astro:assets";
-import BaseLayout from "../layouts/BaseLayout.astro";
-import Footer from "../components/Footer.astro";
-import Nav from "../components/Nav.astro";
-import { homeContent } from "../config/home";
-import { siteConfig } from "../config/site";
-import chefImage from "../assets/chef.webp";
-import conceptImage from "../assets/concept.webp";
-import detailImage from "../assets/detail.webp";
-import heroImage from "../assets/hero.webp";
-import interiorImage from "../assets/interior.webp";
-import menuImage from "../assets/menu.webp";
-import wineImage from "../assets/wine.webp";
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Footer from '../components/Footer.astro';
+import Nav from '../components/Nav.astro';
+import { homeContent } from '../config/home';
+import { siteConfig } from '../config/site';
+import { withBase } from '../lib/withBase';
+import chefImage from '../assets/logo.jpeg';
+import conceptImage from '../assets/com_recent.jpeg';
+import detailImage from '../assets/menu.jpeg';
+import heroImage from '../assets/com_recent.jpeg';
+import interiorImage from '../assets/interior.webp';
+import menuImage from '../assets/menu.jpeg';
+import contactImage from '../assets/wine.webp';
 
-const siteUrl = Astro.site ?? new URL("http://localhost:4321");
+const siteUrl = Astro.site ?? new URL('http://localhost:4321');
+const menuPdfHref = withBase(siteConfig.menuPdf);
+const whatsappHref = `https://wa.me/${siteConfig.whatsapp}`;
 
 const structuredData = {
-  "@context": "https://schema.org",
-  "@type": "Restaurant",
+  '@context': 'https://schema.org',
+  '@type': 'Restaurant',
   name: siteConfig.name,
   description: siteConfig.description,
-  url: new URL(Astro.url.pathname, siteUrl).href,
-  image: new URL(siteConfig.defaultImage, siteUrl).href,
-  telephone: siteConfig.phone,
+  url: new URL(withBase('/'), siteUrl).href,
+  image: new URL(withBase(siteConfig.defaultImage), siteUrl).href,
+  telephone: siteConfig.phoneTel,
   email: siteConfig.email,
-  servesCuisine: siteConfig.restaurant.cuisine,
+  servesCuisine: [...siteConfig.restaurant.cuisine],
   priceRange: siteConfig.restaurant.priceRange,
   address: {
-    "@type": "PostalAddress",
+    '@type': 'PostalAddress',
     streetAddress: siteConfig.address.street,
     addressLocality: siteConfig.address.locality,
     postalCode: siteConfig.address.postalCode,
@@ -35,8 +38,8 @@ const structuredData = {
   },
   openingHoursSpecification: [
     {
-      "@type": "OpeningHoursSpecification",
-      dayOfWeek: siteConfig.hours.schema.dayOfWeek,
+      '@type': 'OpeningHoursSpecification',
+      dayOfWeek: [...siteConfig.hours.schema.dayOfWeek],
       opens: siteConfig.hours.schema.opens,
       closes: siteConfig.hours.schema.closes,
     },
@@ -52,9 +55,9 @@ const structuredData = {
       <Image
         class="media-fill"
         src={heroImage}
-        alt="Chef hands finishing a small ceramic plate beside a live wood fire"
-        width={1024}
-        height={1536}
+        alt="Poké bowl et smoothie Poke Bar Nouméa"
+        width={1600}
+        height={1200}
         quality={92}
         loading="eager"
         decoding="sync"
@@ -67,7 +70,8 @@ const structuredData = {
             <p class="label-eyebrow reveal">{homeContent.hero.eyebrow}</p>
             <h1 id="hero-title" class="hero-title display reveal reveal-delay-1">
               {homeContent.hero.title[0]}<br />
-              <span class="display-italic" style="color: var(--ember);">{homeContent.hero.title[1]}</span><br />
+              <span class="display-italic" style="color: var(--ember);">{homeContent.hero.title[1]}</span
+              ><br />
               {homeContent.hero.title[2]}
             </h1>
           </div>
@@ -75,22 +79,28 @@ const structuredData = {
           <div class="hero-copy reveal reveal-delay-2">
             <p>{homeContent.hero.body}</p>
             <div class="hero-actions">
-              <a class="button-link" href="#reserve">{homeContent.hero.action} <span aria-hidden="true">-&gt;</span></a>
+              <a class="button-link" href={menuPdfHref}>
+                {homeContent.hero.action} <span aria-hidden="true">-&gt;</span>
+              </a>
+              <a class="button-link button-link--outline" href={`tel:${siteConfig.phoneTel}`}>
+                {homeContent.hero.secondaryAction}
+              </a>
             </div>
           </div>
         </div>
       </div>
-
     </section>
 
-    <section class="marquee" aria-label="Ombra values">
+    <section class="marquee" aria-label="Valeurs Poke Bar">
       <div class="marquee-track">
-        {[...homeContent.marquee, ...homeContent.marquee].map((item) => (
-          <span>
-            {item}
-            <b aria-hidden="true">*</b>
-          </span>
-        ))}
+        {
+          [...homeContent.marquee, ...homeContent.marquee].map((item) => (
+            <span>
+              {item}
+              <b aria-hidden="true">*</b>
+            </span>
+          ))
+        }
       </div>
     </section>
 
@@ -101,7 +111,8 @@ const structuredData = {
         </div>
         <h2 class="section-heading display reveal">
           {homeContent.concept.heading[0]}<br />
-          <span class="display-italic" style="color: var(--ember);">by heat,</span> by hands,<br />
+          <span class="display-italic" style="color: var(--ember);">{homeContent.concept.heading[1]}</span
+          ><br />
           {homeContent.concept.heading[2]}
         </h2>
 
@@ -113,20 +124,22 @@ const structuredData = {
           <div class="image-frame aspect-3-4">
             <Image
               src={detailImage}
-              alt="Handmade ceramic bowl with a small seasonal tasting course"
+              alt="Panneau Create your poke — étapes de composition"
               width={1200}
               height={1500}
               loading="lazy"
             />
           </div>
-          <figcaption class="label-eyebrow" style="margin-top: 1rem;">{homeContent.concept.caption}</figcaption>
+          <figcaption class="label-eyebrow" style="margin-top: 1rem;">
+            {homeContent.concept.caption}
+          </figcaption>
         </figure>
 
         <div class="fire-block reveal">
           <div class="fire-media image-frame aspect-16-10">
             <Image
               src={conceptImage}
-              alt="Glowing embers and flame in a working restaurant hearth"
+              alt="Affiche Poke Bar Nouméa — poké et smoothie"
               width={1400}
               height={875}
               loading="lazy"
@@ -134,7 +147,7 @@ const structuredData = {
           </div>
           <div class="quote-block">
             <blockquote>"{homeContent.concept.quote}"</blockquote>
-            <p class="label-eyebrow" style="margin-top: 1.5rem;">- {homeContent.concept.quoteByline}</p>
+            <p class="label-eyebrow" style="margin-top: 1.5rem;">— {homeContent.concept.quoteByline}</p>
           </div>
         </div>
       </div>
@@ -147,15 +160,16 @@ const structuredData = {
         </div>
         <h2 class="section-heading display reveal">
           {homeContent.tasting.heading[0]}<br />
-          <span class="display-italic" style="color: var(--ember);">{homeContent.tasting.heading[1]}</span><br />
+          <span class="display-italic" style="color: var(--ember);">{homeContent.tasting.heading[1]}</span
+          ><br />
           {homeContent.tasting.heading[2]}
         </h2>
 
-        <aside class="menu-aside reveal" aria-label="Menu notes">
+        <aside class="menu-aside reveal" aria-label="Notes menu">
           <div class="image-frame aspect-3-4">
             <Image
               src={menuImage}
-              alt="Seasonal ingredients laid out before service on a dark stone prep counter"
+              alt="Menu Create your poke en quatre étapes"
               width={1200}
               height={1500}
               loading="lazy"
@@ -166,17 +180,27 @@ const structuredData = {
           <p style="color: var(--muted-foreground); line-height: 1.6;">
             {homeContent.tasting.note}
           </p>
+          <p style="margin-top: 1.5rem;">
+            <a class="button-link" href={menuPdfHref}>
+              {homeContent.tasting.pdfLabel} <span aria-hidden="true">-&gt;</span>
+            </a>
+          </p>
         </aside>
 
         <ol class="course-list">
-          {homeContent.tasting.courses.map((course) => (
-            <li class="course reveal">
-              <span class="course-number">{course.number}</span>
-              <h3>{course.title} {course.accent && <span class="display-italic">{course.accent}</span>}</h3>
-              <p>{course.body}</p>
-              <span class="pairing">{course.pairing}</span>
-            </li>
-          ))}
+          {
+            homeContent.tasting.courses.map((course) => (
+              <li class="course reveal">
+                <span class="course-number">{course.number}</span>
+                <h3>
+                  {course.title}{' '}
+                  {course.accent && <span class="display-italic">{course.accent}</span>}
+                </h3>
+                <p>{course.body}</p>
+                <span class="pairing">{course.pairing}</span>
+              </li>
+            ))
+          }
         </ol>
       </div>
     </section>
@@ -188,31 +212,32 @@ const structuredData = {
         </div>
         <h2 class="section-heading display reveal">
           {homeContent.chef.heading.line1}<br />
-          <span class="display-italic" style="color: var(--ember);">{homeContent.chef.heading.accent}</span> {homeContent.chef.heading.rest}
+          <span class="display-italic" style="color: var(--ember);">{homeContent.chef.heading.accent}</span>
+          {' '}{homeContent.chef.heading.rest}
         </h2>
 
         <div class="chef-media image-frame aspect-4-5 reveal">
           <Image
             src={chefImage}
-            alt="Black and white candid portrait of Chef Elia Marchetti in profile"
+            alt="Logo Poke Bar Nouméa"
             width={1200}
-            height={1500}
+            height={1200}
             loading="lazy"
           />
         </div>
 
         <div class="chef-bio reveal reveal-delay-1">
-          <p class="chef-quote">
-            "{homeContent.chef.quote}"
-          </p>
+          <p class="chef-quote">"{homeContent.chef.quote}"</p>
           <div class="hairline" style="margin-block: 2.5rem;"></div>
           <ul class="timeline">
-            {homeContent.chef.timeline.map((row) => (
-              <li>
-                <time datetime={row.year}>{row.year}</time>
-                <span>{row.text}</span>
-              </li>
-            ))}
+            {
+              homeContent.chef.timeline.map((row) => (
+                <li>
+                  <span class="timeline-label">{row.year}</span>
+                  <span>{row.text}</span>
+                </li>
+              ))
+            }
           </ul>
         </div>
       </div>
@@ -222,7 +247,7 @@ const structuredData = {
       <div class="interior-hero">
         <Image
           src={interiorImage}
-          alt="Twelve-seat tasting counter with terracotta plaster walls, oak beams, candles, and an open hearth"
+          alt="Ambiance intérieure restaurant"
           width={1800}
           height={1200}
           loading="lazy"
@@ -231,28 +256,42 @@ const structuredData = {
         <div class="interior-caption">
           <p class="label-eyebrow">{homeContent.interior.eyebrow}</p>
           <h2 class="display">
-            {homeContent.interior.heading.lead} <span class="display-italic" style="color: var(--ember);">{homeContent.interior.heading.accent}</span>
-            {homeContent.interior.heading.rest}
+            {homeContent.interior.heading.lead}{' '}
+            <span class="display-italic" style="color: var(--ember);"
+              >{homeContent.interior.heading.accent}</span
+            >
+            {' '}{homeContent.interior.heading.rest}
           </h2>
         </div>
       </div>
 
       <div class="container section">
         <div class="feature-grid">
-          {homeContent.interior.features.map((feature) => (
-            <section>
-              <p class="label-eyebrow">{feature.title}</p>
-              <p>{feature.body}</p>
-            </section>
-          ))}
+          {
+            homeContent.interior.features.map((feature) => (
+              <section>
+                <p class="label-eyebrow">{feature.title}</p>
+                <p>{feature.body}</p>
+              </section>
+            ))
+          }
         </div>
+        {
+          siteConfig.mapsUrl && (
+            <p style="margin-top: 2rem;">
+              <a class="button-link button-link--outline" href={siteConfig.mapsUrl} target="_blank" rel="noreferrer">
+                Ouvrir dans Maps <span aria-hidden="true">-&gt;</span>
+              </a>
+            </p>
+          )
+        }
       </div>
     </section>
 
-    <section id="reserve" class="section reservation">
+    <section id="contact" class="section reservation">
       <Image
         class="reservation-bg"
-        src={wineImage}
+        src={contactImage}
         alt=""
         width={900}
         height={1200}
@@ -263,72 +302,51 @@ const structuredData = {
 
       <div class="container section-grid">
         <div class="reservation-copy">
-          <p class="label-eyebrow reveal">{homeContent.reservation.eyebrow}</p>
+          <p class="label-eyebrow reveal">{homeContent.contact.eyebrow}</p>
           <h2 class="display reveal">
-            {homeContent.reservation.heading[0]}<br />
-            <span class="display-italic" style="color: var(--ember);">{homeContent.reservation.heading[1]}</span><br />
-            {homeContent.reservation.heading[2]}
+            {homeContent.contact.heading[0]}<br />
+            <span class="display-italic" style="color: var(--ember);">{homeContent.contact.heading[1]}</span
+            ><br />
+            {homeContent.contact.heading[2]}
           </h2>
-          <p class="reveal reveal-delay-1">{homeContent.reservation.body}</p>
+          <p class="reveal reveal-delay-1">{homeContent.contact.body}</p>
           <div class="reservation-facts reveal reveal-delay-2">
             <div>
-              <p class="label-eyebrow">Service</p>
-              <p>{siteConfig.hours.serviceDays}<br />{siteConfig.hours.seatings}</p>
+              <p class="label-eyebrow">Horaires</p>
+              {
+                siteConfig.hours.lines.map((line) => (
+                  <p>
+                    {line.label}
+                    <br />
+                    {line.value}
+                  </p>
+                ))
+              }
             </div>
             <div>
-              <p class="label-eyebrow">Quiet days</p>
+              <p class="label-eyebrow">Fermeture</p>
               <p>{siteConfig.hours.closed}</p>
             </div>
           </div>
         </div>
 
-        <form class="reservation-form reveal" action={siteConfig.reservation.formAction} method={siteConfig.reservation.method} enctype="text/plain">
-          <p class="label-eyebrow">{homeContent.reservation.formTitle}</p>
-          <div class="form-grid">
-            <div class="form-field--full">
-              <label class="label-eyebrow" for="name">Full name <span aria-hidden="true">*</span></label>
-              <input id="name" name="name" autocomplete="name" required />
-            </div>
-            <div>
-              <label class="label-eyebrow" for="email">Email <span aria-hidden="true">*</span></label>
-              <input id="email" name="email" type="email" autocomplete="email" required />
-            </div>
-            <div>
-              <label class="label-eyebrow" for="phone">Phone</label>
-              <input id="phone" name="phone" type="tel" autocomplete="tel" />
-            </div>
-            <div>
-              <label class="label-eyebrow" for="date">Date <span aria-hidden="true">*</span></label>
-              <input id="date" name="date" type="date" required />
-            </div>
-            <div>
-              <label class="label-eyebrow" for="guests">Guests</label>
-              <select id="guests" name="guests">
-                {["2", "3", "4", "5", "6"].map((option) => <option value={option}>{option}</option>)}
-              </select>
-            </div>
-            <div class="form-field--full">
-              <label class="label-eyebrow" for="time">Seating</label>
-              <select id="time" name="time">
-                {["19:30", "21:45"].map((option) => <option value={option}>{option}</option>)}
-              </select>
-            </div>
-            <div class="form-field--full">
-              <label class="label-eyebrow" for="occasion">Special occasion</label>
-              <select id="occasion" name="occasion">
-                {["None", "Anniversary", "Birthday", "Engagement", "Just because"].map((option) => (
-                  <option value={option}>{option}</option>
-                ))}
-              </select>
-            </div>
-            <div class="form-field--full">
-              <label class="label-eyebrow" for="note">A note for the kitchen</label>
-              <textarea id="note" name="note" rows="3" placeholder="Allergies, dietary needs, anything we should know."></textarea>
-            </div>
+        <div class="contact-panel contact-card reveal">
+          <p class="label-eyebrow">Nous joindre</p>
+          <div class="contact-actions">
+            <a class="button-link" href={`tel:${siteConfig.phoneTel}`}>
+              Appeler {siteConfig.phone} <span aria-hidden="true">-&gt;</span>
+            </a>
+            <a class="button-link button-link--outline" href={whatsappHref} target="_blank" rel="noreferrer">
+              WhatsApp
+            </a>
+            <a class="button-link button-link--outline" href={`mailto:${siteConfig.email}`}>
+              {siteConfig.email}
+            </a>
           </div>
-          <button class="form-button" type="submit">Request seat <span aria-hidden="true">-&gt;</span></button>
-          <p style="color: var(--muted-foreground); font-size: 0.85rem;">{homeContent.reservation.confirmation}</p>
-        </form>
+          <p style="color: var(--muted-foreground); font-size: 0.85rem; margin-top: 1.25rem;">
+            {homeContent.contact.confirmation}
+          </p>
+        </div>
       </div>
     </section>
   </main>

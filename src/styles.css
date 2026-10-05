@@ -191,10 +191,29 @@ a:hover {
   line-height: 1;
 }
 
-.brand-stars {
-  width: clamp(1.45rem, 1.9vw, 1.9rem);
-  height: auto;
-  opacity: 0.86;
+.brand-logo {
+  display: block;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 999px;
+  object-fit: cover;
+  background: var(--cream);
+}
+
+.contact-actions {
+  display: grid;
+  gap: 0.85rem;
+  margin-top: 1.25rem;
+}
+
+.contact-card .button-link--outline {
+  justify-content: center;
+}
+
+.timeline-label {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--ember);
 }
 
 .nav-links {
@@ -665,7 +684,7 @@ a:hover {
   margin-top: 2rem;
 }
 
-.reservation-form {
+.contact-panel {
   grid-column: 7 / span 6;
   border: 1px solid var(--border);
   background: rgb(23 19 15 / 0.64);
@@ -864,7 +883,7 @@ textarea {
   .chef-media,
   .chef-bio,
   .reservation-copy,
-  .reservation-form {
+  .contact-panel {
     grid-column: 1 / -1;
   }
 
