@@ -508,10 +508,6 @@ a:hover {
   margin-top: clamp(2rem, 7vw, 5rem);
 }
 
-.fire-media {
-  grid-column: span 7;
-}
-
 .quote-block {
   grid-column: 9 / span 4;
   align-self: end;
@@ -887,7 +883,6 @@ textarea {
   .section-heading,
   .text-block,
   .figure-detail,
-  .fire-media,
   .quote-block,
   .menu-aside,
   .course-list,
