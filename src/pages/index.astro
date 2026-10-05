@@ -1,21 +1,44 @@
 ---
+import type { ImageMetadata } from 'astro';
 import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Footer from '../components/Footer.astro';
 import Nav from '../components/Nav.astro';
 import { homeContent } from '../config/home';
+import { instagramPostHref, instagramPosts } from '../config/instagram';
 import { siteConfig } from '../config/site';
 import { withBase } from '../lib/withBase';
 import chefImage from '../assets/logo.jpeg';
 import detailImage from '../assets/menu.jpeg';
 import heroImage from '../assets/com_recent.jpeg';
-import interiorImage from '../assets/insta.png';
 import menuImage from '../assets/menu.jpeg';
 import contactImage from '../assets/com_recent.jpeg';
 
 const siteUrl = Astro.site ?? new URL('http://localhost:4321');
 const menuPdfHref = withBase(siteConfig.menuPdf);
 const whatsappHref = `https://wa.me/${siteConfig.whatsapp}`;
+const instagramProfileHref =
+  siteConfig.social.find((item) => item.label === 'Instagram')?.href ??
+  'https://www.instagram.com/pokebar_cocotiers/';
+
+const thumbModules = import.meta.glob<{ default: ImageMetadata }>(
+  '../assets/insta/*.{jpg,jpeg,png,webp}',
+  { eager: true },
+);
+const thumbsByFile = Object.fromEntries(
+  Object.entries(thumbModules).map(([path, mod]) => [path.split('/').pop()!, mod.default]),
+);
+const instagramFeed = instagramPosts.map((post) => {
+  const image = thumbsByFile[post.file];
+  if (!image) {
+    throw new Error(`Missing Instagram thumb asset: ${post.file}`);
+  }
+  return {
+    ...post,
+    href: instagramPostHref(post.code),
+    image,
+  };
+});
 
 const structuredData = {
   '@context': 'https://schema.org',
@@ -231,27 +254,52 @@ const structuredData = {
       </div>
     </section>
 
-    <section id="interior" class="surface-section">
-      <div class="interior-hero">
-        <Image
-          src={interiorImage}
-          alt="Ambiance intérieure restaurant"
-          width={1800}
-          height={1200}
-          loading="lazy"
-        />
-        <div class="overlay" style="background: var(--grad-veil);"></div>
-        <div class="interior-caption">
-          <p class="label-eyebrow">{homeContent.interior.eyebrow}</p>
-          <h2 class="display">
-            {homeContent.interior.heading.lead}{' '}
-            <span class="display-italic" style="color: var(--ember);"
-              >{homeContent.interior.heading.accent}</span
-            >
-            {' '}{homeContent.interior.heading.rest}
-          </h2>
-        </div>
+    <section id="interior" class="surface-section interior-section">
+      <div class="container interior-head">
+        <p class="label-eyebrow reveal">{homeContent.interior.eyebrow}</p>
+        <h2 class="display reveal">
+          {homeContent.interior.heading.lead}{' '}
+          <span class="display-italic" style="color: var(--ember);"
+            >{homeContent.interior.heading.accent}</span
+          >
+          {' '}{homeContent.interior.heading.rest}
+        </h2>
+        <p class="reveal reveal-delay-1" style="margin-top: 1.25rem;">
+          <a
+            class="button-link button-link--outline"
+            href={instagramProfileHref}
+            target="_blank"
+            rel="noreferrer"
+          >
+            {homeContent.interior.profileCta} <span aria-hidden="true">-&gt;</span>
+          </a>
+        </p>
       </div>
+
+      <ul class="instagram-grid" aria-label="Publications Instagram récentes @pokebar_cocotiers">
+        {
+          instagramFeed.map((post, index) => (
+            <li>
+              <a
+                class:list={['instagram-cell', post.isVideo && 'instagram-cell--video']}
+                href={post.href}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`Publication Instagram ${index + 1}`}
+              >
+                <Image
+                  src={post.image}
+                  alt=""
+                  width={640}
+                  height={640}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
 
       <div class="container section">
         <div class="feature-grid">

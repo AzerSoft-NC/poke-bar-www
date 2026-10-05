@@ -90,12 +90,13 @@ export const homeContent = {
     ],
   },
   interior: {
-    eyebrow: '04 — Lieu',
+    eyebrow: '04 — Instagram',
     heading: {
-      lead: 'Les Quais,',
-      accent: 'Nouméa,',
-      rest: 'face à la mer.',
+      lead: 'Sur le fil',
+      accent: '@pokebar_cocotiers',
+      rest: '— 18 moments frais.',
     },
+    profileCta: 'Voir le profil Instagram',
     features: [
       {
         title: 'Adresse',
