@@ -21,4 +21,12 @@ describe('withBase', () => {
   it('does not double-prefix', () => {
     expect(withBase('/poke-bar/menu', '/poke-bar')).toBe('/poke-bar/menu');
   });
+
+  it('joins hash anchors without a trailing slash before #', () => {
+    // trailingSlash: never — /poke-bar/#x is treated as /poke-bar/ and warns
+    expect(withBase('/#concept', '/poke-bar')).toBe('/poke-bar#concept');
+    expect(withBase('/#contact', '/poke-bar/')).toBe('/poke-bar#contact');
+    expect(withBase('/#top', '/')).toBe('/#top');
+  });
 });
+

@@ -48,6 +48,7 @@
 html {
   background: var(--background);
   scroll-behavior: smooth;
+  scroll-padding-top: 5.5rem;
 }
 
 body {
@@ -160,15 +161,9 @@ a:hover {
   position: fixed;
   inset: 0 0 auto;
   z-index: 50;
-  background: transparent;
-  transition:
-    background 220ms ease,
-    backdrop-filter 220ms ease;
-}
-
-.site-header.is-scrolled {
-  background: rgb(247 241 230 / 0.92);
+  background: rgb(247 241 230 / 0.96);
   backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
 }
 
 .nav-grid {
