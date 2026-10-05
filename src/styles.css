@@ -11,33 +11,34 @@
     sans-serif;
   --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
 
-  --background: #17130f;
-  --surface: #201a15;
-  --surface-2: #2a2119;
-  --foreground: #f0e7d8;
-  --cream: #fbf0dc;
-  --muted: #51463b;
-  --muted-foreground: #b2a18d;
-  --border: rgb(117 97 76 / 0.48);
-  --ember: #d98a34;
-  --ember-foreground: #1c130b;
-  --focus: #f2b15d;
+  --background: #f7f1e6;
+  --surface: #fff8ef;
+  --surface-2: #ffe8d2;
+  --foreground: #1a2a24;
+  --cream: #fffdf8;
+  --muted: #6b5e52;
+  --muted-foreground: #5c534a;
+  --border: rgb(26 42 36 / 0.16);
+  --ember: #e8892c;
+  --ember-foreground: #1a2a24;
+  --accent-2: #e23b7c;
+  --focus: #1f6f7a;
 
   --container: 80rem;
   --gutter: clamp(1.5rem, 3vw, 2.5rem);
   --grad-vignette: radial-gradient(
     120% 80% at 50% 0%,
     transparent 0%,
-    rgb(15 11 8 / 0.32) 62%,
-    rgb(12 9 7 / 0.62) 100%
+    rgb(247 241 230 / 0.35) 62%,
+    rgb(247 241 230 / 0.72) 100%
   );
   --grad-veil: linear-gradient(
     180deg,
-    rgb(15 11 8 / 0) 0%,
-    rgb(15 11 8 / 0.28) 62%,
-    rgb(15 11 8 / 0.48) 100%
+    rgb(247 241 230 / 0) 0%,
+    rgb(247 241 230 / 0.45) 62%,
+    rgb(247 241 230 / 0.82) 100%
   );
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 * {
@@ -51,7 +52,7 @@ html {
 
 body {
   margin: 0;
-  background: radial-gradient(rgb(255 255 255 / 0.025) 1px, transparent 1px), var(--background);
+  background: radial-gradient(rgb(26 42 36 / 0.04) 1px, transparent 1px), var(--background);
   background-size: 3px 3px;
   color: var(--foreground);
   font-family: var(--font-sans);
@@ -166,7 +167,7 @@ a:hover {
 }
 
 .site-header.is-scrolled {
-  background: rgb(23 19 15 / 0.86);
+  background: rgb(247 241 230 / 0.92);
   backdrop-filter: blur(16px);
 }
 
@@ -210,8 +211,8 @@ a:hover {
 }
 
 .mobile-nav__toggle {
-  border: 1px solid rgb(251 240 220 / 0.7);
-  color: var(--cream);
+  border: 1px solid var(--border);
+  color: var(--foreground);
   cursor: pointer;
   font-size: 0.75rem;
   font-weight: 600;
@@ -230,8 +231,8 @@ a:hover {
   inset: calc(100% - 0.25rem) var(--gutter) auto var(--gutter);
   display: grid;
   gap: 0.35rem;
-  border: 1px solid rgb(117 97 76 / 0.7);
-  background: rgb(23 19 15 / 0.96);
+  border: 1px solid var(--border);
+  background: var(--surface);
   padding: 1rem;
 }
 
@@ -250,8 +251,8 @@ a:hover {
   align-items: center;
   gap: 0.75rem;
   border: 1px solid transparent;
-  background: var(--cream);
-  color: var(--background);
+  background: var(--ember);
+  color: #fffdf8;
   cursor: pointer;
   padding: 0.9rem 1.25rem;
   text-transform: uppercase;
@@ -266,20 +267,20 @@ a:hover {
 
 .button-link:hover,
 .form-button:hover {
-  background: var(--ember);
-  color: var(--ember-foreground);
+  background: var(--accent-2);
+  color: #fffdf8;
 }
 
 .button-link--outline {
-  border-color: rgb(251 240 220 / 0.7);
+  border-color: var(--border);
   background: transparent;
-  color: var(--cream);
+  color: var(--foreground);
   padding: 0.7rem 1rem;
 }
 
 .button-link--outline:hover {
-  background: var(--cream);
-  color: var(--background);
+  background: var(--surface-2);
+  color: var(--foreground);
 }
 
 .ember-dot {
@@ -292,6 +293,19 @@ a:hover {
 }
 
 .hero {
+  /* Keep a darker photo veil so cream hero type stays readable on food imagery */
+  --grad-vignette: radial-gradient(
+    120% 80% at 50% 0%,
+    transparent 0%,
+    rgb(26 42 36 / 0.28) 62%,
+    rgb(26 42 36 / 0.55) 100%
+  );
+  --grad-veil: linear-gradient(
+    180deg,
+    rgb(26 42 36 / 0.08) 0%,
+    rgb(26 42 36 / 0.35) 62%,
+    rgb(26 42 36 / 0.55) 100%
+  );
   position: relative;
   min-height: 640px;
   height: 100svh;
@@ -364,7 +378,7 @@ a:hover {
 .marquee {
   overflow: hidden;
   border-block: 1px solid var(--border);
-  background: rgb(32 26 21 / 0.42);
+  background: var(--surface-2);
   padding-block: 1.25rem;
 }
 
@@ -382,7 +396,7 @@ a:hover {
   font-family: var(--font-display);
   font-size: clamp(1.25rem, 2.4vw, 2rem);
   letter-spacing: 0.015em;
-  color: rgb(251 240 220 / 0.86);
+  color: var(--foreground);
 }
 
 .marquee b {
@@ -412,7 +426,7 @@ a:hover {
   grid-column: 3 / span 5;
   font-size: 1.08rem;
   line-height: 1.75;
-  color: rgb(240 231 216 / 0.8);
+  color: var(--muted-foreground);
 }
 
 .text-block p {
@@ -491,7 +505,7 @@ a:hover {
 
 .surface-section {
   border-top: 1px solid var(--border);
-  background: rgb(32 26 21 / 0.42);
+  background: var(--surface-2);
 }
 
 .menu-aside {
@@ -533,7 +547,7 @@ a:hover {
 .course p {
   grid-column: span 4;
   margin: 0;
-  color: rgb(240 231 216 / 0.76);
+  color: var(--muted-foreground);
   line-height: 1.55;
 }
 
@@ -567,7 +581,7 @@ a:hover {
   display: grid;
   grid-template-columns: 5rem 1fr;
   gap: 1.5rem;
-  color: rgb(240 231 216 / 0.8);
+  color: var(--muted-foreground);
 }
 
 .timeline time {
@@ -603,7 +617,7 @@ a:hover {
 }
 
 .feature-grid p:not(.label-eyebrow) {
-  color: rgb(240 231 216 / 0.8);
+  color: var(--muted-foreground);
   line-height: 1.65;
 }
 
@@ -640,7 +654,7 @@ a:hover {
 
 .reservation-copy > p {
   max-width: 31rem;
-  color: rgb(240 231 216 / 0.75);
+  color: var(--muted-foreground);
   line-height: 1.7;
 }
 
@@ -653,7 +667,7 @@ a:hover {
 
 .reservation-form {
   grid-column: 7 / span 6;
-  border: 1px solid rgb(117 97 76 / 0.7);
+  border: 1px solid var(--border);
   background: rgb(23 19 15 / 0.64);
   backdrop-filter: blur(16px);
   padding: clamp(2rem, 5vw, 3rem);
@@ -737,7 +751,7 @@ textarea {
 .footer-col p,
 .footer-col ul,
 .footer-brand p {
-  color: rgb(240 231 216 / 0.75);
+  color: var(--muted-foreground);
   line-height: 1.6;
 }
 
