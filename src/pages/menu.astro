@@ -21,14 +21,14 @@ import { siteConfig } from '../config/site.config';
       {
         menuCategories.map((category) => (
           <section aria-labelledby={`cat-${category.id}`} class="reveal">
-            <h2 id={`cat-${category.id}`} class="font-display text-3xl font-bold text-[var(--pb-lagoon)]">
+            <h2 id={`cat-${category.id}`} class="font-display text-3xl font-bold text-[var(--pb-lagoon-deep)]">
               {category.name}
             </h2>
             <p class="mt-2 max-w-2xl text-[var(--pb-ink-soft)]">{category.blurb}</p>
             <ul class="mt-6 grid gap-4 sm:grid-cols-2">
               {category.items.map((item) => (
                 <li class="border-l-2 border-[var(--pb-reef)] pl-4">
-                  <p class="font-display text-xl font-semibold">{item.name}</p>
+                  <p class="font-display text-xl font-semibold text-[var(--pb-ink)]">{item.name}</p>
                   {item.description && <p class="mt-1 text-[var(--pb-ink-soft)]">{item.description}</p>}
                 </li>
               ))}
