@@ -1,5 +1,5 @@
 import type { APIRoute } from 'astro';
-import { siteConfig } from '../config/site.config';
+import { siteConfig } from '../config/site';
 import { withBase } from '../lib/withBase';
 
 export const GET: APIRoute = () => {
@@ -9,9 +9,9 @@ export const GET: APIRoute = () => {
     description: siteConfig.description,
     start_url: withBase('/'),
     display: 'standalone',
-    background_color: siteConfig.branding.sand,
-    theme_color: siteConfig.themeColor,
-    lang: siteConfig.lang,
+    background_color: '#f7f1e6',
+    theme_color: '#e8892c',
+    lang: 'fr',
     icons: [
       {
         src: withBase('/favicon.svg'),

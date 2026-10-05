@@ -1,25 +1,23 @@
 import { describe, expect, it } from 'vitest';
-import { locations } from '../src/config/locations.config';
-import { menuCategories } from '../src/config/menu.config';
-import { siteConfig } from '../src/config/site.config';
+import { homeContent } from '../src/config/home';
+import { siteConfig } from '../src/config/site';
 
 describe('site configs', () => {
-  it('has at least one location', () => {
-    expect(locations.length).toBeGreaterThanOrEqual(1);
-    expect(locations[0]?.id).toBeTruthy();
-    expect(locations[0]?.hours.length).toBeGreaterThan(0);
-  });
-
-  it('has non-empty menu categories', () => {
-    expect(menuCategories.length).toBeGreaterThan(0);
-    for (const category of menuCategories) {
-      expect(category.items.length).toBeGreaterThan(0);
-    }
-  });
-
-  it('exposes contact channels', () => {
-    expect(siteConfig.phone.tel).toMatch(/^\+?\d+/);
+  it('exposes FR contact channels', () => {
+    expect(siteConfig.phone).toMatch(/\d/);
     expect(siteConfig.email).toContain('@');
-    expect(siteConfig.phone.whatsapp).toBeTruthy();
+    expect(siteConfig.whatsapp).toBeTruthy();
+    expect(siteConfig.locale).toBe('fr_NC');
+  });
+
+  it('has tasting courses and menu PDF path', () => {
+    expect(homeContent.tasting.courses.length).toBeGreaterThanOrEqual(4);
+    expect(siteConfig.menuPdf).toBe('/menu.pdf');
+  });
+
+  it('has no reservation form action', () => {
+    expect(siteConfig).not.toHaveProperty('reservation');
+    expect(homeContent).toHaveProperty('contact');
+    expect(homeContent).not.toHaveProperty('reservation');
   });
 });
