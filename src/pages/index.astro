@@ -10,9 +10,9 @@ import chefImage from '../assets/logo.jpeg';
 import conceptImage from '../assets/com_recent.jpeg';
 import detailImage from '../assets/menu.jpeg';
 import heroImage from '../assets/com_recent.jpeg';
-import interiorImage from '../assets/interior.webp';
+import interiorImage from '../assets/insta.png';
 import menuImage from '../assets/menu.jpeg';
-import contactImage from '../assets/wine.webp';
+import contactImage from '../assets/com_recent.jpeg';
 
 const siteUrl = Astro.site ?? new URL('http://localhost:4321');
 const menuPdfHref = withBase(siteConfig.menuPdf);
@@ -36,14 +36,12 @@ const structuredData = {
     postalCode: siteConfig.address.postalCode,
     addressCountry: siteConfig.address.country,
   },
-  openingHoursSpecification: [
-    {
-      '@type': 'OpeningHoursSpecification',
-      dayOfWeek: [...siteConfig.hours.schema.dayOfWeek],
-      opens: siteConfig.hours.schema.opens,
-      closes: siteConfig.hours.schema.closes,
-    },
-  ],
+  openingHoursSpecification: siteConfig.hours.schema.map((block) => ({
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: [...block.dayOfWeek],
+    opens: block.opens,
+    closes: block.closes,
+  })),
 };
 ---
 

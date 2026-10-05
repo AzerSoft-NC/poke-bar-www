@@ -101,7 +101,7 @@ a:hover {
   z-index: 100;
   transform: translateY(-150%);
   background: var(--cream);
-  color: var(--background);
+  color: var(--foreground);
   padding: 0.75rem 1rem;
   text-transform: uppercase;
   letter-spacing: 0.16em;
@@ -271,7 +271,7 @@ a:hover {
   gap: 0.75rem;
   border: 1px solid transparent;
   background: var(--ember);
-  color: #fffdf8;
+  color: var(--ember-foreground);
   cursor: pointer;
   padding: 0.9rem 1.25rem;
   text-transform: uppercase;
@@ -288,6 +288,16 @@ a:hover {
 .form-button:hover {
   background: var(--accent-2);
   color: #fffdf8;
+}
+
+.hero .button-link--outline {
+  border-color: rgb(251 240 220 / 0.7);
+  color: var(--cream);
+}
+
+.hero .button-link--outline:hover {
+  background: var(--cream);
+  color: var(--foreground);
 }
 
 .button-link--outline {
@@ -609,6 +619,12 @@ a:hover {
 }
 
 .interior-hero {
+  --grad-veil: linear-gradient(
+    180deg,
+    rgb(26 42 36 / 0.08) 0%,
+    rgb(26 42 36 / 0.4) 55%,
+    rgb(26 42 36 / 0.72) 100%
+  );
   position: relative;
   min-height: 480px;
   height: 70svh;
@@ -687,8 +703,8 @@ a:hover {
 .contact-panel {
   grid-column: 7 / span 6;
   border: 1px solid var(--border);
-  background: rgb(23 19 15 / 0.64);
-  backdrop-filter: blur(16px);
+  background: var(--surface);
+  box-shadow: 0 12px 40px rgb(26 42 36 / 0.08);
   padding: clamp(2rem, 5vw, 3rem);
 }
 
@@ -1012,7 +1028,7 @@ textarea {
 }
 
 .prose-legal a {
-  color: var(--ember);
+  color: var(--focus);
   text-decoration: underline;
   text-underline-offset: 0.15em;
 }

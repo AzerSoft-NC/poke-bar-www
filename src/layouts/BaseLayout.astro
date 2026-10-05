@@ -1,7 +1,9 @@
 ---
-import "../styles.css";
-import SeoHead from "../components/SeoHead.astro";
-import { siteConfig } from "../config/site";
+import '../styles.css';
+import SeoHead from '../components/SeoHead.astro';
+import { siteConfig } from '../config/site';
+import { loadEnv } from '../lib/env';
+import { withBase } from '../lib/withBase';
 
 type Props = {
   title?: string;
@@ -11,7 +13,9 @@ type Props = {
   enableReveal?: boolean;
 };
 
-const { title, description, image, structuredData, enableReveal = siteConfig.effects.reveal } = Astro.props;
+const { title, description, image, structuredData, enableReveal = siteConfig.effects.reveal } =
+  Astro.props;
+const { googleSiteVerification } = loadEnv();
 ---
 
 <!doctype html>
@@ -20,9 +24,13 @@ const { title, description, image, structuredData, enableReveal = siteConfig.eff
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#e8892c" />
+    <link rel="icon" href={withBase('/favicon.svg')} type="image/svg+xml" />
+    <link rel="icon" href={withBase('/favicon.ico')} sizes="any" />
+    <link rel="manifest" href={withBase('/manifest.webmanifest')} />
+    {googleSiteVerification && <meta name="google-site-verification" content={googleSiteVerification} />}
     {enableReveal && (
       <script is:inline>
-        document.documentElement.classList.add("reveal-ready");
+        document.documentElement.classList.add('reveal-ready');
       </script>
     )}
     <SeoHead title={title} description={description} image={image} structuredData={structuredData} />

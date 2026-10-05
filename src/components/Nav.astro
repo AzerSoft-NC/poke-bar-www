@@ -3,6 +3,11 @@ import { Image } from 'astro:assets';
 import { siteConfig } from '../config/site';
 import { withBase } from '../lib/withBase';
 import logoImage from '../assets/logo.jpeg';
+
+function navHref(href: string) {
+  if (href.startsWith('#')) return withBase(`/${href}`);
+  return withBase(href);
+}
 ---
 
 <header class="site-header">
@@ -12,8 +17,8 @@ import logoImage from '../assets/logo.jpeg';
       <span>{siteConfig.name.toUpperCase()}</span>
     </a>
     <nav class="nav-links" aria-label="Navigation principale">
-      {siteConfig.nav.map((item) => <a href={item.href}>{item.label}</a>)}
-      <a class="button-link button-link--outline" href="#contact">
+      {siteConfig.nav.map((item) => <a href={navHref(item.href)}>{item.label}</a>)}
+      <a class="button-link button-link--outline" href={navHref('#contact')}>
         <span class="ember-dot" aria-hidden="true"></span>
         Contact
       </a>
@@ -21,8 +26,8 @@ import logoImage from '../assets/logo.jpeg';
     <details class="mobile-nav">
       <summary class="mobile-nav__toggle">Menu</summary>
       <nav class="mobile-nav__panel" aria-label="Navigation mobile">
-        {siteConfig.nav.map((item) => <a href={item.href}>{item.label}</a>)}
-        <a class="button-link" href="#contact">Contact</a>
+        {siteConfig.nav.map((item) => <a href={navHref(item.href)}>{item.label}</a>)}
+        <a class="button-link" href={navHref('#contact')}>Contact</a>
       </nav>
     </details>
   </div>
