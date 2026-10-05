@@ -1,18 +1,21 @@
-import type { Root } from 'hast';
-import type { Plugin } from 'unified';
 import { visit } from 'unist-util-visit';
 import { withBase } from '../lib/withBase.ts';
 
 type Options = { base?: string };
 
+type HastNode = {
+  type: string;
+  properties?: Record<string, unknown>;
+};
+
 /**
  * Prefix relative href/src in Markdown HTML with BASE_PATH.
  */
-export const rehypeBaseUrl: Plugin<[Options?], Root> = (options = {}) => {
+export function rehypeBaseUrl(options: Options = {}) {
   const base = options.base ?? '/';
 
-  return (tree) => {
-    visit(tree, 'element', (node) => {
+  return (tree: unknown) => {
+    visit(tree as HastNode, 'element', (node: HastNode) => {
       if (!node.properties) return;
 
       for (const key of ['href', 'src'] as const) {
@@ -22,4 +25,4 @@ export const rehypeBaseUrl: Plugin<[Options?], Root> = (options = {}) => {
       }
     });
   };
-};
+}

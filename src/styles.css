@@ -982,6 +982,45 @@ textarea {
   }
 }
 
+.legal-page {
+  padding-block: 7rem 4rem;
+  max-width: 48rem;
+}
+
+.legal-page .display {
+  margin: 0.75rem 0 0;
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+}
+
+.legal-updated {
+  margin-top: 0.75rem;
+  color: var(--muted-foreground);
+  font-size: 0.9rem;
+}
+
+.prose-legal {
+  margin-top: 2.5rem;
+  color: var(--muted-foreground);
+  line-height: 1.75;
+}
+
+.prose-legal h2,
+.prose-legal h3 {
+  color: var(--foreground);
+  font-family: var(--font-display);
+  margin-top: 2rem;
+}
+
+.prose-legal a {
+  color: var(--ember);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.prose-legal ul {
+  padding-left: 1.25rem;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

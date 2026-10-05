@@ -4,27 +4,29 @@
 
 | Piece | Choice |
 |-------|--------|
-| Framework | Astro 6, `output: 'static'` |
-| CSS | Tailwind v4 (`@tailwindcss/postcss`) + CSS tokens (`data-theme="poke-bar"`) |
+| Framework | Astro 7, `output: 'static'` |
+| CSS | Ombra `src/styles.css` + light tropical CSS variables |
 | Package manager | pnpm (`packageManager` pinned), Node `>=22.12` |
-| Integrations | `@astrojs/sitemap`, `astro-icon` (Lucide) |
+| Integrations | `@astrojs/sitemap`, sharp (`astro:assets`) |
 | Subpath | `BASE_PATH` via `withBase()` + rehype plugin for Markdown |
 | Deploy | `.github/workflows/deploy.yml` → droplet |
-| Contact | `tel:`, `mailto:`, WhatsApp `wa.me` |
+| Contact | `tel:`, `mailto:`, WhatsApp `wa.me` (no form) |
+| Theme credit | Ombra (MIT) — Andrei Alba / xocothemes |
 
 ## Structure
 
 ```text
 src/
-  config/          # site, locations, menu, nav, legal
+  config/          # site.ts, home.ts
   content/legal/   # Markdown collections
-  components/      # layout, sections, seo, ui
+  components/      # Nav, Footer, SeoHead
   layouts/         # BaseLayout, LegalLayout
   lib/             # env, withBase
-  pages/           # routes + robots/manifest endpoints
+  pages/           # index (one-page) + legal + robots/manifest
   plugins/         # rehype-base-url
-  styles/          # global.css + theme tokens
-public/            # favicon, hero, og, menu.pdf
+  styles.css       # Ombra shell + Poke Bar tokens
+  assets/          # brand + section imagery
+public/            # favicon, og, menu.pdf
 tests/             # Vitest
 ```
 
@@ -32,8 +34,7 @@ tests/             # Vitest
 
 | Route | Role |
 |-------|------|
-| `/` | Landing |
-| `/menu` | Catégories + CTA PDF |
+| `/` | One-page landing (Ombra structure) |
 | `/mentions`, `/confidentialite` | Légal |
 | `/404` | Soft 404 |
 | `/robots.txt`, `/manifest.webmanifest` | Générés |
@@ -42,4 +43,4 @@ tests/             # Vitest
 
 - [Glossary](../CONTEXT.md)
 - [Changelog](../CHANGELOG.md)
-- [Design spec](superpowers/specs/2026-10-04-poke-bar-www-design.md)
+- [Ombra trial design](superpowers/specs/2026-10-05-poke-bar-ombra-theme-design.md)
