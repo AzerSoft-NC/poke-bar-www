@@ -336,8 +336,7 @@ a:hover {
   overflow: hidden;
 }
 
-.hero img,
-.interior-hero img {
+.hero img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -609,31 +608,67 @@ a:hover {
   font-family: var(--font-mono);
 }
 
-.interior-hero {
-  --grad-veil: linear-gradient(
-    180deg,
-    rgb(26 42 36 / 0.08) 0%,
-    rgb(26 42 36 / 0.4) 55%,
-    rgb(26 42 36 / 0.72) 100%
-  );
-  position: relative;
-  min-height: 480px;
-  height: 70svh;
-  overflow: hidden;
+.interior-section {
+  padding-top: clamp(3rem, 7vw, 5rem);
 }
 
-.interior-caption {
-  position: absolute;
-  inset: auto var(--gutter) clamp(3rem, 8vw, 4rem);
-  z-index: 2;
+.interior-head {
+  margin-bottom: clamp(1.75rem, 4vw, 2.75rem);
 }
 
-.interior-caption h2 {
-  max-width: 48rem;
+.interior-head h2 {
+  max-width: 42rem;
   margin: 0.8rem 0 0;
-  color: var(--cream);
-  font-size: clamp(2rem, 4vw, 3.65rem);
-  line-height: 1;
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  line-height: 1.05;
+}
+
+.instagram-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0.35rem;
+  margin: 0;
+  padding: 0 var(--gutter);
+  list-style: none;
+}
+
+.instagram-cell {
+  position: relative;
+  display: block;
+  aspect-ratio: 1;
+  overflow: hidden;
+  background: color-mix(in srgb, var(--foreground) 8%, transparent);
+  transition: transform 280ms ease, filter 280ms ease;
+}
+
+.instagram-cell img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 420ms ease;
+}
+
+.instagram-cell:hover,
+.instagram-cell:focus-visible {
+  transform: translateY(-2px);
+  filter: brightness(1.04);
+}
+
+.instagram-cell:hover img,
+.instagram-cell:focus-visible img {
+  transform: scale(1.04);
+}
+
+.instagram-cell--video::after {
+  content: '';
+  position: absolute;
+  top: 0.55rem;
+  right: 0.55rem;
+  width: 0.85rem;
+  height: 0.85rem;
+  background: rgb(255 255 255 / 0.92);
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+  pointer-events: none;
 }
 
 .feature-grid {
@@ -921,6 +956,11 @@ textarea {
   .pairing {
     grid-column: 2 / -1;
     text-align: left;
+  }
+
+  .instagram-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 0.28rem;
   }
 
   .feature-grid {

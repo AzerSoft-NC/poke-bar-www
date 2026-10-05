@@ -22,7 +22,7 @@ export const siteConfig = {
     { label: 'Concept', href: '#concept' },
     { label: 'Menu', href: '#menu' },
     { label: 'Histoire', href: '#chef' },
-    { label: 'Lieu', href: '#interior' },
+    { label: 'Instagram', href: '#interior' },
   ],
   hours: {
     serviceDays: 'Lun–Sam',
