@@ -1,17 +1,19 @@
 import type { APIRoute } from 'astro';
 import { siteConfig } from '../config/site';
+import { getMessages } from '../i18n';
 import { withBase } from '../lib/withBase';
 
 export const GET: APIRoute = () => {
+  const t = getMessages('fr');
   const body = {
     name: siteConfig.name,
     short_name: 'Poke Bar',
-    description: siteConfig.description,
+    description: t.meta.description,
     start_url: withBase('/'),
     display: 'standalone',
     background_color: '#e6f2ea',
     theme_color: '#1f7a45',
-    lang: 'fr',
+    lang: t.meta.htmlLang,
     icons: [
       {
         src: withBase('/icon-192.png'),

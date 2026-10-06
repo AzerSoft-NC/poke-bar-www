@@ -2,8 +2,8 @@
 import { getEntry, render } from 'astro:content';
 import LegalLayout from '../layouts/LegalLayout.astro';
 
-const entry = await getEntry('legal', 'confidentialite');
-if (!entry) throw new Error('Missing legal/confidentialite content');
+const entry = await getEntry('legal', 'fr/confidentialite');
+if (!entry) throw new Error('Missing legal/fr/confidentialite content');
 const { Content } = await render(entry);
 ---
 

@@ -1,0 +1,304 @@
+---
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Footer from './Footer.astro';
+import Nav from './Nav.astro';
+import { instagramPostHref, instagramPosts } from '../config/instagram';
+import { siteConfig } from '../config/site';
+import { getLocale, getMessages } from '../i18n';
+import { withBase } from '../lib/withBase';
+import chefImage from '../assets/poke-thon.jpg';
+import detailImage from '../assets/poke-poulet.jpg';
+import heroImage from '../assets/com_recent.jpeg';
+import menuImage from '../assets/menu.jpeg';
+
+const locale = getLocale(Astro.currentLocale);
+const t = getMessages(locale);
+const siteUrl = Astro.site ?? new URL('http://localhost:4321');
+const menuPdfHref = withBase(siteConfig.menuPdf);
+const instagramProfileHref =
+  siteConfig.social.find((item) => item.id === 'instagram')?.href ??
+  'https://www.instagram.com/pokebar_cocotiers/';
+
+const thumbModules = import.meta.glob<{ default: ImageMetadata }>(
+  '../assets/insta/*.{jpg,jpeg,png,webp}',
+  { eager: true },
+);
+const thumbsByFile = Object.fromEntries(
+  Object.entries(thumbModules).map(([path, mod]) => [path.split('/').pop()!, mod.default]),
+);
+const instagramFeed = instagramPosts.map((post) => {
+  const image = thumbsByFile[post.file];
+  if (!image) {
+    throw new Error(`Missing Instagram thumb asset: ${post.file}`);
+  }
+  return {
+    ...post,
+    href: instagramPostHref(post.code),
+    image,
+  };
+});
+
+const homePath = locale === 'fr' ? withBase('/') : withBase('/en');
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'Restaurant',
+  name: siteConfig.name,
+  description: t.meta.description,
+  url: new URL(homePath, siteUrl).href,
+  image: new URL(withBase(siteConfig.defaultImage), siteUrl).href,
+  telephone: siteConfig.phoneTel,
+  email: siteConfig.email,
+  servesCuisine: [...siteConfig.restaurant.cuisine],
+  priceRange: siteConfig.restaurant.priceRange,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: siteConfig.address.street,
+    addressLocality: siteConfig.address.locality,
+    postalCode: siteConfig.address.postalCode,
+    addressCountry: siteConfig.address.country,
+  },
+  openingHoursSpecification: siteConfig.hours.schema.map((block) => ({
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: [...block.dayOfWeek],
+    opens: block.opens,
+    closes: block.closes,
+  })),
+};
+---
+
+<BaseLayout
+  title={t.meta.title}
+  description={t.meta.description}
+  image={siteConfig.defaultImage}
+  structuredData={structuredData}
+>
+  <Nav />
+
+  <main id="main">
+    <section id="top" class="hero" aria-labelledby="hero-title">
+      <Image
+        class="media-fill"
+        src={heroImage}
+        alt={t.home.hero.imageAlt}
+        width={1600}
+        height={1200}
+        quality={92}
+        loading="eager"
+        decoding="sync"
+      />
+      <div class="overlay" style="background: var(--grad-vignette);"></div>
+      <div class="overlay" style="background: var(--grad-veil);"></div>
+      <div class="hero-content">
+        <div class="hero-grid">
+          <div class="hero-heading">
+            <p class="label-eyebrow reveal">{t.home.hero.eyebrow}</p>
+            <h1 id="hero-title" class="hero-title display reveal reveal-delay-1">
+              {t.home.hero.title[0]}<br />
+              <span class="display-italic" style="color: var(--ember);">{t.home.hero.title[1]}</span
+              ><br />
+              {t.home.hero.title[2]}
+            </h1>
+          </div>
+
+          <div class="hero-copy reveal reveal-delay-2">
+            <p>{t.home.hero.body}</p>
+            <div class="hero-actions">
+              <a class="button-link" href={menuPdfHref}>
+                {t.home.hero.action} <span aria-hidden="true">-&gt;</span>
+              </a>
+              <a class="button-link button-link--outline" href={`tel:${siteConfig.phoneTel}`}>
+                {t.home.hero.secondaryAction}
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="marquee" aria-label={t.home.marqueeAria}>
+      <div class="marquee-track">
+        {
+          [...t.home.marquee, ...t.home.marquee].map((item) => (
+            <span>
+              {item}
+              <b aria-hidden="true">*</b>
+            </span>
+          ))
+        }
+      </div>
+    </section>
+
+    <section id="concept" class="section concept-section">
+      <div class="container section-grid">
+        <div class="section-kicker">
+          <p class="label-eyebrow reveal">{t.home.concept.eyebrow}</p>
+        </div>
+        <h2 class="section-heading display reveal">
+          {t.home.concept.heading[0]}<br />
+          <span class="display-italic" style="color: var(--ember);">{t.home.concept.heading[1]}</span
+          ><br />
+          {t.home.concept.heading[2]}
+        </h2>
+
+        <div class="text-block reveal reveal-delay-1">
+          {t.home.concept.body.map((paragraph) => <p>{paragraph}</p>)}
+        </div>
+
+        <figure class="figure-detail reveal">
+          <div class="image-frame aspect-3-4">
+            <Image
+              src={detailImage}
+              alt={t.home.concept.imageAlt}
+              width={1200}
+              height={1500}
+              loading="lazy"
+            />
+          </div>
+          <figcaption class="label-eyebrow" style="margin-top: 1rem;">
+            {t.home.concept.caption}
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="menu" class="section menu-section">
+      <div class="container section-grid">
+        <div class="section-kicker">
+          <p class="label-eyebrow reveal">{t.home.tasting.eyebrow}</p>
+        </div>
+        <h2 class="section-heading display reveal">
+          {t.home.tasting.heading[0]}<br />
+          <span class="display-italic" style="color: var(--ember);">{t.home.tasting.heading[1]}</span
+          ><br />
+          {t.home.tasting.heading[2]}
+        </h2>
+
+        <aside class="menu-aside reveal" aria-label={t.home.tasting.asideAria}>
+          <div class="image-frame menu-board">
+            <Image
+              src={menuImage}
+              alt={t.home.tasting.menuImageAlt}
+              width={1012}
+              height={540}
+              loading="lazy"
+            />
+          </div>
+          <p class="label-eyebrow" style="margin-top: 1rem;">{t.home.tasting.caption}</p>
+          <div class="hairline" style="margin-block: 2rem 1.5rem;"></div>
+          <p class="menu-aside-note">
+            {t.home.tasting.note}
+          </p>
+          <p style="margin-top: 1.5rem;">
+            <a class="button-link" href={menuPdfHref}>
+              {t.home.tasting.pdfLabel} <span aria-hidden="true">-&gt;</span>
+            </a>
+          </p>
+        </aside>
+
+        <ol class="course-list">
+          {
+            t.home.tasting.courses.map((course) => (
+              <li class="course reveal">
+                <span class="course-number">{course.number}</span>
+                <h3>
+                  {course.title}{' '}
+                  {course.accent && <span class="display-italic">{course.accent}</span>}
+                </h3>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+    </section>
+
+    <section id="chef" class="section">
+      <div class="container section-grid">
+        <div class="section-kicker">
+          <p class="label-eyebrow reveal">{t.home.chef.eyebrow}</p>
+        </div>
+        <h2 class="section-heading display reveal">
+          {t.home.chef.heading.line1}<br />
+          <span class="display-italic" style="color: var(--ember);">{t.home.chef.heading.accent}</span>
+          {' '}{t.home.chef.heading.rest}
+        </h2>
+
+        <div class="chef-media image-frame aspect-4-5 reveal">
+          <Image
+            src={chefImage}
+            alt={t.home.chef.imageAlt}
+            width={1200}
+            height={1200}
+            loading="lazy"
+          />
+        </div>
+
+        <div class="chef-bio reveal reveal-delay-1">
+          <p class="chef-quote">"{t.home.chef.quote}"</p>
+          <div class="hairline" style="margin-block: 2.5rem;"></div>
+          <ul class="timeline">
+            {
+              t.home.chef.timeline.map((row) => (
+                <li>
+                  <span class="timeline-label">{row.year}</span>
+                  <span>{row.text}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="interior" class="interior-section">
+      <div class="container interior-head">
+        <p class="label-eyebrow reveal">{t.home.interior.eyebrow}</p>
+        <h2 class="display reveal">
+          {t.home.interior.heading.lead}{' '}
+          <span class="display-italic" style="color: var(--ember);"
+            >{t.home.interior.heading.accent}</span
+          >
+          {' '}{t.home.interior.heading.rest}
+        </h2>
+        <p class="reveal reveal-delay-1" style="margin-top: 1.25rem;">
+          <a
+            class="button-link button-link--outline"
+            href={instagramProfileHref}
+            target="_blank"
+            rel="noreferrer"
+          >
+            {t.home.interior.profileCta} <span aria-hidden="true">-&gt;</span>
+          </a>
+        </p>
+      </div>
+
+      <ul class="instagram-grid" aria-label={t.home.interior.gridAria}>
+        {
+          instagramFeed.map((post, index) => (
+            <li>
+              <a
+                class:list={['instagram-cell', post.isVideo && 'instagram-cell--video']}
+                href={post.href}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={t.home.interior.postAria(index)}
+              >
+                <Image
+                  src={post.image}
+                  alt=""
+                  width={640}
+                  height={640}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>

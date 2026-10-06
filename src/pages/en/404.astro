@@ -1,11 +1,10 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { siteConfig } from '../config/site';
-import { getLocale, getMessages, localeHomePath } from '../i18n';
-import { withBase } from '../lib/withBase';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { siteConfig } from '../../config/site';
+import { getMessages, localeHomePath } from '../../i18n';
+import { withBase } from '../../lib/withBase';
 
-const locale = getLocale(Astro.currentLocale);
-const t = getMessages(locale);
+const t = getMessages('en');
 ---
 
 <BaseLayout title={t.notFound.title} description={t.notFound.description}>
@@ -16,7 +15,7 @@ const t = getMessages(locale);
       {t.notFound.body}
     </p>
     <div class="hero-actions" style="margin-top: 2rem;">
-      <a class="button-link" href={withBase(localeHomePath(locale))}>
+      <a class="button-link" href={withBase(localeHomePath('en'))}>
         {t.notFound.home} <span aria-hidden="true">-&gt;</span>
       </a>
       <a class="button-link button-link--outline" href={`tel:${siteConfig.phoneTel}`}>

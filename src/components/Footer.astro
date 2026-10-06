@@ -1,9 +1,16 @@
 ---
-import { homeContent } from '../config/home';
 import { siteConfig } from '../config/site';
+import { getLocale, getMessages, localizedPath } from '../i18n';
 import { withBase } from '../lib/withBase';
 
+const locale = getLocale(Astro.currentLocale);
+const t = getMessages(locale);
 const year = new Date().getFullYear();
+
+const socialLabels: Record<(typeof siteConfig.social)[number]['id'], string> = {
+  instagram: 'Instagram',
+  facebook: 'Facebook',
+};
 
 const socialIcons: Record<string, string> = {
   Instagram:
@@ -17,11 +24,11 @@ const socialIcons: Record<string, string> = {
   <div class="container footer-grid">
     <div class="footer-brand">
       <strong>{siteConfig.name.toUpperCase()}</strong>
-      <p>{homeContent.footer.tagline}</p>
+      <p>{t.footer.tagline}</p>
     </div>
 
     <div class="footer-col">
-      <p class="label-eyebrow">Nous trouver</p>
+      <p class="label-eyebrow">{t.footer.findUs}</p>
       <p class="footer-address">
         <span>
           {siteConfig.address.street}<br />
@@ -34,8 +41,8 @@ const socialIcons: Record<string, string> = {
               href={siteConfig.mapsUrl}
               target="_blank"
               rel="noreferrer"
-              aria-label="Ouvrir dans Maps"
-              title="Ouvrir dans Maps"
+              aria-label={t.footer.mapsAria}
+              title={t.footer.mapsAria}
             >
               <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
                 <path
@@ -52,41 +59,44 @@ const socialIcons: Record<string, string> = {
     </div>
 
     <div class="footer-col">
-      <p class="label-eyebrow">Horaires</p>
-      {siteConfig.hours.lines.map((line) => (
+      <p class="label-eyebrow">{t.footer.hours}</p>
+      {t.footer.hourLines.map((line) => (
         <p>{line.label} : {line.value}</p>
       ))}
-      <p>Fermé {siteConfig.hours.closed}</p>
+      <p>{t.footer.closedPrefix} {t.footer.closed}</p>
     </div>
 
     <div class="footer-col">
-      <p class="label-eyebrow">Réseaux</p>
+      <p class="label-eyebrow">{t.footer.networks}</p>
       <ul class="footer-social">
-        {siteConfig.social.map((item) => (
-          <li>
-            <a class="footer-social-link" href={item.href} target="_blank" rel="noreferrer">
-              {socialIcons[item.label] ? (
-                <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
-                  <path fill="currentColor" d={socialIcons[item.label]} />
-                </svg>
-              ) : null}
-              <span>{item.label}</span>
-            </a>
-          </li>
-        ))}
+        {siteConfig.social.map((item) => {
+          const label = socialLabels[item.id];
+          return (
+            <li>
+              <a class="footer-social-link" href={item.href} target="_blank" rel="noreferrer">
+                {socialIcons[label] ? (
+                  <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" focusable="false">
+                    <path fill="currentColor" d={socialIcons[label]} />
+                  </svg>
+                ) : null}
+                <span>{label}</span>
+              </a>
+            </li>
+          );
+        })}
       </ul>
       <ul class="footer-legal">
-        {siteConfig.legal.map((item) => (
+        {t.footer.legal.map((item) => (
           <li>
-            <a href={withBase(item.href)}>{item.label}</a>
+            <a href={withBase(localizedPath(locale, item.href))}>{item.label}</a>
           </li>
         ))}
       </ul>
     </div>
 
     <div class="footer-bottom">
-      <p>&copy; {year} {siteConfig.name}. Tous droits réservés.</p>
-      <p><span class="ember-dot" aria-hidden="true"></span> {homeContent.footer.signal}</p>
+      <p>&copy; {year} {siteConfig.name}. {t.footer.rights}</p>
+      <p><span class="ember-dot" aria-hidden="true"></span> {t.footer.signal}</p>
     </div>
   </div>
 </footer>

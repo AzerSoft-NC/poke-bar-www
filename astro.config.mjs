@@ -11,6 +11,13 @@ export default defineConfig({
   base: basePath,
   output: 'static',
   trailingSlash: 'never',
+  i18n: {
+    defaultLocale: 'fr',
+    locales: ['fr', 'en'],
+    routing: {
+      prefixDefaultLocale: false,
+    },
+  },
   integrations: [sitemap()],
   image: {
     service: {

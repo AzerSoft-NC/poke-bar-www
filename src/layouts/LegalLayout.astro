@@ -2,6 +2,7 @@
 import BaseLayout from './BaseLayout.astro';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import { getLocale, getMessages, localeHomePath } from '../i18n';
 import { withBase } from '../lib/withBase';
 
 type Props = {
@@ -11,17 +12,19 @@ type Props = {
 };
 
 const { title, description, updated } = Astro.props;
+const locale = getLocale(Astro.currentLocale);
+const t = getMessages(locale);
 ---
 
 <BaseLayout title={title} description={description}>
   <Nav />
   <main id="main" class="container legal-page">
     <p class="label-eyebrow">
-      <a href={withBase('/')}>← Accueil</a>
+      <a href={withBase(localeHomePath(locale))}>{t.legalPage.backHome}</a>
     </p>
     <header>
       <h1 class="display">{title}</h1>
-      {updated && <p class="legal-updated">Mise à jour : {updated}</p>}
+      {updated && <p class="legal-updated">{t.legalPage.updated} : {updated}</p>}
     </header>
     <div class="prose-legal">
       <slot />

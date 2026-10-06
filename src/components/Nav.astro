@@ -1,36 +1,80 @@
 ---
 import { Image } from 'astro:assets';
 import { siteConfig } from '../config/site';
+import { getLocale, getMessages, localizedPath, locales, switchLocalePath } from '../i18n';
 import { withBase } from '../lib/withBase';
 import logoImage from '../assets/logo.jpeg';
 
-/** Home section anchors — `/poke-bar#id` (no slash before #; trailingSlash: never). */
+const locale = getLocale(Astro.currentLocale);
+const t = getMessages(locale);
+
 function sectionHref(hash: string) {
   const id = hash.startsWith('#') ? hash : `#${hash}`;
-  return withBase(`/${id}`);
+  return withBase(localizedPath(locale, `/${id}`));
 }
+
+const switcher = locales.map((loc) => ({
+  loc,
+  href: withBase(switchLocalePath(Astro.url.pathname, loc)),
+  active: loc === locale,
+  label: loc.toUpperCase(),
+}));
 ---
 
 <header class="site-header">
   <div class="nav-grid">
-    <a class="brand" href={sectionHref('#top')} aria-label={`${siteConfig.name} — accueil`}>
+    <a class="brand" href={sectionHref('#top')} aria-label={t.ui.brandHomeAria}>
       <Image class="brand-logo" src={logoImage} alt="" width={48} height={48} loading="eager" />
       <span>{siteConfig.name.toUpperCase()}</span>
     </a>
-    <nav class="nav-links" aria-label="Navigation principale">
-      {siteConfig.nav.map((item) => <a href={sectionHref(item.href)}>{item.label}</a>)}
+    <nav class="nav-links" aria-label={t.ui.navAria}>
+      {t.nav.map((item) => <a href={sectionHref(item.href)}>{item.label}</a>)}
+      <div class="lang-switch" aria-label="Language">
+        {
+          switcher.map((item, index) => (
+            <>
+              {index > 0 && <span class="lang-switch__sep" aria-hidden="true">|</span>}
+              <a
+                class:list={['lang-switch__link', item.active && 'is-active']}
+                href={item.href}
+                hreflang={item.loc}
+                aria-current={item.active ? 'true' : undefined}
+              >
+                {item.label}
+              </a>
+            </>
+          ))
+        }
+      </div>
       <a class="button-link button-link--outline" href={sectionHref('#contact')}>
         <span class="ember-dot" aria-hidden="true"></span>
-        Contact
+        {t.ui.contact}
       </a>
     </nav>
     <details class="mobile-nav">
-      <summary class="mobile-nav__toggle" aria-label="Menu">
+      <summary class="mobile-nav__toggle" aria-label={t.ui.menuToggle}>
         <span class="mobile-nav__icon" aria-hidden="true"></span>
       </summary>
-      <nav class="mobile-nav__panel" aria-label="Navigation mobile">
-        {siteConfig.nav.map((item) => <a href={sectionHref(item.href)}>{item.label}</a>)}
-        <a class="button-link" href={sectionHref('#contact')}>Contact</a>
+      <nav class="mobile-nav__panel" aria-label={t.ui.mobileNavAria}>
+        {t.nav.map((item) => <a href={sectionHref(item.href)}>{item.label}</a>)}
+        <div class="lang-switch lang-switch--mobile" aria-label="Language">
+          {
+            switcher.map((item, index) => (
+              <>
+                {index > 0 && <span class="lang-switch__sep" aria-hidden="true">|</span>}
+                <a
+                  class:list={['lang-switch__link', item.active && 'is-active']}
+                  href={item.href}
+                  hreflang={item.loc}
+                  aria-current={item.active ? 'true' : undefined}
+                >
+                  {item.label}
+                </a>
+              </>
+            ))
+          }
+        </div>
+        <a class="button-link" href={sectionHref('#contact')}>{t.ui.contact}</a>
       </nav>
     </details>
   </div>

@@ -2,6 +2,7 @@
 import '../styles.css';
 import SeoHead from '../components/SeoHead.astro';
 import { siteConfig } from '../config/site';
+import { getLocale, getMessages } from '../i18n';
 import { loadEnv } from '../lib/env';
 import { withBase } from '../lib/withBase';
 
@@ -16,10 +17,12 @@ type Props = {
 const { title, description, image, structuredData, enableReveal = siteConfig.effects.reveal } =
   Astro.props;
 const { googleSiteVerification } = loadEnv();
+const locale = getLocale(Astro.currentLocale);
+const t = getMessages(locale);
 ---
 
 <!doctype html>
-<html lang="fr">
+<html lang={t.meta.htmlLang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -37,7 +40,7 @@ const { googleSiteVerification } = loadEnv();
     <SeoHead title={title} description={description} image={image} structuredData={structuredData} />
   </head>
   <body>
-    <a class="skip-link" href="#main">Aller au contenu</a>
+    <a class="skip-link" href="#main">{t.ui.skipToContent}</a>
     <div class="site-shell">
       <slot />
     </div>

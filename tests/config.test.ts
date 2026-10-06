@@ -1,23 +1,24 @@
 import { describe, expect, it } from 'vitest';
-import { homeContent } from '../src/config/home';
 import { instagramPostHref, instagramPosts } from '../src/config/instagram';
 import { siteConfig } from '../src/config/site';
+import { getMessages } from '../src/i18n';
 
 describe('site configs', () => {
   it('exposes FR contact channels', () => {
     expect(siteConfig.phone).toMatch(/\d/);
     expect(siteConfig.email).toContain('@');
     expect(siteConfig.whatsapp).toBeTruthy();
-    expect(siteConfig.locale).toBe('fr_NC');
+    expect(getMessages('fr').meta.ogLocale).toBe('fr_NC');
   });
 
   it('has tasting courses and menu PDF path', () => {
-    expect(homeContent.tasting.courses.length).toBeGreaterThanOrEqual(4);
+    expect(getMessages('fr').home.tasting.courses.length).toBeGreaterThanOrEqual(4);
+    expect(getMessages('en').home.tasting.courses.length).toBeGreaterThanOrEqual(4);
     expect(siteConfig.menuPdf).toBe('/menu.pdf');
   });
 
   it('has compact courses without body copy', () => {
-    const course = homeContent.tasting.courses[0] as Record<string, unknown>;
+    const course = getMessages('fr').home.tasting.courses[0] as Record<string, unknown>;
     expect(course).not.toHaveProperty('body');
     expect(course).not.toHaveProperty('pairing');
     expect(course.title).toBeTruthy();
@@ -25,8 +26,7 @@ describe('site configs', () => {
 
   it('has no reservation form action', () => {
     expect(siteConfig).not.toHaveProperty('reservation');
-    expect(homeContent).not.toHaveProperty('contact');
-    expect(homeContent).not.toHaveProperty('reservation');
+    expect(getMessages('fr')).not.toHaveProperty('reservation');
   });
 
   it('lists 18 Instagram thumbs for the interior grid', () => {
