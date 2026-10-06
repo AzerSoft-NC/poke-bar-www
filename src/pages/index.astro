@@ -8,15 +8,13 @@ import { homeContent } from '../config/home';
 import { instagramPostHref, instagramPosts } from '../config/instagram';
 import { siteConfig } from '../config/site';
 import { withBase } from '../lib/withBase';
-import chefImage from '../assets/logo.jpeg';
-import detailImage from '../assets/menu.jpeg';
+import chefImage from '../assets/poke-thon.jpg';
+import detailImage from '../assets/poke-poulet.jpg';
 import heroImage from '../assets/com_recent.jpeg';
 import menuImage from '../assets/menu.jpeg';
-import contactImage from '../assets/com_recent.jpeg';
 
 const siteUrl = Astro.site ?? new URL('http://localhost:4321');
 const menuPdfHref = withBase(siteConfig.menuPdf);
-const whatsappHref = `https://wa.me/${siteConfig.whatsapp}`;
 const instagramProfileHref =
   siteConfig.social.find((item) => item.label === 'Instagram')?.href ??
   'https://www.instagram.com/pokebar_cocotiers/';
@@ -144,7 +142,7 @@ const structuredData = {
           <div class="image-frame aspect-3-4">
             <Image
               src={detailImage}
-              alt="Panneau Create your poke — étapes de composition"
+              alt="Poké au poulet Poke Bar"
               width={1200}
               height={1500}
               loading="lazy"
@@ -154,17 +152,10 @@ const structuredData = {
             {homeContent.concept.caption}
           </figcaption>
         </figure>
-
-        <div class="fire-block reveal">
-          <div class="quote-block">
-            <blockquote>"{homeContent.concept.quote}"</blockquote>
-            <p class="label-eyebrow" style="margin-top: 1.5rem;">— {homeContent.concept.quoteByline}</p>
-          </div>
-        </div>
       </div>
     </section>
 
-    <section id="menu" class="section surface-section">
+    <section id="menu" class="section menu-section">
       <div class="container section-grid">
         <div class="section-kicker">
           <p class="label-eyebrow reveal">{homeContent.tasting.eyebrow}</p>
@@ -177,18 +168,18 @@ const structuredData = {
         </h2>
 
         <aside class="menu-aside reveal" aria-label="Notes menu">
-          <div class="image-frame aspect-3-4">
+          <div class="image-frame menu-board">
             <Image
               src={menuImage}
               alt="Menu Create your poke en quatre étapes"
-              width={1200}
-              height={1500}
+              width={1012}
+              height={540}
               loading="lazy"
             />
           </div>
           <p class="label-eyebrow" style="margin-top: 1rem;">{homeContent.tasting.caption}</p>
           <div class="hairline" style="margin-block: 2rem 1.5rem;"></div>
-          <p style="color: var(--muted-foreground); line-height: 1.6;">
+          <p class="menu-aside-note">
             {homeContent.tasting.note}
           </p>
           <p style="margin-top: 1.5rem;">
@@ -207,8 +198,6 @@ const structuredData = {
                   {course.title}{' '}
                   {course.accent && <span class="display-italic">{course.accent}</span>}
                 </h3>
-                <p>{course.body}</p>
-                <span class="pairing">{course.pairing}</span>
               </li>
             ))
           }
@@ -230,7 +219,7 @@ const structuredData = {
         <div class="chef-media image-frame aspect-4-5 reveal">
           <Image
             src={chefImage}
-            alt="Logo Poke Bar Nouméa"
+            alt="Poké thon Poke Bar Nouméa"
             width={1200}
             height={1200}
             loading="lazy"
@@ -254,7 +243,7 @@ const structuredData = {
       </div>
     </section>
 
-    <section id="interior" class="surface-section interior-section">
+    <section id="interior" class="interior-section">
       <div class="container interior-head">
         <p class="label-eyebrow reveal">{homeContent.interior.eyebrow}</p>
         <h2 class="display reveal">
@@ -300,90 +289,6 @@ const structuredData = {
           ))
         }
       </ul>
-
-      <div class="container section">
-        <div class="feature-grid">
-          {
-            homeContent.interior.features.map((feature) => (
-              <section>
-                <p class="label-eyebrow">{feature.title}</p>
-                <p>{feature.body}</p>
-              </section>
-            ))
-          }
-        </div>
-        {
-          siteConfig.mapsUrl && (
-            <p style="margin-top: 2rem;">
-              <a class="button-link button-link--outline" href={siteConfig.mapsUrl} target="_blank" rel="noreferrer">
-                Ouvrir dans Maps <span aria-hidden="true">-&gt;</span>
-              </a>
-            </p>
-          )
-        }
-      </div>
-    </section>
-
-    <section id="contact" class="section reservation">
-      <Image
-        class="reservation-bg"
-        src={contactImage}
-        alt=""
-        width={900}
-        height={1200}
-        loading="lazy"
-        aria-hidden="true"
-      />
-      <div class="overlay" style="background: var(--grad-vignette);"></div>
-
-      <div class="container section-grid">
-        <div class="reservation-copy">
-          <p class="label-eyebrow reveal">{homeContent.contact.eyebrow}</p>
-          <h2 class="display reveal">
-            {homeContent.contact.heading[0]}<br />
-            <span class="display-italic" style="color: var(--ember);">{homeContent.contact.heading[1]}</span
-            ><br />
-            {homeContent.contact.heading[2]}
-          </h2>
-          <p class="reveal reveal-delay-1">{homeContent.contact.body}</p>
-          <div class="reservation-facts reveal reveal-delay-2">
-            <div>
-              <p class="label-eyebrow">Horaires</p>
-              {
-                siteConfig.hours.lines.map((line) => (
-                  <p>
-                    {line.label}
-                    <br />
-                    {line.value}
-                  </p>
-                ))
-              }
-            </div>
-            <div>
-              <p class="label-eyebrow">Fermeture</p>
-              <p>{siteConfig.hours.closed}</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="contact-panel contact-card reveal">
-          <p class="label-eyebrow">Nous joindre</p>
-          <div class="contact-actions">
-            <a class="button-link" href={`tel:${siteConfig.phoneTel}`}>
-              Appeler {siteConfig.phone} <span aria-hidden="true">-&gt;</span>
-            </a>
-            <a class="button-link button-link--outline" href={whatsappHref} target="_blank" rel="noreferrer">
-              WhatsApp
-            </a>
-            <a class="button-link button-link--outline" href={`mailto:${siteConfig.email}`}>
-              {siteConfig.email}
-            </a>
-          </div>
-          <p style="color: var(--muted-foreground); font-size: 0.85rem; margin-top: 1.25rem;">
-            {homeContent.contact.confirmation}
-          </p>
-        </div>
-      </div>
     </section>
   </main>
 

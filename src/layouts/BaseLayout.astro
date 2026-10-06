@@ -23,9 +23,10 @@ const { googleSiteVerification } = loadEnv();
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#e8892c" />
-    <link rel="icon" href={withBase('/favicon.svg')} type="image/svg+xml" />
+    <meta name="theme-color" content="#1f7a45" />
     <link rel="icon" href={withBase('/favicon.ico')} sizes="any" />
+    <link rel="icon" href={withBase('/favicon.png')} type="image/png" sizes="48x48" />
+    <link rel="apple-touch-icon" href={withBase('/apple-touch-icon.png')} />
     <link rel="manifest" href={withBase('/manifest.webmanifest')} />
     {googleSiteVerification && <meta name="google-site-verification" content={googleSiteVerification} />}
     {enableReveal && (

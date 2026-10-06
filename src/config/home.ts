@@ -36,41 +36,11 @@ export const homeContent = {
     caption: 'Mise — Les Quais',
     pdfLabel: 'Télécharger le menu PDF',
     courses: [
-      {
-        number: 'I',
-        title: 'Base it',
-        accent: 'le fond du bol',
-        body: 'Riz vinaigré, riz nature, ou salade — la base de votre poké.',
-        pairing: 'Étape 1',
-      },
-      {
-        number: 'II',
-        title: 'Poke it',
-        accent: 'la protéine',
-        body: 'Saumon, thon, poulet, tofu… les cubes qui font le bol.',
-        pairing: 'Étape 2',
-      },
-      {
-        number: 'III',
-        title: 'Sauce it',
-        accent: 'le punch',
-        body: 'Roasted sesame, wasabi aioli, tropical coco, sriracha mayo, ponzu citron…',
-        pairing: 'Étape 3',
-      },
-      {
-        number: 'IV',
-        title: 'Finish it',
-        accent: 'les toppings',
-        body: 'Edamame, avocat, mangue, gingembre, betterave et tout le reste.',
-        pairing: 'Étape 4',
-      },
-      {
-        number: 'V',
-        title: 'À côté',
-        accent: 'smoothies & plus',
-        body: 'Smoothies tropicaux, wraps, gaufres, glaces et cafés pour varier.',
-        pairing: 'Extras',
-      },
+      { number: 'I', title: 'Base it', accent: 'le fond du bol' },
+      { number: 'II', title: 'Poke it', accent: 'la protéine' },
+      { number: 'III', title: 'Sauce it', accent: 'le punch' },
+      { number: 'IV', title: 'Finish it', accent: 'les toppings' },
+      { number: 'V', title: 'À côté', accent: 'smoothies & plus' },
     ],
   },
   chef: {
@@ -97,26 +67,6 @@ export const homeContent = {
       rest: '— 18 moments frais.',
     },
     profileCta: 'Voir le profil Instagram',
-    features: [
-      {
-        title: 'Adresse',
-        body: 'Bâtiment A — Rez-de-chaussée, Galerie Commerciale Les Quais, 8 rue Jules Ferry, 98800 Nouméa.',
-      },
-      {
-        title: 'Horaires',
-        body: 'Lun–Mer 10h–15h · Jeu–Ven 10h–15h & 18h–21h · Sam 9h–15h & 18h–21h · Fermé dimanche.',
-      },
-      {
-        title: 'Ambiance',
-        body: 'Un comptoir coloré pour emporter ou savourer sur place, entre deux courses en ville.',
-      },
-    ],
-  },
-  contact: {
-    eyebrow: '05 — Contact',
-    heading: ['Une question ?', 'Un bol à emporter ?', 'Appelez-nous.'],
-    body: 'Pas de réservation en ligne — passez nous voir aux Quais, ou contactez-nous directement.',
-    confirmation: 'On répond vite par téléphone, WhatsApp ou e-mail.',
   },
   footer: {
     tagline: 'Instant poké face à la mer — Les Quais, Nouméa.',

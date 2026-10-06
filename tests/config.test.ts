@@ -16,9 +16,16 @@ describe('site configs', () => {
     expect(siteConfig.menuPdf).toBe('/menu.pdf');
   });
 
+  it('has compact courses without body copy', () => {
+    const course = homeContent.tasting.courses[0] as Record<string, unknown>;
+    expect(course).not.toHaveProperty('body');
+    expect(course).not.toHaveProperty('pairing');
+    expect(course.title).toBeTruthy();
+  });
+
   it('has no reservation form action', () => {
     expect(siteConfig).not.toHaveProperty('reservation');
-    expect(homeContent).toHaveProperty('contact');
+    expect(homeContent).not.toHaveProperty('contact');
     expect(homeContent).not.toHaveProperty('reservation');
   });
 

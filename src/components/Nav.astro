@@ -25,7 +25,9 @@ function sectionHref(hash: string) {
       </a>
     </nav>
     <details class="mobile-nav">
-      <summary class="mobile-nav__toggle">Menu</summary>
+      <summary class="mobile-nav__toggle" aria-label="Menu">
+        <span class="mobile-nav__icon" aria-hidden="true"></span>
+      </summary>
       <nav class="mobile-nav__panel" aria-label="Navigation mobile">
         {siteConfig.nav.map((item) => <a href={sectionHref(item.href)}>{item.label}</a>)}
         <a class="button-link" href={sectionHref('#contact')}>Contact</a>
