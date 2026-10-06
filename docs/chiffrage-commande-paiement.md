@@ -68,24 +68,69 @@ L’app commande / paiement est un **produit parallèle** (sous-domaine dédié)
 
 ---
 
-## 4. Effort (approche légère)
+## 4. Détail jour-homme par fonctionnalité
 
-| Lot | Contenu | JH |
-|-----|---------|---:|
-| A | Cadrage court + modèle données multi-sites | 1,5 |
-| B | Socle (BaaS, auth admin, hébergement) | 2 |
-| C | Admin menu / tarifs / sites | 3 |
-| D | Parcours client (menu, options, panier, créneaux) | 5 |
-| E | Stripe Checkout + webhooks + e-mail reçu | 2 |
-| F | Dashboard commandes + historique | 3 |
-| G | Finitions, recette, go-live, prise en main | 2,5 |
-| **Total** | | **19** |
+**TJM :** 60 000 XPF HT / JH
 
-**TJM de référence :** 60 000 XPF HT / JH
+### 4.1 Vue synthétique
+
+| # | Fonctionnalité | JH | Montant HT |
+|---|----------------|---:|-----------:|
+| 1 | Cadrage & modèle métier | 1,0 | 60 000 |
+| 2 | Socle technique (BaaS, projet, env.) | 1,0 | 60 000 |
+| 3 | Auth admin | 0,5 | 30 000 |
+| 4 | Gestion des sites (3 points de retrait) | 1,0 | 60 000 |
+| 5 | Menu & tarifs (CRUD + dispo par site) | 2,0 | 120 000 |
+| 6 | Composition poké (options configurables) | 1,5 | 90 000 |
+| 7 | Catalogue client (parcours menu) | 1,5 | 90 000 |
+| 8 | Panier | 1,0 | 60 000 |
+| 9 | Créneaux de retrait | 1,0 | 60 000 |
+| 10 | Paiement CB (Stripe Checkout) | 1,5 | 90 000 |
+| 11 | Webhooks + confirmation / e-mail reçu | 0,5 | 30 000 |
+| 12 | Dashboard commandes en cours | 1,5 | 90 000 |
+| 13 | Historique commandes & paiements | 1,5 | 90 000 |
+| 14 | Statuts commande (reçue → prête) | 0,5 | 30 000 |
+| 15 | Lien vitrine + déploiement + go-live | 1,5 | 90 000 |
+| 16 | Recette, correctifs, prise en main | 1,5 | 90 000 |
+| | **Total** | **19,0** | **1 140 000** |
+
+Marge projet / imprévus (hors tableau ci-dessus) : **160 000 XPF** → forfait **1 300 000 XPF HT**.
+
+### 4.2 Détail par fonctionnalité
+
+| Fonctionnalité | Ce qui est fait | JH |
+|----------------|-----------------|---:|
+| **1. Cadrage & modèle métier** | Atelier court, règles multi-sites, schéma données (sites, articles, options, commandes, paiements), wireframes légers | 1,0 |
+| **2. Socle technique** | Projet app, BaaS (BDD + storage), environnements test/prod, variables, base UI responsive | 1,0 |
+| **3. Auth admin** | Login / logout, session protégée, 1 rôle admin (pas de multi-rôles) | 0,5 |
+| **4. Gestion des sites** | 3 sites : nom, adresse, horaires click & collect, activation on/off | 1,0 |
+| **5. Menu & tarifs** | Catégories, articles, prix, photo, dispo **par site**, ordre d’affichage | 2,0 |
+| **6. Composition poké** | Groupes d’options (base, protéines, sauces, extras), min/max, suppléments tarifaires | 1,5 |
+| **7. Catalogue client** | Choix du site → affichage menu filtré → fiche article + options | 1,5 |
+| **8. Panier** | Ajout / modif / suppression, total TTC, persistance session | 1,0 |
+| **9. Créneaux de retrait** | Créneaux simples selon horaires du site (pas de capacité fine / file d’attente avancée) | 1,0 |
+| **10. Paiement CB** | Création session Stripe Checkout, redirection, retour succès / échec | 1,5 |
+| **11. Webhooks + e-mail** | Validation paiement côté serveur, marquage « payé », e-mail de confirmation/reçu | 0,5 |
+| **12. Dashboard commandes** | Liste du jour par site, détail ligne (composition), actions rapides | 1,5 |
+| **13. Historique** | Liste filtrable (site, date, statut), détail commande + statut paiement PSP | 1,5 |
+| **14. Statuts commande** | Transitions reçue → en préparation → prête (+ affichage côté client simple) | 0,5 |
+| **15. Déploiement & lien vitrine** | Domaine/sous-domaine, HTTPS, sauvegardes, CTA « Commander » sur www | 1,5 |
+| **16. Recette & prise en main** | Tests parcours payant, correctifs, session formation ~1 h, doc courte | 1,5 |
+
+### 4.3 Regroupement par acteur
+
+| Côté | Fonctionnalités | JH |
+|------|-----------------|---:|
+| Socle / transverse | 1, 2, 3, 15, 16 | 5,5 |
+| Admin | 4, 5, 6, 12, 13, 14 | 7,5 |
+| Client (commande + paiement) | 7, 8, 9, 10, 11 | 6,0 |
+| **Total** | | **19,0** |
 
 ---
 
 ## 5. Forfait livraison (proposé)
+
+Détail JH : §4. Montants au TJM 60 000 XPF.
 
 | Poste | Montant HT |
 |-------|-----------:|
