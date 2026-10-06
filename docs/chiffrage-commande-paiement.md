@@ -1,6 +1,6 @@
 # Chiffrage — Application commande & paiement Poke Bar
 
-**Date :** 2026-10-06  
+**Date :** 2026-10-06 (rév. resserrée)  
 **Client :** Poke Bar (Nouméa)  
 **Périmètre validé :** click & collect **multi-sites** (Les Quais, Cocotiers, Ouen Toro) + **paiement CB en ligne**  
 **Modèle commercial :** forfait livraison + abonnement maintenance (hébergement + nom de domaine inclus)
@@ -9,10 +9,14 @@
 
 ## 1. Contexte
 
-Le dépôt actuel (`poke-bar-www`) est une **vitrine Astro statique** (menu PDF, contact).  
-La commande en ligne / le paiement / l’admin sont **hors scope** de ce site.
+Le dépôt actuel (`poke-bar-www`) est une **vitrine Astro statique**.  
+L’app commande / paiement est un **produit parallèle** (sous-domaine dédié), relié par des CTA « Commander ».
 
-L’application proposée est un **produit parallèle** (ex. `commande.pokebar.nc` ou sous-domaine dédié), relié à la vitrine par des CTA « Commander ».
+**Approche technique retenue (coût maîtrisé) :**
+- BaaS (ex. Supabase) plutôt qu’API custom lourde
+- **Checkout hébergé** (Stripe Checkout) — pas de page CB custom
+- Admin simple et efficace (pas de BI / reporting avancé)
+- Composition poké en options configurables (pas de moteur de règles complexe)
 
 ---
 
@@ -20,35 +24,33 @@ L’application proposée est un **produit parallèle** (ex. `commande.pokebar.n
 
 ### Côté client
 - Choix du **point de retrait** (3 sites)
-- Menu dynamique par site (disponibilités, tarifs)
-- Composition de commande (bases / protéines / sauces / extras selon le modèle métier)
-- Panier, récapitulatif, créneau de retrait
-- **Paiement CB en ligne** (Stripe ou PSP compatible NC)
-- Confirmation commande + e-mail récépissé
-- Suivi simple du statut (reçue → en préparation → prête)
+- Menu / tarifs par site (dispo on/off)
+- Composition via options (base, protéines, sauces, extras)
+- Panier + créneau de retrait simple
+- **Paiement CB** via checkout hébergé
+- Confirmation + e-mail de reçu
+- Statuts : reçue → en préparation → prête
 
 ### Côté admin
-- Authentification admin
-- **Gestion du menu & des tarifs** (CRUD, catégories, options, prix, disponibilité par site)
-- Dashboard **commandes en cours** (temps réel ou rafraîchissement court)
-- **Historique** des commandes (filtres par site / date / statut)
-- Suivi des **paiements** (payé / échoué / remboursé partiel si supporté par le PSP)
-- Paramètres sites (horaires click & collect, capacité / créneaux)
+- Login admin
+- CRUD menu / tarifs / dispo par site
+- File des commandes du jour + changement de statut
+- Historique (filtres site / date)
+- Statut paiement (payé / échoué) tel que renvoyé par le PSP
+- Horaires click & collect par site
 
-### Technique & mise en service
-- API + base de données
+### Mise en service
+- Hébergement prod, HTTPS, sauvegardes
 - Webhooks paiement
-- Déploiement prod, sauvegardes, HTTPS
-- Lien depuis la vitrine existante
-- Formation courte (1 session) + documentation d’exploitation
+- Lien depuis la vitrine
+- Session de prise en main (~1 h)
 
 ### Hypothèses
-- 3 sites max au lancement
-- FR prioritaire (EN optionnel hors forfait ou léger si déjà prévu)
-- Pas de livraison à domicile
-- Pas d’app native iOS/Android (PWA web responsive)
-- Contenu menu fourni par le client (photos, prix, règles de composition)
-- Compte Stripe / PSP ouvert par le client (KYC à sa charge)
+- Contenu menu + photos fournis par le client
+- Compte PSP ouvert par le client
+- FR uniquement
+- Pas de livraison, pas d’app native
+- Remboursements gérés via le dashboard PSP (pas d’UI remboursement custom)
 
 ---
 
@@ -56,80 +58,71 @@ L’application proposée est un **produit parallèle** (ex. `commande.pokebar.n
 
 | Élément | Commentaire |
 |--------|-------------|
-| Frais PSP (Stripe etc.) | Commission bancaire / transaction, facturée au commerçant |
-| SMS / WhatsApp transactionnels | Si demandés plus tard |
-| Livraison / livreurs / zones | Hors 1B |
-| Fidélité, promo complexes, codes multi-règles | Possible en avenant |
-| Application native App Store / Play | Hors scope |
-| Refonte lourde de la vitrine | Dépôt `www` séparé |
-| Évolutions majeures après go-live | Facturées au TJM ou avenant |
+| Frais PSP | Commission transaction → commerçant |
+| SMS / WhatsApp | Avenant |
+| Livraison | Hors scope |
+| Codes promo / fidélité / reporting avancé | Avenant |
+| App native | Hors scope |
+| EN / i18n commande | Avenant |
+| Évolutions majeures post go-live | TJM ou avenant |
 
 ---
 
-## 4. Effort estimé
+## 4. Effort (approche légère)
 
 | Lot | Contenu | JH |
 |-----|---------|---:|
-| A | Cadrage, UX, specs, modèle métier multi-sites | 3 |
-| B | Socle technique (API, auth admin, BDD, infra) | 5 |
-| C | Admin menu / tarifs / sites | 6 |
-| D | Parcours client (menu, composition, panier, créneaux) | 10 |
-| E | Paiement CB + webhooks + reçus | 5 |
-| F | Dashboard commandes + historique + paiements | 7 |
-| G | Notifs e-mail, CGV/parcours légal minimal, recette | 4 |
-| H | Déploiement, CI, formation, go-live | 3 |
-| **Total** | | **43** |
+| A | Cadrage court + modèle données multi-sites | 1,5 |
+| B | Socle (BaaS, auth admin, hébergement) | 2 |
+| C | Admin menu / tarifs / sites | 3 |
+| D | Parcours client (menu, options, panier, créneaux) | 5 |
+| E | Stripe Checkout + webhooks + e-mail reçu | 2 |
+| F | Dashboard commandes + historique | 3 |
+| G | Finitions, recette, go-live, prise en main | 2,5 |
+| **Total** | | **19** |
 
-Marge risque / imprévus métier (composition poké, dispo multi-sites) : **+7 JH** → **50 JH** cadrés pour le forfait.
-
-**TJM de référence :** 70 000 XPF HT / JH  
-*(aligné prestation web app NC — ajustable selon grille AzerSoft)*
+**TJM de référence :** 60 000 XPF HT / JH
 
 ---
 
-## 5. Forfait livraison
+## 5. Forfait livraison (proposé)
 
 | Poste | Montant HT |
 |-------|-----------:|
-| Conception + développement + mise en service (50 JH) | 3 500 000 XPF |
-| **Forfait total** | **3 500 000 XPF HT** |
+| Conception + dev + mise en service (19 JH) | 1 140 000 XPF |
+| Marge projet / imprévus légers | 160 000 XPF |
+| **Forfait total** | **1 300 000 XPF HT** |
 
-≈ **29 300 € HT** (taux indicatif 1 € ≈ 119,33 XPF).
+≈ **10 900 € HT**.
 
-### Échéancier de paiement suggéré
-1. **30 %** à la commande (1 050 000 XPF) — cadrage + démarrage  
-2. **40 %** à la recette interne / démo admin + parcours payant test (1 400 000 XPF)  
-3. **30 %** au go-live prod (1 050 000 XPF)
+### Échéancier
+1. **40 %** à la commande — 520 000 XPF  
+2. **30 %** à la démo parcours payant test — 390 000 XPF  
+3. **30 %** au go-live — 390 000 XPF  
 
-### Délai indicatif
-**8–10 semaines calendaires** après réception de l’acompte, du menu, et de l’accès PSP (sous réserve de réactivité client).
+### Délai
+**4–6 semaines** après acompte + menu + accès PSP.
 
 ---
 
-## 6. Maintenance, hébergement & nom de domaine
+## 6. Maintenance, hébergement & domaine
 
-Abonnement mensuel **tout compris** (hors frais PSP) :
-
-| Poste inclus | Détail |
-|--------------|--------|
-| Hébergement | Serveur / runtime app + BDD + sauvegardes quotidiennes + HTTPS |
-| Nom de domaine | 1 domaine ou sous-domaine (ex. `.nc` ou sous `pokebar.nc`) — renouvellement inclus |
-| Supervision | Monitoring uptime basique + alertes |
-| Maintenance | Correctifs, mises à jour sécu, assistance, **petit quota** d’évolutions mineures (~2 h / mois) |
+| Inclus | Détail |
+|--------|--------|
+| Hébergement | App + BDD + sauvegardes + HTTPS |
+| Domaine | 1 domaine / sous-domaine, renouvellement inclus |
+| Correctifs | Bugs + mises à jour sécu |
+| Quota évolutions | ~1 h / mois (textes, prix déjà gérés en admin ; petits réglages) |
 
 | Formule | Montant |
 |---------|--------:|
-| **Abonnement mensuel** | **55 000 XPF HT / mois** |
-| Engagement recommandé | 12 mois à compter du go-live |
+| **Abonnement mensuel** | **28 000 XPF HT / mois** |
 
-≈ **460 € HT / mois**.
+≈ **235 € HT / mois** — engagement 12 mois au go-live.
 
-Au-delà du quota mensuel : **TJM 70 000 XPF HT**, facturation au prorata ½ journée mini.
+Au-delà du quota : **60 000 XPF HT / JH** (½ journée mini).
 
-### Coûts récurrents **non** inclus dans l’abonnement
-- Commissions Stripe / banque  
-- Nom de domaine **supplémentaire** ou boîtes mail professionnelles hors stack  
-- Campagnes marketing / pubs  
+**Non inclus :** commissions PSP, domaines / mails supplémentaires.
 
 ---
 
@@ -137,29 +130,29 @@ Au-delà du quota mensuel : **TJM 70 000 XPF HT**, facturation au prorata ½ jou
 
 | Nature | Montant HT |
 |--------|-----------:|
-| **Forfait application** (one-shot) | **3 500 000 XPF** |
-| **Maintenance + hébergement + domaine** (récurrent) | **55 000 XPF / mois** |
+| **Forfait application** | **1 300 000 XPF** |
+| **Maintenance + hébergement + domaine** | **28 000 XPF / mois** |
 
-**Année 1 indicative (forfait + 12 mois) :**  
-3 500 000 + (12 × 55 000) = **4 160 000 XPF HT**
+**Année 1 :** 1 300 000 + (12 × 28 000) = **1 636 000 XPF HT**
 
 ---
 
-## 8. Variante (si besoin de serrer le budget)
+## 8. Ancien vs resserré
 
-| Variante | Impact scope | Forfait HT |
-|----------|--------------|-----------:|
-| **MVP serré** | 1 site d’abord, puis extension multi-sites en phase 2 ; admin allégé | 2 600 000 XPF |
-| **Périmètre validé (1B + 2A)** | Ce document | **3 500 000 XPF** |
-| **Confort** | EN complet, notifs WhatsApp, reporting avancé, PWA offline léger | 4 200 000 XPF |
+| | Première estimation | **Proposition actuelle** |
+|--|--------------------:|-------------------------:|
+| Forfait | 3 500 000 | **1 300 000** |
+| Mensuel | 55 000 | **28 000** |
+| Année 1 | 4 160 000 | **1 636 000** |
 
-La ligne retenue pour devis client : **forfait 3 500 000 XPF HT** + **55 000 XPF HT / mois**.
+Écart obtenu en coupant le custom (checkout hébergé, BaaS, admin sans BI, pas de remboursement custom / WhatsApp / EN).
+
+Si le client veut plus tard reporting, WhatsApp, promo, etc. → avenants ciblés, sans gonfler le socle.
 
 ---
 
 ## 9. Prochaines étapes
 
-1. Validation du chiffrage / éventuel ajustement TJM grille AzerSoft  
-2. Devis PDF + CGV prestation  
-3. Kickoff : menu définitif, photos, horaires des 3 sites, compte PSP  
-4. Spécification détaillée (modèle de composition poké) avant sprint 1  
+1. Valider ce forfait resserré  
+2. Devis PDF + CGV  
+3. Kickoff : menu, photos, horaires 3 sites, compte PSP  
