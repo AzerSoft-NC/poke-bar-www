@@ -11,7 +11,7 @@ export const GET: APIRoute = () => {
     description: t.meta.description,
     start_url: withBase('/'),
     display: 'standalone',
-    background_color: '#e6f2ea',
+    background_color: '#f7f1e6',
     theme_color: '#1f7a45',
     lang: t.meta.htmlLang,
     icons: [
