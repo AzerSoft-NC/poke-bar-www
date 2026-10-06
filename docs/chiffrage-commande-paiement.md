@@ -1,9 +1,9 @@
 # Chiffrage — Application commande & paiement Poke Bar
 
-**Date :** 2026-10-06 (rév. même Droplet DO)  
+**Date :** 2026-10-06 (rév. héberg. dédié ~20$)  
 **Client :** Poke Bar (Nouméa)  
 **Périmètre validé :** click & collect **multi-sites** (Les Quais, Cocotiers, Ouen Toro) + **paiement CB en ligne**  
-**Modèle commercial :** forfait livraison + abonnement maintenance (domaine + support ; hébergement sur Droplet DigitalOcean existant)
+**Modèle commercial :** forfait livraison + abonnement (hébergement équivalent machine dédiée ~20 $/mois + domaine + maintenance)
 
 ---
 
@@ -48,7 +48,7 @@ Ce chiffrage part du principe que :
 - Horaires click & collect par site
 
 ### Mise en service
-- Hébergement prod (infra workspace / droplet existante), HTTPS, sauvegardes
+- Hébergement facturé en **équivalent machine dédiée** (~20 USD/mois DigitalOcean)
 - Webhooks paiement
 - Lien CTA depuis la vitrine
 - Session de prise en main (~1 h)
@@ -160,32 +160,36 @@ Marge projet / imprévus : **95 000 XPF** → **forfait 650 000 XPF HT**.
 
 ## 6. Maintenance, hébergement & domaine
 
-### Pourquoi le mensuel précédent était trop haut
+### Hypothèse hébergement
 
-Les 25–55k XPF/mois intégraient implicitement un **hébergement dédié** (VM / runtime / BDD facturés comme si l’app était seule).  
-Or l’app tourne sur **DigitalOcean, même Droplet** que la vitrine / les autres apps AzerSoft → **coût d’hébergement marginal ≈ 0** (quelques Mo disque + process, déjà payés).
+Même si le déploiement peut partager l’infra AzerSoft, **on facture l’hébergement comme une machine dédiée** (Droplet DigitalOcean entrée de gamme) :
 
-### Décomposition réelle (même Droplet DO)
+| | |
+|--|--|
+| Référence marché | Droplet ~**20 USD / mois** |
+| Conversion | ≈ **2 400 XPF HT / mois** (1 USD ≈ 120 XPF) |
+
+### Décomposition mensuelle
 
 | Poste | Rôle | Montant HT / mois |
 |-------|------|------------------:|
-| Hébergement Droplet | Partage du droplet existant — **pas de VM supplémentaire** | **0** |
-| Domaine / sous-domaine | Sous-domaine type `commande.…` sur domaine déjà géré, ou prorata 1 nom | **1 000** |
-| Maintenance applicative | Correctifs, sécu deps, assistance, **~1 h / mois** (TJM 60k → 7,5k/h) | **8 000** |
-| **Total abonnement** | | **9 000** |
+| Hébergement dédié (équivalent) | Machine dédiée ~20 $/mois (app + BDD + HTTPS + backups) | **2 400** |
+| Domaine / sous-domaine | 1 nom ou sous-domaine, renouvellement inclus | **1 000** |
+| Maintenance applicative | Correctifs, sécu deps, assistance, **~1 h / mois** | **8 000** |
+| **Total abonnement** | | **11 400** |
 
-≈ **75 € HT / mois** — engagement 12 mois au go-live.
+≈ **95 € HT / mois** — engagement 12 mois au go-live.
 
 | Inclus | Détail |
 |--------|--------|
-| Hébergement | Déploiement sur le **même Droplet DigitalOcean** (nginx/Caddy, HTTPS, sauvegardes déjà en place) |
-| Domaine | 1 sous-domaine (ou renouvellement d’un domaine dédié si besoin — sinon poste ≈ 0 et abonnement à **8 000**) |
+| Hébergement | Équivalent **Droplet dédié ~20 USD/mois** (DigitalOcean) |
+| Domaine | 1 domaine / sous-domaine |
 | Correctifs | Bugs + mises à jour sécu |
 | Quota | ~1 h / mois de petits réglages |
 
 Au-delà du quota : **60 000 XPF HT / JH** (½ journée mini).
 
-**Non inclus :** commissions PSP, agrandissement du Droplet si la charge le justifie un jour (avenant infra).
+**Non inclus :** commissions PSP. Si la charge impose un Droplet plus gros un jour → avenant infra.
 
 ---
 
@@ -194,9 +198,9 @@ Au-delà du quota : **60 000 XPF HT / JH** (½ journée mini).
 | Nature | Montant HT |
 |--------|-----------:|
 | **Forfait application** | **650 000 XPF** |
-| **Maintenance + domaine** (héberg. Droplet partagé = 0) | **9 000 XPF / mois** |
+| **Maintenance + hébergement dédié (~20$) + domaine** | **11 400 XPF / mois** |
 
-**Année 1 :** 650 000 + (12 × 9 000) = **758 000 XPF HT**
+**Année 1 :** 650 000 + (12 × 11 400) = **786 800 XPF HT**
 
 ---
 
@@ -206,12 +210,13 @@ Au-delà du quota : **60 000 XPF HT / JH** (½ journée mini).
 |----------|-----------|--------:|--------:|--------:|
 | v1 | Stack custom lourde, peu d’IA | 3 500 000 | 55 000 | 4 160 000 |
 | v2 | BaaS + Checkout, peu d’IA | 1 300 000 | 28 000 | 1 636 000 |
-| v3 | Workspace + IA, héberg. « packagé » | 650 000 | 25 000 | 950 000 |
-| **v4 (actuelle)** | **Même Droplet DO → héberg. = 0** | **650 000** | **9 000** | **758 000** |
+| v3 | Workspace + IA, héberg. packagé | 650 000 | 25 000 | 950 000 |
+| v4 | Même Droplet → héberg. = 0 | 650 000 | 9 000 | 758 000 |
+| **v5 (actuelle)** | **Héberg. = machine dédiée ~20 $/mois** | **650 000** | **11 400** | **786 800** |
 ---
 
 ## 9. Prochaines étapes
 
-1. Valider ce forfait v3  
+1. Valider ce forfait v5  
 2. Devis PDF + CGV  
 3. Kickoff : menu, photos, horaires 3 sites, compte PSP  
