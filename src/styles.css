@@ -7,16 +7,16 @@
   --font-sans: "Poppins", sans-serif;
   --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
 
-  --background: #e6f2ea;
-  --surface: #f2faf5;
-  --surface-2: #b8dcc6;
+  --background: #f7f1e6;
+  --surface: #fff8ef;
+  --surface-2: #ffe8d2;
   --foreground: #143528;
-  --cream: #f6fcf8;
+  --cream: #fffdf8;
   --muted: #4d6b5a;
   --muted-foreground: #3f5a4a;
   --border: rgb(20 53 40 / 0.18);
   --ember: #1f7a45;
-  --ember-foreground: #f6fcf8;
+  --ember-foreground: #fffdf8;
   --accent-2: #e85d2a;
   --focus: #2a9d5c;
 
@@ -25,14 +25,14 @@
   --grad-vignette: radial-gradient(
     120% 80% at 50% 0%,
     transparent 0%,
-    rgb(230 242 234 / 0.35) 62%,
-    rgb(230 242 234 / 0.72) 100%
+    rgb(247 241 230 / 0.35) 62%,
+    rgb(247 241 230 / 0.72) 100%
   );
   --grad-veil: linear-gradient(
     180deg,
-    rgb(230 242 234 / 0) 0%,
-    rgb(230 242 234 / 0.45) 62%,
-    rgb(230 242 234 / 0.82) 100%
+    rgb(247 241 230 / 0) 0%,
+    rgb(247 241 230 / 0.45) 62%,
+    rgb(247 241 230 / 0.82) 100%
   );
   color-scheme: light;
 }
