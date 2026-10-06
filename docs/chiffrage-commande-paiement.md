@@ -1,9 +1,9 @@
 # Chiffrage — Application commande & paiement Poke Bar
 
-**Date :** 2026-10-06 (rév. héberg. dédié ~20$)  
+**Date :** 2026-10-06 (rév. domaine 5 ans + redirection)  
 **Client :** Poke Bar (Nouméa)  
 **Périmètre validé :** click & collect **multi-sites** (Les Quais, Cocotiers, Ouen Toro) + **paiement CB en ligne**  
-**Modèle commercial :** forfait livraison + abonnement (hébergement équivalent machine dédiée ~20 $/mois + domaine + maintenance)
+**Modèle commercial :** forfait + abonnement mensuel (héberg. dédié ~20$ + redirection 300 F + maint.) + domaine ≈ 5 500 F / 5 ans
 
 ---
 
@@ -162,34 +162,44 @@ Marge projet / imprévus : **95 000 XPF** → **forfait 650 000 XPF HT**.
 
 ### Hypothèse hébergement
 
-Même si le déploiement peut partager l’infra AzerSoft, **on facture l’hébergement comme une machine dédiée** (Droplet DigitalOcean entrée de gamme) :
+On facture l’hébergement comme une **machine dédiée** (Droplet DigitalOcean entrée de gamme) :
 
 | | |
 |--|--|
 | Référence marché | Droplet ~**20 USD / mois** |
 | Conversion | ≈ **2 400 XPF HT / mois** (1 USD ≈ 120 XPF) |
 
-### Décomposition mensuelle
+### Nom de domaine & redirection
+
+| Poste | Détail | Montant HT |
+|-------|--------|-----------:|
+| Nom de domaine | Enregistrement / renouvellement **5 ans** | **≈ 5 500** (un peu plus de 5 000) |
+| Redirection | Redirection DNS / URL | **300 / mois** |
+
+Amortissement indicatif du domaine : 5 500 ÷ 60 mois ≈ **92 XPF / mois** (affiché séparément du mensuel ci-dessous : facturation **tous les 5 ans**).
+
+### Décomposition mensuelle récurrente
 
 | Poste | Rôle | Montant HT / mois |
 |-------|------|------------------:|
-| Hébergement dédié (équivalent) | Machine dédiée ~20 $/mois (app + BDD + HTTPS + backups) | **2 400** |
-| Domaine / sous-domaine | 1 nom ou sous-domaine, renouvellement inclus | **1 000** |
-| Maintenance applicative | Correctifs, sécu deps, assistance, **~1 h / mois** | **8 000** |
-| **Total abonnement** | | **11 400** |
+| Hébergement dédié (équivalent) | Machine dédiée ~20 $/mois | **2 400** |
+| Redirection | Redirection domaine / sous-domaine | **300** |
+| Maintenance applicative | Correctifs, sécu, assistance, **~1 h / mois** | **8 000** |
+| **Total abonnement mensuel** | | **10 700** |
 
-≈ **95 € HT / mois** — engagement 12 mois au go-live.
+≈ **90 € HT / mois** — engagement 12 mois au go-live.
 
 | Inclus | Détail |
 |--------|--------|
 | Hébergement | Équivalent **Droplet dédié ~20 USD/mois** (DigitalOcean) |
-| Domaine | 1 domaine / sous-domaine |
+| Redirection | **300 XPF / mois** |
+| Domaine | **≈ 5 500 XPF tous les 5 ans** (hors mensuel) |
 | Correctifs | Bugs + mises à jour sécu |
 | Quota | ~1 h / mois de petits réglages |
 
 Au-delà du quota : **60 000 XPF HT / JH** (½ journée mini).
 
-**Non inclus :** commissions PSP. Si la charge impose un Droplet plus gros un jour → avenant infra.
+**Non inclus :** commissions PSP. Si la charge impose un Droplet plus gros → avenant infra.
 
 ---
 
@@ -198,25 +208,28 @@ Au-delà du quota : **60 000 XPF HT / JH** (½ journée mini).
 | Nature | Montant HT |
 |--------|-----------:|
 | **Forfait application** | **650 000 XPF** |
-| **Maintenance + hébergement dédié (~20$) + domaine** | **11 400 XPF / mois** |
+| **Abonnement mensuel** (héberg. ~20$ + redirection 300 + maint.) | **10 700 XPF / mois** |
+| **Nom de domaine** | **≈ 5 500 XPF / 5 ans** |
 
-**Année 1 :** 650 000 + (12 × 11 400) = **786 800 XPF HT**
+**Année 1** (forfait + 12 mois + domaine 5 ans payé à J0) :  
+650 000 + (12 × 10 700) + 5 500 = **783 900 XPF HT**
 
 ---
 
 ## 8. Historique des révisions
 
-| Révision | Hypothèse | Forfait | Mensuel | Année 1 |
-|----------|-----------|--------:|--------:|--------:|
-| v1 | Stack custom lourde, peu d’IA | 3 500 000 | 55 000 | 4 160 000 |
-| v2 | BaaS + Checkout, peu d’IA | 1 300 000 | 28 000 | 1 636 000 |
-| v3 | Workspace + IA, héberg. packagé | 650 000 | 25 000 | 950 000 |
-| v4 | Même Droplet → héberg. = 0 | 650 000 | 9 000 | 758 000 |
-| **v5 (actuelle)** | **Héberg. = machine dédiée ~20 $/mois** | **650 000** | **11 400** | **786 800** |
+| Révision | Hypothèse | Forfait | Mensuel | Domaine | Année 1 |
+|----------|-----------|--------:|--------:|--------:|--------:|
+| v1 | Stack custom lourde | 3 500 000 | 55 000 | inclus | 4 160 000 |
+| v2 | BaaS + Checkout | 1 300 000 | 28 000 | inclus | 1 636 000 |
+| v3 | Workspace + IA | 650 000 | 25 000 | inclus | 950 000 |
+| v4 | Héberg. partagé = 0 | 650 000 | 9 000 | ~1k/mois | 758 000 |
+| v5 | Héberg. dédié ~20$ | 650 000 | 11 400 | 1k/mois | 786 800 |
+| **v6** | **Domaine ~5,5k/5 ans + redir. 300/mois** | **650 000** | **10 700** | **5 500 / 5 ans** | **783 900** |
 ---
 
 ## 9. Prochaines étapes
 
-1. Valider ce forfait v5  
+1. Valider ce forfait v6  
 2. Devis PDF + CGV  
 3. Kickoff : menu, photos, horaires 3 sites, compte PSP  
