@@ -233,10 +233,13 @@ Sans cette option : pas de quota de maintenance inclus (interventions à la dema
 |----------|-----------|--------:|--------:|-------:|--------:|
 | v1–v5 | (voir historique git) | … | … | mensuelle | … |
 | v6 | Domaine 5 ans + redir. 300 | 650 000 | 10 700 | 8k/mois inclus | 783 900 |
-| **v7** | **Maint. option 4×25k/an ; héberg. vitrine offert** | **650 000** | **2 700** | **100k/an option** | **687,9k / 787,9k** |---
+| **v7** | **Maint. option 4×25k/an ; héberg. vitrine offert** | **650 000** | **2 700** | **100k/an option** | **687,9k / 787,9k** |
+
+---
 
 ## 9. Prochaines étapes
 
 1. Valider ce forfait v7  
 2. Devis PDF + CGV  
 3. Kickoff : menu, photos, horaires 3 sites, compte PSP  
+ 
