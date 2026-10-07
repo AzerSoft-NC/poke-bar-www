@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <title>Devis AZR-D-2026-001 — Commande en ligne et paiement — Poke Bar</title>
+  <style>
+    @page { size: A4; margin: 16mm 16mm 18mm; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: #1c1c1c;
+      font: 11pt/1.45 "Liberation Serif", "Times New Roman", serif;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 8px;
+    }
+    header img { width: 72px; height: 72px; object-fit: contain; }
+    h1 { font-size: 18pt; line-height: 1.2; margin: 0; font-weight: 700; }
+    .meta { margin: 0 0 14px; }
+    .meta p { margin: 0; }
+    h2 { font-size: 13pt; margin: 18px 0 6px; border-bottom: 1px solid #222; padding-bottom: 2px; }
+    h3 { font-size: 12pt; margin: 12px 0 4px; }
+    ul { margin: 4px 0 8px; padding-left: 18px; }
+    li { margin: 2px 0; }
+    table { width: 100%; border-collapse: collapse; margin: 8px 0 12px; font-size: 10.5pt; }
+    th, td { border-bottom: 1px solid #ccc; padding: 4px 6px; text-align: left; vertical-align: top; }
+    th { font-weight: 700; }
+    td.num, th.num { text-align: right; white-space: nowrap; }
+    .note { margin: 6px 0 10px; }
+    footer {
+      margin-top: 18px;
+      padding-top: 8px;
+      border-top: 1px solid #222;
+      font-size: 10pt;
+    }
+    .annex { break-before: page; }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="assets/logo-azersoft.png" alt="AzerSoft" />
+    <div>
+      <h1>Devis — Commande en ligne et paiement</h1>
+    </div>
+  </header>
+  <div class="meta">
+    <p><strong>Devis n° :</strong> AZR-D-2026-001</p>
+    <p><strong>Date :</strong> 7 octobre 2026</p>
+    <p><strong>Client :</strong> Poke Bar, Nouméa</p>
+    <p><strong>Prestataire :</strong> AzerSoft</p>
+    <p><strong>Objet :</strong> site, click &amp; collect et paiement carte, deux emplacements</p>
+    <p>Montants en <strong>francs Pacifique</strong>. Taxe <strong>6&nbsp;%</strong>.</p>
+  </div>
+
+  <h2>Ce qui est livré</h2>
+  <p>Deux adresses :</p>
+  <ul>
+    <li><strong>pokebar.nc</strong> — le site et la commande en ligne</li>
+    <li><strong>admin.pokebar.nc</strong> — le suivi et la configuration, réservé aux gérants</li>
+  </ul>
+  <p>Emplacements de retrait : <strong>Les Quais Ferry</strong> et <strong>Ouen Toro</strong>.</p>
+
+  <h3>Pour le client</h3>
+  <ul>
+    <li>Choix du point de retrait</li>
+    <li>Menu et tarifs, avec disponibilité par emplacement</li>
+    <li>Composition du poké, dans l’ordre du menu : format (bol, petit bol, wrap), base avec mélange possible, légumes inclus, protéine avec mélange et disponibilité, sauce, suppléments</li>
+    <li>Panier</li>
+    <li>Créneau de retrait selon les horaires de l’emplacement, <strong>sans limite de places</strong></li>
+    <li>Paiement carte sur la page du prestataire de paiement du client</li>
+    <li>Reçu par e-mail et/ou WhatsApp</li>
+    <li>Suivi simple : commande reçue, en préparation, prête</li>
+  </ul>
+
+  <h3>Pour les gérants</h3>
+  <ul>
+    <li>Connexion sur admin.pokebar.nc</li>
+    <li>Fiches des deux emplacements (nom, adresse, horaires, ouvert ou fermé)</li>
+    <li>Menu, prix, photos, disponibilité</li>
+    <li>Commandes du jour, détail du poké, changement de statut</li>
+    <li>Historique filtré par emplacement, date et statut</li>
+    <li>Statut du paiement tel que renvoyé par le prestataire (payé ou échoué)</li>
+  </ul>
+
+  <h3>Mise en service</h3>
+  <ul>
+    <li>Site repris dans l’application, avec les deux emplacements et le lien vers la commande</li>
+    <li>Hébergement du site et de l’application sur la même machine</li>
+    <li>Prise en main d’environ une heure</li>
+    <li>Recette du parcours réel, y compris un paiement de test, et correctifs associés</li>
+  </ul>
+  <p>Délai indicatif : <strong>2 à 3 semaines</strong> après l’acompte, la fourniture du menu et l’accès au compte de paiement.</p>
+
+  <h2>Forfait</h2>
+  <table>
+    <thead><tr><th></th><th class="num">HT</th><th class="num">Taxe 6 %</th><th class="num">TTC</th></tr></thead>
+    <tbody>
+      <tr><td>Conception, réalisation et mise en service</td><td class="num">511 250 XPF</td><td class="num">30 675</td><td class="num"><strong>541 925</strong></td></tr>
+    </tbody>
+  </table>
+
+  <h3>Règlement</h3>
+  <table>
+    <thead><tr><th>Étape</th><th class="num">Part</th><th class="num">HT</th><th class="num">TTC</th></tr></thead>
+    <tbody>
+      <tr><td>À la commande</td><td class="num">20 %</td><td class="num">102 250</td><td class="num">108 385</td></tr>
+      <tr><td>Démonstration du parcours de paiement (environnement de test)</td><td class="num">30 %</td><td class="num">153 375</td><td class="num">162 578</td></tr>
+      <tr><td>Mise en ligne</td><td class="num">50 %</td><td class="num">255 625</td><td class="num">270 962</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Option — limite de commandes par créneau</h2>
+  <p>Non incluse dans le forfait ci-dessus.</p>
+  <p>Un nombre maximum de commandes par créneau et par emplacement. Un créneau complet n’est plus proposé. La place est retenue pendant le paiement et libérée si le paiement échoue. Le tableau de bord affiche le remplissage et permet de fermer un créneau.</p>
+  <table>
+    <thead><tr><th></th><th class="num">HT</th><th class="num">TTC</th></tr></thead>
+    <tbody>
+      <tr><td>Supplément</td><td class="num"><strong>+ 56 250 XPF</strong></td><td class="num"></td></tr>
+      <tr><td>Forfait avec cette option</td><td class="num">567 500 XPF</td><td class="num"><strong>601 550</strong></td></tr>
+    </tbody>
+  </table>
+  <p>Règlement dans ce cas, TTC : 120 310 (20 %), 180 465 (30 %), 300 775 (50 %).</p>
+
+  <h2>Après la mise en ligne</h2>
+  <table>
+    <thead><tr><th></th><th class="num">HT</th><th class="num">TTC</th></tr></thead>
+    <tbody>
+      <tr><td>Hébergement (site + application)</td><td class="num">2 400 XPF / mois</td><td class="num"></td></tr>
+      <tr><td>Redirection du nom de domaine</td><td class="num">300 XPF / mois</td><td class="num"></td></tr>
+      <tr><td><strong>Total mensuel</strong></td><td class="num"><strong>2 700 XPF / mois</strong></td><td class="num"><strong>2 862 / mois</strong></td></tr>
+    </tbody>
+  </table>
+  <p>L’hébergement du site vitrine n’est pas facturé à part : il est sur la même machine que l’application.</p>
+
+  <h3>Option — maintenance annuelle</h3>
+  <table>
+    <thead><tr><th></th><th class="num">HT</th><th class="num">TTC</th></tr></thead>
+    <tbody>
+      <tr><td>Forfait annuel</td><td class="num"><strong>100 000 XPF / an</strong></td><td class="num"><strong>106 000 / an</strong></td></tr>
+    </tbody>
+  </table>
+  <p>Correctifs, petites évolutions et assistance sur le site et l’application.</p>
+  <p>Sans cette option, les interventions se devisent à part.</p>
+
+  <h2>Année 1, à titre indicatif</h2>
+  <p>Hors commissions du prestataire de paiement.</p>
+  <table>
+    <thead><tr><th></th><th class="num">HT</th><th class="num">TTC</th></tr></thead>
+    <tbody>
+      <tr><td>Forfait + 12 mois</td><td class="num">543 650 XPF</td><td class="num">576 269</td></tr>
+      <tr><td>Avec la maintenance annuelle</td><td class="num">643 650 XPF</td><td class="num">682 269</td></tr>
+      <tr><td>Avec la limite par créneau, sans maintenance</td><td class="num">599 900 XPF</td><td class="num">635 894</td></tr>
+      <tr><td>Avec la limite par créneau et la maintenance</td><td class="num">699 900 XPF</td><td class="num">741 894</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Non compris</h2>
+  <ul>
+    <li>Commissions du prestataire de paiement</li>
+    <li>SMS</li>
+    <li>Livraison</li>
+    <li>Promotions, fidélité, tableaux de bord avancés</li>
+    <li>Application mobile native</li>
+    <li>Remboursements (ils se font dans l’interface du prestataire de paiement)</li>
+    <li>Évolutions majeures après la mise en ligne</li>
+  </ul>
+
+  <h2>Fourni par le client</h2>
+  <ul>
+    <li>Textes, prix et photos du menu</li>
+    <li>Horaires des deux emplacements</li>
+    <li>Compte de paiement ouvert et accessible pour les tests, puis pour la mise en ligne</li>
+  </ul>
+
+  <footer>
+    <p>Devis n° AZR-D-2026-001, établi le 7 octobre 2026. Valable 30 jours. Taxe 6&nbsp;%.</p>
+    <p><strong>AzerSoft SARL</strong><br />
+    Raison sociale : AzerSoft SARL<br />
+    RIDET : 1 475 672.001<br />
+    Capital : 100 000 XPF<br />
+    Siège : 8, rue de l'Îlot Noumba</p>
+  </footer>
+
+  <h2 class="annex">Annexe — détail du chiffrage</h2>
+  <p>Tarif : <strong>45 000 XPF HT</strong> par jour, sauf les deux forfaits indiqués. Montants hors taxes.</p>
+  <table>
+    <thead><tr><th>Poste</th><th class="num">Jours</th><th class="num">Montant HT</th></tr></thead>
+    <tbody>
+      <tr><td>Cadrage (déplacements, rendez-vous, règles des deux emplacements)</td><td class="num">forfait</td><td class="num">25 000</td></tr>
+      <tr><td>Mise en place : environnement, déploiement, redirection DNS</td><td class="num">forfait</td><td class="num">25 000</td></tr>
+      <tr><td>Système d’authentification sécurisé</td><td class="num">0,5</td><td class="num">22 500</td></tr>
+      <tr><td>Fiches Les Quais Ferry et Ouen Toro</td><td class="num">0,25</td><td class="num">11 250</td></tr>
+      <tr><td>Menu, prix, photos, disponibilité par emplacement</td><td class="num">1</td><td class="num">45 000</td></tr>
+      <tr><td>Composition du poké (format, base et mélange, légumes, protéine et mélange, sauce, suppléments)</td><td class="num">1</td><td class="num">45 000</td></tr>
+      <tr><td>Écran de commande côté client</td><td class="num">1</td><td class="num">45 000</td></tr>
+      <tr><td>Panier</td><td class="num">0,5</td><td class="num">22 500</td></tr>
+      <tr><td>Créneaux de retrait, sans limite de places</td><td class="num">0,25</td><td class="num">11 250</td></tr>
+      <tr><td>Paiement carte (page du prestataire, configuration)</td><td class="num">1,5</td><td class="num">67 500</td></tr>
+      <tr><td>Confirmation de paiement, reçu e-mail et/ou WhatsApp</td><td class="num">0,5</td><td class="num">22 500</td></tr>
+      <tr><td>Tableau de bord des commandes du jour</td><td class="num">1</td><td class="num">45 000</td></tr>
+      <tr><td>Historique et statut de paiement</td><td class="num">0,5</td><td class="num">22 500</td></tr>
+      <tr><td>Statuts : reçue, en préparation, prête</td><td class="num">0,25</td><td class="num">11 250</td></tr>
+      <tr><td>Site repris dans l’application, deux emplacements, lien commande</td><td class="num">0,5</td><td class="num">22 500</td></tr>
+      <tr><td>Recette du parcours réel, correctifs, prise en main</td><td class="num">1,5</td><td class="num">67 500</td></tr>
+      <tr><td><strong>Total HT</strong></td><td class="num"></td><td class="num"><strong>511 250</strong></td></tr>
+      <tr><td>Taxe 6 %</td><td class="num"></td><td class="num">30 675</td></tr>
+      <tr><td><strong>Total TTC</strong></td><td class="num"></td><td class="num"><strong>541 925</strong></td></tr>
+    </tbody>
+  </table>
+
+  <h3>Option — limite par créneau</h3>
+  <table>
+    <thead><tr><th>Poste</th><th class="num">Montant HT</th></tr></thead>
+    <tbody>
+      <tr><td>Créneaux avec un plafond (1 jour au lieu de 0,25)</td><td class="num">45 000</td></tr>
+      <tr><td>Tableau de bord : compteur et fermeture d’un créneau</td><td class="num">22 500</td></tr>
+      <tr><td>Moins le créneau sans plafond déjà inclus</td><td class="num">−11 250</td></tr>
+      <tr><td><strong>Supplément HT</strong></td><td class="num"><strong>56 250</strong></td></tr>
+      <tr><td><strong>Total HT avec l’option</strong></td><td class="num"><strong>567 500</strong></td></tr>
+      <tr><td>Taxe 6 %</td><td class="num">34 050</td></tr>
+      <tr><td><strong>Total TTC avec l’option</strong></td><td class="num"><strong>601 550</strong></td></tr>
+    </tbody>
+  </table>
+</body>
+</html>

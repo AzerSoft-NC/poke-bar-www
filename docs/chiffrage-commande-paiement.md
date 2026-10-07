@@ -1,9 +1,10 @@
 # Chiffrage — Application commande & paiement Poke Bar
 
-**Date :** 2026-10-06 (rév. maint. annuelle optionnelle + héberg. vitrine offert)  
+**Date :** 2026-10-07 (rév. cadrage 25 000, taxe 6 %)  
 **Client :** Poke Bar (Nouméa)  
-**Périmètre validé :** click & collect **multi-sites** (Les Quais, Cocotiers, Ouen Toro) + **paiement CB en ligne**  
-**Modèle commercial :** forfait app + mensuel (héberg. dédié ~20$ + redirection 300 F) + domaine ≈ 5 500 F / 5 ans + **option** maintenance annuelle (4 j × 25k) ; **hébergement du site vitrine offert** avec l’application
+**Périmètre :** click & collect **2 emplacements** (**Les Quais Ferry**, **Ouen Toro**) + **paiement CB en ligne**. Site public sur **pokebar.nc** (plus Astro). Backoffice sur **admin.pokebar.nc**.  
+**Statut prix :** passe terminée — forfait **511 250 XPF HT**, taxe 6 % **30 675**, **541 925 TTC**. Option quota **+56 250 HT**.  
+**Modèle commercial :** forfait app (cadrage 25k + socle 25k, achat domaine inclus) + TJM 45k + mensuel (héberg. ~20$ + redirection 300 F) + **option** maintenance annuelle (forfait 100k) ; **hébergement du site vitrine offert** avec l’application
 
 ---
 
@@ -11,35 +12,43 @@
 
 Ce chiffrage part du principe que :
 
-1. **Réemploi de l’architecture workspace AzerSoft / `poke-bar-www`**
-   - Stack Astro + pnpm + Vitest + ESLint + Prettier déjà en place
-   - Layouts, tokens CSS Ombra / Poke Bar, `withBase`, `env`, i18n, SEO
-   - Pipeline `deploy.yml` → droplet déjà connu
-   - Pas de greenfield : on **étend** le monorepo / les conventions, on n’invente pas une stack
-
+1. **Même stack que les autres apps du workspace**
+  - **Vue 3, Nuxt, tRPC, Quasar, Drizzle, Zod** (références : `azr-funds`, `plein-cap/client-space`)
+  - Astro réservé aux sites vitrine simples. `pokebar.nc` n’en est plus un : le site s’embarque dans l’app
+  - Deux apps : **pokebar.nc** (site + commande) et **admin.pokebar.nc** (suivi / config)
+  - Hébergement droplet DigitalOcean. Pas de BaaS, pas de Supabase, pas de Stripe
 2. **Usage intensif de l’IA (Cursor / agents)**
-   - CRUD admin, UI, schémas, tests, boilerplate Stripe générés / itérés par IA
-   - Le temps facturé = **cadrage métier + revue + câblage critique + recette**, pas du code ligne à ligne
-   - Gain typique retenu vs chiffrage « manuel » : **≈ −50 %** sur le dev, moins sur la recette humaine
-
-3. **Stack cible légère**
-   - BaaS (ex. Supabase) + **Stripe Checkout** hébergé
-   - Admin simple, pas de BI / remboursement custom / WhatsApp
+  - CRUD admin, UI, schémas, tests, parcours commande générés / itérés par IA
+  - Le temps facturé = **cadrage métier + revue + câblage critique + recette**, pas du code ligne à ligne
+  - Gain typique retenu vs chiffrage « manuel » : **≈ −50 %** sur le dev, moins sur la recette humaine
+3. **Périmètre technique**
+  - Paiement CB : page du **PSP du client**, callback sur l’app
+  - Backoffice simple, pas de BI / remboursement custom / SMS
+  - Exposer les deux emplacements sur le site : léger. Le changement de stack, lui, est le socle de l’app, pas une retouche Astro
 
 ---
 
+
+
 ## 2. Périmètre inclus (forfait)
 
+
+
 ### Côté client
-- Choix du **point de retrait** (3 sites)
-- Menu / tarifs par site (dispo on/off)
-- Composition via options (base, protéines, sauces, extras)
-- Panier + créneau de retrait simple
-- **Paiement CB** via checkout hébergé
-- Confirmation + e-mail de reçu
+
+- Choix du **point de retrait** : **Les Quais Ferry** ou **Ouen Toro** (pas d’autre emplacement)
+- Menu / tarifs par emplacement (dispo on/off)
+- Composition du poké, logique du menu : format (bol, petit bol, wrap) → base (riz, etc., mix possible) → légumes inclus → protéine (mix et dispo) → sauce → suppléments
+- Panier + créneau de retrait **sans quota** (deux clients peuvent choisir la même heure)
+- **Option** quota par créneau : place limitée, compteur et fermeture dans le dashboard
+- **Paiement CB** via la page du PSP du client (pas Stripe)
+- Confirmation + reçu par **e-mail et/ou WhatsApp**
 - Statuts : reçue → en préparation → prête
 
+
+
 ### Côté admin
+
 - Login admin
 - CRUD menu / tarifs / dispo par site
 - File des commandes du jour + changement de statut
@@ -47,14 +56,23 @@ Ce chiffrage part du principe que :
 - Statut paiement (payé / échoué) tel que renvoyé par le PSP
 - Horaires click & collect par site
 
+
+
 ### Mise en service
-- Hébergement facturé en **équivalent machine dédiée** (~20 USD/mois DigitalOcean) pour l’application
-- **Hébergement du site vitrine (`poke-bar-www`) offert** avec cette application (même infra)
+
+- Hébergement sur le **droplet DigitalOcean** déjà en place (~20 USD/mois) — vitrine + app, pas de service tiers
+- **Hébergement du site vitrine (**`poke-bar-www`**) offert** avec cette application (même infra)
 - Webhooks paiement
+- Site public **embarqué dans l’app** `pokebar.nc` (plus un site Astro séparé)
+- Backoffice sur **admin.pokebar.nc**
+- Exposer **Les Quais Ferry** et **Ouen Toro** sur le site — léger
 - Lien CTA depuis la vitrine
 - Session de prise en main (~1 h)
 
+
+
 ### Hypothèses client
+
 - Contenu menu + photos fournis
 - Compte PSP ouvert par le client
 - FR uniquement ; pas de livraison ; pas d’app native
@@ -62,184 +80,283 @@ Ce chiffrage part du principe que :
 
 ---
 
+
+
 ## 3. Hors forfait
 
-| Élément | Commentaire |
-|--------|-------------|
-| Frais PSP | Commission → commerçant |
-| SMS / WhatsApp | Avenant |
-| Livraison | Hors scope |
-| Promo / fidélité / reporting avancé | Avenant |
-| App native | Hors scope |
-| EN commande | Avenant |
-| Évolutions majeures post go-live | TJM ou avenant |
+
+| Élément                             | Commentaire             |
+| ----------------------------------- | ----------------------- |
+| Frais PSP                           | Commission → commerçant |
+| SMS                                 | Avenant                 |
+| Livraison                           | Hors scope              |
+| Promo / fidélité / reporting avancé | Avenant                 |
+| App native                          | Hors scope              |
+| EN commande                         | Avenant                 |
+| Évolutions majeures post go-live    | TJM ou avenant          |
+
 
 ---
+
+
 
 ## 4. Détail jour-homme par fonctionnalité
 
-**TJM :** 60 000 XPF HT / JH  
+**TJM :** 45 000 XPF HT / JH  
 
 Colonne **Avant** = estimation « stack neuve + peu d’IA » (rév. précédente).  
-Colonne **JH** = estimation **workspace réemployé + IA intensive**.
+Colonne **JH** = jours actés.  
+Montant = JH × 45 000, **sauf #1 et #2** (forfait 25 000 chacun). #9 inclus = sans quota. Quota = option. Taxe **6 %** en sus.
 
 ### 4.1 Vue synthétique
 
-| # | Fonctionnalité | Avant | JH | Montant HT | Pourquoi ça baisse |
-|---|----------------|------:|---:|-----------:|--------------------|
-| 1 | Cadrage & modèle métier | 1,0 | 0,5 | 30 000 | Atelier court ; schéma assisté IA |
-| 2 | Socle technique | 1,0 | 0,5 | 30 000 | Réemploi Astro/pnpm/CI ; + BaaS branché |
-| 3 | Auth admin | 0,5 | 0,25 | 15 000 | Auth BaaS + pages générées IA |
-| 4 | Gestion des 3 sites | 1,0 | 0,5 | 30 000 | CRUD simple, config proche `site.ts` |
-| 5 | Menu & tarifs | 2,0 | 1,0 | 60 000 | CRUD IA ; revue règles dispo/site |
-| 6 | Composition poké | 1,5 | 0,5 | 30 000 | Options configurables, pas moteur complexe |
-| 7 | Catalogue client | 1,5 | 0,75 | 45 000 | UI réutilise tokens / layouts Ombra |
-| 8 | Panier | 1,0 | 0,5 | 30 000 | Logique standard, gen IA + revue |
-| 9 | Créneaux de retrait | 1,0 | 0,25 | 15 000 | Créneaux simples sur horaires site |
-| 10 | Paiement CB (Checkout) | 1,5 | 0,75 | 45 000 | Checkout hébergé ; peu de UI custom |
-| 11 | Webhooks + e-mail reçu | 0,5 | 0,25 | 15 000 | Patterns connus, gen IA |
-| 12 | Dashboard commandes | 1,5 | 0,75 | 45 000 | Liste + actions ; UI assistée |
-| 13 | Historique & paiements | 1,5 | 0,5 | 30 000 | Filtres basiques |
-| 14 | Statuts commande | 0,5 | 0,25 | 15 000 | 3 états, transitions simples |
-| 15 | Déploiement + lien vitrine | 1,5 | 0,5 | 30 000 | Réemploi `deploy.yml` / droplet |
-| 16 | Recette & prise en main | 1,5 | 1,0 | 60 000 | Peu compressible (humain + PSP réel) |
-| | **Total** | **19,0** | **9,25** | **555 000** | |
 
-Marge projet / imprévus : **95 000 XPF** → **forfait 650 000 XPF HT**.
+| #   | Fonctionnalité             | Avant    | JH       | Montant HT  | Pourquoi ça baisse                         |
+| --- | -------------------------- | -------- | -------- | ----------- | ------------------------------------------ |
+| 1   | Cadrage & modèle métier    | 2,0      | 2        | 25 000      | 2 j ; forfait 25 000, pas 2×TJM             |
+| 2   | Socle technique            | 1,0      | forfait  | 25 000      | Env, pipeline, achat domaine, redirection DNS |
+| 3   | Auth admin                 | 0,5      | 0,5      | 22 500      | Système d’authentification sécurisé          |
+| 4   | Gestion des 2 emplacements | 1,0      | 0,25     | 11 250      | CRUD simple, deux fiches                   |
+| 5   | Menu & tarifs              | 2,0      | 1,0      | 45 000      | Acté. Dispo par emplacement               |
+| 6   | Composition poké           | 1,5      | 1,0      | 45 000      | Acté. Étapes du menu, mix, dispo           |
+| 7   | Catalogue client           | 1,5      | 1,0      | 45 000      | Acté. Étapes du menu, dont le mix          |
+| 8   | Panier                     | 1,0      | 0,5      | 22 500      | Acté. Ajout, édition, total, session       |
+| 9   | Créneaux sans quota        | 1,0      | 0,25     | 11 250      | Acté, inclus. Quota = option §5            |
+| 10  | Paiement CB (PSP)          | 1,5      | 1,5      | 67 500      | Acté. Config PSP complexe                  |
+| 11  | Webhooks + reçu            | 0,5      | 0,5      | 22 500      | Acté. Callback, e-mail et/ou WhatsApp      |
+| 12  | Dashboard commandes        | 1,5      | 1,0      | 45 000      | Acté. Compteur quota = option §5           |
+| 13  | Historique & paiements     | 1,5      | 0,5      | 22 500      | Acté. Filtres. Test manuel = #16           |
+| 14  | Statuts commande           | 0,5      | 0,25     | 11 250      | Acté. reçue → préparation → prête          |
+| 15  | Vitrine dans l’app         | 1,5      | 0,5      | 22 500      | Acté. Portage Astro → Vue, 2 lieux         |
+| 16  | Recette & prise en main    | 1,5      | 1,5      | 67 500      | Acté. Parcours réel + correctifs           |
+|     | **Total**                  | **20,0** | **12,25**| **511 250** |                                            |
+
+
+TJM **45 000**. Cadrage et socle : forfait **25 000** chacun. Forfait **511 250 XPF HT** + taxe 6 % **30 675** = **541 925 TTC**. Option quota **+56 250 HT** → **567 500 HT**.
 
 ### 4.2 Détail par fonctionnalité
 
-| Fonctionnalité | Ce qui est fait | JH |
-|----------------|-----------------|---:|
-| **1. Cadrage** | Règles multi-sites, schéma (sites, articles, options, commandes, paiements), critères d’acceptation | 0,5 |
-| **2. Socle** | Extension workspace (routes SSR/endpoints si besoin), BaaS, env test/prod — **sans** recréer tooling | 0,5 |
-| **3. Auth admin** | Login BaaS, zone `/admin` protégée, 1 rôle | 0,25 |
-| **4. Sites** | 3 sites : nom, adresse, horaires click & collect, on/off | 0,5 |
-| **5. Menu & tarifs** | Catégories, articles, prix, photo, dispo par site, ordre | 1,0 |
-| **6. Composition** | Groupes d’options, min/max, suppléments | 0,5 |
-| **7. Catalogue** | Choix site → menu filtré → fiche + options (style vitrine) | 0,75 |
-| **8. Panier** | Add / edit / remove, total, session | 0,5 |
-| **9. Créneaux** | Créneaux dérivés des horaires (sans capacité fine) | 0,25 |
-| **10. Paiement** | Session Stripe Checkout, retours succès / échec | 0,75 |
-| **11. Webhooks + mail** | Marquage payé, e-mail confirmation | 0,25 |
-| **12. Dashboard** | Commandes du jour par site, détail composition, actions | 0,75 |
-| **13. Historique** | Filtres site / date / statut + détail paiement | 0,5 |
-| **14. Statuts** | reçue → en préparation → prête (+ vue client simple) | 0,25 |
-| **15. Déploiement** | Sous-domaine, HTTPS, CTA vitrine, alignement CI existante | 0,5 |
-| **16. Recette** | Parcours payant réel, correctifs, formation ~1 h, doc courte | 1,0 |
+
+| Fonctionnalité          | Ce qui est fait                                                                                      | JH   |
+| ----------------------- | ---------------------------------------------------------------------------------------------------- | ---- |
+| **1. Cadrage**          | 2 j : déplacement, rendez-vous, règles 2 emplacements, schéma, critères d’acceptation. **Forfait 25 000** | 2    |
+| **2. Socle**            | Mise en place env, pipeline de déploiement, achat du domaine, redirection DNS. **Forfait 25 000**    | forfait |
+| **3. Auth admin**       | Système d’authentification sécurisé. **0,5 j**                                                       | 0,5  |
+| **4. Emplacements**     | CRUD simple : Les Quais Ferry et Ouen Toro, nom, adresse, horaires, on/off. **0,25 j**                | 0,25 |
+| **5. Menu & tarifs**    | Catégories, articles, prix, photo, dispo par emplacement, ordre. **1 j, acté**                       | 1,0  |
+| **6. Composition**      | 1a format (bol, petit bol, wrap). 1b base + mix. 1c légumes inclus (chou mauve, concombre, carotte, oignon). 2 protéine, mix, dispo des items. 3 sauce. 4 suppléments. **1 j, acté** | 1,0  |
+| **7. Catalogue**        | Choix emplacement, puis étapes du menu et mix. **1 j, acté**                                          | 1,0  |
+| **8. Panier**           | Ajout, modification, retrait, total, session. **0,5 j, acté**                                        | 0,5  |
+| **9. Créneaux**         | Inclus : horaires → liste d’heures, pas de plafond. **0,25 j, acté.** Option quota : voir §5         | 0,25 |
+| **10. Paiement**        | Redirection page PSP, retours succès / échec, config PSP. **1,5 j, acté**                            | 1,5  |
+| **11. Webhooks + reçu** | Callback PSP, marquage payé, reçu e-mail et/ou WhatsApp. **0,5 j, acté**                             | 0,5  |
+| **12. Dashboard**       | Jour, composition, actions. **1 j, acté.** Le compteur de quota n’est pas dedans (option §5)         | 1,0  |
+| **13. Historique**      | Filtres emplacement / date / statut + détail paiement PSP. Test manuel au #16. **0,5 j, acté**       | 0,5  |
+| **14. Statuts**         | reçue → en préparation → prête, vue client simple. **0,25 j, acté**                                  | 0,25 |
+| **15. Vitrine**         | Portage de la page Astro en Vue (accueil, nav, footer, pages légales), deux emplacements, CTA. **0,5 j, acté** | 0,5  |
+| **16. Recette**         | Parcours payant réel (composition, PSP, reçu, dashboard), correctifs, prise en main ~1 h. **1,5 j, acté** | 1,5  |
+
+
+
 
 ### 4.3 Regroupement
 
-| Côté | JH |
-|------|---:|
-| Socle / transverse (1, 2, 3, 15, 16) | 2,75 |
-| Admin (4, 5, 6, 12, 13, 14) | 3,5 |
-| Client + paiement (7, 8, 9, 10, 11) | 3,0 |
-| **Total** | **9,25** |
+
+| Côté                                 | JH       |
+| ------------------------------------ | -------- |
+| Cadrage (1) — forfait 25 000         | 2        |
+| Socle (2) — forfait 25 000           | —        |
+| Transverse restant (3, 15, 16)       | 2,5      |
+| Admin (4, 5, 6, 12, 13, 14)          | 4        |
+| Client + paiement (7, 8, 9, 10, 11)  | 3,75     |
+| **Total jours**                      | **12,25** |
+
 
 ---
 
+
+
 ## 5. Forfait livraison
 
-| Poste | Montant HT |
-|-------|-----------:|
-| Conception + dev + mise en service (9,25 JH) | 555 000 XPF |
-| Marge projet / imprévus | 95 000 XPF |
-| **Forfait total** | **650 000 XPF HT** |
 
-≈ **5 450 € HT**.
+Deux emplacements seulement : **Les Quais Ferry** et **Ouen Toro**. Pas de Place des Cocotiers.
+
+Passe terminée. Pas de marge ajoutée par-dessus les jours actés.
+
+
+| Poste                                        | Montant HT         |
+| -------------------------------------------- | ------------------ |
+| Cadrage (2 j, forfait)                       | 25 000 XPF         |
+| Socle (env, pipeline, domaine, DNS)          | 25 000 XPF         |
+| Reste (10,25 JH × 45 000)                    | 461 250 XPF        |
+| **Forfait HT**                               | **511 250 XPF**    |
+| Taxe 6 %                                     | 30 675 XPF         |
+| **Forfait TTC**                              | **541 925 XPF**    |
+
+### Option — quota par créneau
+
+Hors somme ci-dessus. Un plafond par emplacement (ex. 6 commandes par créneau). Créneau plein retiré du choix. La place est tenue pendant le paiement et rendue si le PSP échoue. Dashboard : compteur et fermeture manuelle d’un créneau.
+
+
+| Poste                                      | Montant HT        |
+| ------------------------------------------ | ----------------- |
+| Créneaux avec quota (1 j au lieu de 0,25)  | 45 000 XPF        |
+| Dashboard : compteur + fermer un créneau   | 22 500 XPF        |
+| Moins le créneau sans quota déjà inclus    | −11 250 XPF       |
+| **Option**                                 | **+56 250 XPF**   |
+| **Forfait HT si l’option est retenue**     | **567 500 XPF**    |
+| Taxe 6 %                                   | 34 050 XPF         |
+| **Forfait TTC si l’option est retenue**    | **601 550 XPF**    |
 
 ### Échéancier
-1. **40 %** commande — 260 000 XPF  
-2. **30 %** démo parcours payant test — 195 000 XPF  
-3. **30 %** go-live — 195 000 XPF  
+
+Sur le forfait **511 250 HT** (sans l’option quota) :
+
+1. **20 %** commande — 102 250 HT, soit **108 385 TTC**
+2. **30 %** démo parcours payant test — 153 375 HT, soit **162 578 TTC**
+3. **50 %** go-live — 255 625 HT, soit **270 962 TTC**
+
+Si l’option quota est retenue (567 500 HT) : **120 310 / 180 465 / 300 775 TTC**.
+
+
 
 ### Délai
+
 **2–3 semaines** après acompte + menu + accès PSP (rythme IA + réemploi workspace).
 
 ---
 
+
+
 ## 6. Hébergement, domaine & maintenance
+
+
 
 ### Hébergement
 
-On facture l’hébergement comme une **machine dédiée** (Droplet DigitalOcean entrée de gamme) :
+Hébergement **sur le droplet DigitalOcean** déjà utilisé par la vitrine (entrée de gamme). Pas de BaaS, pas de Supabase : données et app sur cette machine.
 
-| | |
-|--|--|
-| Référence marché | Droplet ~**20 USD / mois** |
-| Conversion | ≈ **2 400 XPF HT / mois** (1 USD ≈ 120 XPF) |
+
+|                  |                                             |
+| ---------------- | ------------------------------------------- |
+| Référence marché | Droplet ~**20 USD / mois**                  |
+| Conversion       | ≈ **2 400 XPF HT / mois** (1 USD ≈ 120 XPF) |
+
 
 **Inclus / offert avec l’application :** l’hébergement du **site web vitrine** (`poke-bar-www`) est **offert** — pas de ligne hébergement séparée pour la vitrine. Le forfait machine dédiée ~20 $/mois couvre **vitrine + app commande**.
 
 ### Nom de domaine & redirection
 
-| Poste | Détail | Montant HT |
-|-------|--------|-----------:|
-| Nom de domaine | Enregistrement / renouvellement **5 ans** | **≈ 5 500** (un peu plus de 5 000) |
-| Redirection | Redirection DNS / URL | **300 / mois** |
 
-Amortissement indicatif du domaine : 5 500 ÷ 60 mois ≈ **92 XPF / mois** (facturation **tous les 5 ans**).
+| Poste          | Détail                                              | Montant HT                         |
+| -------------- | --------------------------------------------------- | ---------------------------------- |
+| Nom de domaine | Achat initial **inclus** dans le forfait socle     | **0** (dans les 25 000)            |
+| Redirection    | Mise en place dans #2 ; tenue DNS ensuite           | **300 / mois**                     |
 
 ### Abonnement mensuel (sans maintenance)
 
-| Poste | Rôle | Montant HT / mois |
-|-------|------|------------------:|
-| Hébergement dédié (équivalent) | Machine ~20 $/mois — **vitrine + app** | **2 400** |
-| Redirection | Redirection domaine / sous-domaine | **300** |
-| **Total mensuel** | | **2 700** |
 
-≈ **23 € HT / mois**.
+| Poste                          | Rôle                                   | Montant HT / mois |
+| ------------------------------ | -------------------------------------- | ----------------- |
+| Hébergement dédié (équivalent) | Machine ~20 $/mois — **vitrine + app** | **2 400**         |
+| Redirection                    | Redirection domaine / sous-domaine     | **300**           |
+| **Total mensuel**              |                                        | **2 700**         |
+
+
+Taxe 6 % : **162 XPF**. Total mensuel **2 862 XPF TTC**.
 
 ### Option — maintenance annuelle au forfait
 
 Hors abonnement mensuel. Vendue **en option** :
 
-| Poste | Détail | Montant HT |
-|-------|--------|-----------:|
-| Forfait maintenance annuel | **4 jours** × **25 000 XPF** | **100 000 / an** |
 
-Couvre correctifs, petites évolutions, assistance sur le quota de 4 JH / an (vitrine + app).  
-Au-delà des 4 jours : **25 000 XPF HT / JH** (même tarif option).
+| Poste                      | Détail                       | Montant HT       |
+| -------------------------- | ---------------------------- | ---------------- |
+| Forfait maintenance annuel | Forfait, sans décompte de jours | **100 000 / an** |
 
-Sans cette option : pas de quota de maintenance inclus (interventions à la demande au même TJM 25 000, ou devis avenant).
+
+Couvre correctifs, petites évolutions et assistance (vitrine + app).  
+Sans cette option : interventions sur devis.
 
 **Non inclus :** commissions PSP. Si la charge impose un Droplet plus gros → avenant infra.
 
 ---
 
+
+
 ## 7. Synthèse à facturer
 
-| Nature | Montant HT |
-|--------|-----------:|
-| **Forfait application** | **650 000 XPF** |
-| **Abonnement mensuel** (héberg. vitrine+app ~20$ + redirection) | **2 700 XPF / mois** |
-| **Nom de domaine** | **≈ 5 500 XPF / 5 ans** |
-| **Option maintenance annuelle** | **100 000 XPF / an** (4 j × 25k) |
+
+| Nature                                                          | Montant HT                       |
+| --------------------------------------------------------------- | -------------------------------- |
+| **Application HT** (cadrage 25k, socle 25k, TJM 45k)            | **511 250 XPF**                  |
+| Taxe 6 %                                                        | **30 675 XPF**                   |
+| **Application TTC**                                             | **541 925 XPF**                  |
+| **Abonnement mensuel** (héberg. vitrine+app ~20$ + redirection) | **2 700 XPF / mois**             |
+| **Nom de domaine**                                              | **inclus** dans le socle         |
+| **Option quota par créneau**                                   | **+56 250 HT** (567 500 HT)      |
+| **Option maintenance annuelle**                                 | **100 000 XPF / an** (forfait)   |
+
 
 **Offert avec l’application :** hébergement du **site web vitrine**.
 
-**Année 1 sans option maint. :**  
-650 000 + (12 × 2 700) + 5 500 = **687 900 XPF HT**
+**Année 1 sans option maint.** (domaine déjà dans le socle) :  
+511 250 + (12 × 2 700) = **543 650 XPF HT** (576 269 TTC)
 
 **Année 1 avec option maint. :**  
-687 900 + 100 000 = **787 900 XPF HT**
+543 650 + 100 000 = **643 650 XPF HT** (682 269 TTC)
+
+**Année 1 avec option quota** (sans maint.) :  
+567 500 + (12 × 2 700) = **599 900 XPF HT** (635 894 TTC)
+
+**Année 1 avec quota et maint. :**  
+599 900 + 100 000 = **699 900 XPF HT** (741 894 TTC)
 
 ---
+
+
 
 ## 8. Historique des révisions
 
-| Révision | Hypothèse | Forfait | Mensuel | Maint. | Année 1 |
-|----------|-----------|--------:|--------:|-------:|--------:|
-| v1–v5 | (voir historique git) | … | … | mensuelle | … |
-| v6 | Domaine 5 ans + redir. 300 | 650 000 | 10 700 | 8k/mois inclus | 783 900 |
-| **v7** | **Maint. option 4×25k/an ; héberg. vitrine offert** | **650 000** | **2 700** | **100k/an option** | **687,9k / 787,9k** |
+
+| Révision | Hypothèse                                           | Forfait     | Mensuel   | Maint.             | Année 1             |
+| -------- | --------------------------------------------------- | ----------- | --------- | ------------------ | ------------------- |
+| v1–v5    | (voir historique git)                               | …           | …         | mensuelle          | …                   |
+| v6       | Domaine 5 ans + redir. 300                          | 650 000     | 10 700    | 8k/mois inclus     | 783 900             |
+| v7       | Maint. option 4×25k/an ; héberg. vitrine offert     | 650 000     | 2 700     | 100k/an option     | 687,9k / 787,9k     |
+| v8       | Place des Cocotiers fermé, forfait 50k              | 700 000     | 2 700     | 100k/an option     | 737,9k / 837,9k     |
+| v9       | Stack = workspace actuel + droplet DO (hors BaaS/Stripe) | 700 000     | 2 700     | 100k/an option     | 737,9k / 837,9k     |
+| v10      | 2 emplacements ; TJM 50k ; Cocotiers retiré ; forfait non figé | 437 500     | 2 700     | 100k/an option     | 475,4k / 575,4k     |
+| v11      | Cadrage acté : 2 j, forfait 50k                         | 462 500     | 2 700     | 100k/an option     | 500,4k / 600,4k     |
+| v12      | Socle acté : forfait 50k (env, pipeline, domaine, DNS) | 487 500     | 2 700     | 100k/an option     | 519,9k / 619,9k     |
+| v13      | Stack app (Nuxt…) ; pokebar.nc + admin.pokebar.nc      | 487 500     | 2 700     | 100k/an option     | 519,9k / 619,9k     |
+| v14      | Auth admin 0,5 j : Keycloak, toi + gérants            | 500 000     | 2 700     | 100k/an option     | 532,4k / 632,4k     |
+| v15      | Emplacements : CRUD 0,25 j                            | 487 500     | 2 700     | 100k/an option     | 519,9k / 619,9k     |
+| v16      | Menu et tarifs actés : 1 j                           | 487 500     | 2 700     | 100k/an option     | 519,9k / 619,9k     |
+| v17      | Composition : logique menu, 1 j                      | 512 500     | 2 700     | 100k/an option     | 544,9k / 644,9k     |
+| v18      | Dashboard commandes : 1 j                            | 525 000     | 2 700     | 100k/an option     | 557,4k / 657,4k     |
+| v19      | Historique 0,5 j ; test manuel reste au #16          | 525 000     | 2 700     | 100k/an option     | 557,4k / 657,4k     |
+| v20      | Statuts 0,25 j ; bloc admin bouclé                   | 525 000     | 2 700     | 100k/an option     | 557,4k / 657,4k     |
+| v21      | Catalogue client : 1 j                               | 537 500     | 2 700     | 100k/an option     | 569,9k / 669,9k     |
+| v22      | Panier 0,5 j                                         | 537 500     | 2 700     | 100k/an option     | 569,9k / 669,9k     |
+| v23      | Créneaux sans quota inclus ; quota +62,5k option     | 537 500     | 2 700     | quota +62,5k       | 569,9k / 600k       |
+| v24      | Paiement CB 1,5 j (config PSP)                       | 575 000     | 2 700     | quota +62,5k       | 607,4k / 637,5k     |
+| v25      | Reçu : webhook + e-mail et/ou WhatsApp, 0,5 j        | 587 500     | 2 700     | quota +62,5k       | 619,9k / 650k       |
+| v26      | Vitrine : portage Astro → Vue, 0,5 j                 | 587 500     | 2 700     | quota +62,5k       | 619,9k / 650k       |
+| v27      | Recette 1,5 j ; passe terminée, sans marge           | 612 500     | 2 700     | quota +62,5k       | 644,9k / 675k       |
+| v28      | TJM 45k ; socle forfait 25k                          | 536 250     | 2 700     | quota +56,25k      | 568,7k / 592,5k     |
+| v29      | Échéancier 20 / 30 / 50 ; devis client               | 536 250     | 2 700     | quota +56,25k      | 568,7k / 592,5k     |
+| v30      | Maint. annuelle : forfait 100k, sans jours           | 536 250     | 2 700     | 100k/an forfait    | 568,7k / 592,5k     |
+| **v31**  | **Cadrage 25k ; taxe 6 % ; plus d’euros**            | **511 250** | **2 700** | **quota +56,25k**  | **543,7k / 567,5k** |
+
 
 ---
 
+
+
 ## 9. Prochaines étapes
 
-1. Valider ce forfait v7  
-2. Devis PDF + CGV  
-3. Kickoff : menu, photos, horaires 3 sites, compte PSP  
- 
+1. Devis client : `docs/devis-client-commande-paiement.md`
+2. CGV + PDF si besoin
+3. Kickoff : menu, photos, horaires Les Quais Ferry et Ouen Toro, compte PSP
+
