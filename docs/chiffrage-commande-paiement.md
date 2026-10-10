@@ -1,10 +1,10 @@
 # Chiffrage — Application commande & paiement Poke Bar
 
-**Date :** 2026-10-07 (rév. cadrage 25 000, taxe 6 %)  
+**Date :** 2026-10-10 (rév. TJM 40k, socle 15k, recette 1,25 j, vitrine/historique 0,25 j)  
 **Client :** Poke Bar (Nouméa)  
 **Périmètre :** click & collect **2 emplacements** (**Les Quais Ferry**, **Ouen Toro**) + **paiement CB en ligne**. Site public sur **pokebar.nc** (plus Astro). Backoffice sur **admin.pokebar.nc**.  
-**Statut prix :** passe terminée — forfait **511 250 XPF HT**, taxe 6 % **30 675**, **541 925 TTC**. Option quota **+56 250 HT**.  
-**Modèle commercial :** forfait app (cadrage 25k + socle 25k, achat domaine inclus) + TJM 45k + mensuel (héberg. ~20$ + redirection 300 F) + **option** maintenance annuelle (forfait 100k) ; **hébergement du site vitrine offert** avec l’application
+**Statut prix :** passe terminée — forfait **420 000 XPF HT**, taxe 6 % **25 200**, **445 200 TTC**. Option quota **+50 000 HT**.  
+**Modèle commercial :** forfait app (cadrage 25k + socle 15k, achat domaine inclus) + TJM 40k + mensuel (héberg. ~20$ + redirection 300 F) + **option** maintenance annuelle (forfait 100k) ; **hébergement du site vitrine offert** avec l’application
 
 ---
 
@@ -102,11 +102,11 @@ Ce chiffrage part du principe que :
 
 ## 4. Détail jour-homme par fonctionnalité
 
-**TJM :** 45 000 XPF HT / JH  
+**TJM :** 40 000 XPF HT / JH  
 
 Colonne **Avant** = estimation « stack neuve + peu d’IA » (rév. précédente).  
 Colonne **JH** = jours actés.  
-Montant = JH × 45 000, **sauf #1 et #2** (forfait 25 000 chacun). #9 inclus = sans quota. Quota = option. Taxe **6 %** en sus.
+Montant = JH × 40 000, **sauf #1** (forfait 25 000) et **#2** (forfait 15 000). #9 inclus = sans quota. Quota = option. Taxe **6 %** en sus.
 
 ### 4.1 Vue synthétique
 
@@ -114,25 +114,25 @@ Montant = JH × 45 000, **sauf #1 et #2** (forfait 25 000 chacun). #9 inclus = s
 | #   | Fonctionnalité             | Avant    | JH       | Montant HT  | Pourquoi ça baisse                         |
 | --- | -------------------------- | -------- | -------- | ----------- | ------------------------------------------ |
 | 1   | Cadrage & modèle métier    | 2,0      | 2        | 25 000      | 2 j ; forfait 25 000, pas 2×TJM             |
-| 2   | Socle technique            | 1,0      | forfait  | 25 000      | Env, pipeline, achat domaine, redirection DNS |
-| 3   | Auth admin                 | 0,5      | 0,5      | 22 500      | Système d’authentification sécurisé          |
-| 4   | Gestion des 2 emplacements | 1,0      | 0,25     | 11 250      | CRUD simple, deux fiches                   |
-| 5   | Menu & tarifs              | 2,0      | 1,0      | 45 000      | Acté. Dispo par emplacement               |
-| 6   | Composition poké           | 1,5      | 1,0      | 45 000      | Acté. Étapes du menu, mix, dispo           |
-| 7   | Catalogue client           | 1,5      | 1,0      | 45 000      | Acté. Étapes du menu, dont le mix          |
-| 8   | Panier                     | 1,0      | 0,5      | 22 500      | Acté. Ajout, édition, total, session       |
-| 9   | Créneaux sans quota        | 1,0      | 0,25     | 11 250      | Acté, inclus. Quota = option §5            |
-| 10  | Paiement CB (PSP)          | 1,5      | 1,5      | 67 500      | Acté. Config PSP complexe                  |
-| 11  | Webhooks + reçu            | 0,5      | 0,5      | 22 500      | Acté. Callback, e-mail et/ou WhatsApp      |
-| 12  | Dashboard commandes        | 1,5      | 1,0      | 45 000      | Acté. Compteur quota = option §5           |
-| 13  | Historique & paiements     | 1,5      | 0,5      | 22 500      | Acté. Filtres. Test manuel = #16           |
-| 14  | Statuts commande           | 0,5      | 0,25     | 11 250      | Acté. reçue → préparation → prête          |
-| 15  | Vitrine dans l’app         | 1,5      | 0,5      | 22 500      | Acté. Portage Astro → Vue, 2 lieux         |
-| 16  | Recette & prise en main    | 1,5      | 1,5      | 67 500      | Acté. Parcours réel + correctifs           |
-|     | **Total**                  | **20,0** | **12,25**| **511 250** |                                            |
+| 2   | Socle technique            | 1,0      | forfait  | 15 000      | Env, pipeline, domaine, DNS — forfait réduit |
+| 3   | Auth admin                 | 0,5      | 0,5      | 20 000      | Système d’authentification sécurisé          |
+| 4   | Gestion des 2 emplacements | 1,0      | 0,25     | 10 000      | CRUD simple, deux fiches                   |
+| 5   | Menu & tarifs              | 2,0      | 1,0      | 40 000      | Acté. Dispo par emplacement               |
+| 6   | Composition poké           | 1,5      | 1,0      | 40 000      | Acté. Étapes du menu, mix, dispo           |
+| 7   | Catalogue client           | 1,5      | 1,0      | 40 000      | Acté. Étapes du menu, dont le mix          |
+| 8   | Panier                     | 1,0      | 0,5      | 20 000      | Acté. Ajout, édition, total, session       |
+| 9   | Créneaux sans quota        | 1,0      | 0,25     | 10 000      | Acté, inclus. Quota = option §5            |
+| 10  | Paiement CB (PSP)          | 1,5      | 1,5      | 60 000      | Acté. Config PSP complexe                  |
+| 11  | Webhooks + reçu            | 0,5      | 0,5      | 20 000      | Acté. Callback, e-mail et/ou WhatsApp      |
+| 12  | Dashboard commandes        | 1,5      | 1,0      | 40 000      | Acté. Compteur quota = option §5           |
+| 13  | Historique & paiements     | 1,5      | 0,25     | 10 000      | 0,25 j. Filtres basiques. Test = #16       |
+| 14  | Statuts commande           | 0,5      | 0,25     | 10 000      | Acté. reçue → préparation → prête          |
+| 15  | Vitrine dans l’app         | 1,5      | 0,25     | 10 000      | 0,25 j. Portage déjà largement fait        |
+| 16  | Recette & prise en main    | 1,5      | 1,25     | 50 000      | 1,25 j. Parcours réel + correctifs         |
+|     | **Total**                  | **20,0** | **11,5** | **420 000** |                                            |
 
 
-TJM **45 000**. Cadrage et socle : forfait **25 000** chacun. Forfait **511 250 XPF HT** + taxe 6 % **30 675** = **541 925 TTC**. Option quota **+56 250 HT** → **567 500 HT**.
+TJM **40 000**. Cadrage forfait **25 000**, socle forfait **15 000**. Forfait **420 000 XPF HT** + taxe 6 % **25 200** = **445 200 TTC**. Option quota **+50 000 HT** → **470 000 HT**.
 
 ### 4.2 Détail par fonctionnalité
 
@@ -140,7 +140,7 @@ TJM **45 000**. Cadrage et socle : forfait **25 000** chacun. Forfait **511 250 
 | Fonctionnalité          | Ce qui est fait                                                                                      | JH   |
 | ----------------------- | ---------------------------------------------------------------------------------------------------- | ---- |
 | **1. Cadrage**          | 2 j : déplacement, rendez-vous, règles 2 emplacements, schéma, critères d’acceptation. **Forfait 25 000** | 2    |
-| **2. Socle**            | Mise en place env, pipeline de déploiement, achat du domaine, redirection DNS. **Forfait 25 000**    | forfait |
+| **2. Socle**            | Mise en place env, pipeline de déploiement, achat du domaine, redirection DNS. **Forfait 15 000**    | forfait |
 | **3. Auth admin**       | Système d’authentification sécurisé. **0,5 j**                                                       | 0,5  |
 | **4. Emplacements**     | CRUD simple : Les Quais Ferry et Ouen Toro, nom, adresse, horaires, on/off. **0,25 j**                | 0,25 |
 | **5. Menu & tarifs**    | Catégories, articles, prix, photo, dispo par emplacement, ordre. **1 j, acté**                       | 1,0  |
@@ -151,10 +151,10 @@ TJM **45 000**. Cadrage et socle : forfait **25 000** chacun. Forfait **511 250 
 | **10. Paiement**        | Redirection page PSP, retours succès / échec, config PSP. **1,5 j, acté**                            | 1,5  |
 | **11. Webhooks + reçu** | Callback PSP, marquage payé, reçu e-mail et/ou WhatsApp. **0,5 j, acté**                             | 0,5  |
 | **12. Dashboard**       | Jour, composition, actions. **1 j, acté.** Le compteur de quota n’est pas dedans (option §5)         | 1,0  |
-| **13. Historique**      | Filtres emplacement / date / statut + détail paiement PSP. Test manuel au #16. **0,5 j, acté**       | 0,5  |
+| **13. Historique**      | Filtres emplacement / date / statut + détail paiement PSP. Test manuel au #16. **0,25 j, acté**      | 0,25 |
 | **14. Statuts**         | reçue → en préparation → prête, vue client simple. **0,25 j, acté**                                  | 0,25 |
-| **15. Vitrine**         | Portage de la page Astro en Vue (accueil, nav, footer, pages légales), deux emplacements, CTA. **0,5 j, acté** | 0,5  |
-| **16. Recette**         | Parcours payant réel (composition, PSP, reçu, dashboard), correctifs, prise en main ~1 h. **1,5 j, acté** | 1,5  |
+| **15. Vitrine**         | Portage de la page Astro en Vue (accueil, nav, footer, pages légales), deux emplacements, CTA. **0,25 j, acté** | 0,25 |
+| **16. Recette**         | Parcours payant réel (composition, PSP, reçu, dashboard), correctifs, prise en main ~1 h. **1,25 j, acté** | 1,25 |
 
 
 
@@ -165,11 +165,11 @@ TJM **45 000**. Cadrage et socle : forfait **25 000** chacun. Forfait **511 250 
 | Côté                                 | JH       |
 | ------------------------------------ | -------- |
 | Cadrage (1) — forfait 25 000         | 2        |
-| Socle (2) — forfait 25 000           | —        |
-| Transverse restant (3, 15, 16)       | 2,5      |
-| Admin (4, 5, 6, 12, 13, 14)          | 4        |
+| Socle (2) — forfait 15 000           | —        |
+| Transverse restant (3, 15, 16)       | 2,0      |
+| Admin (4, 5, 6, 12, 13, 14)          | 3,75     |
 | Client + paiement (7, 8, 9, 10, 11)  | 3,75     |
-| **Total jours**                      | **12,25** |
+| **Total jours**                      | **11,5**  |
 
 
 ---
@@ -187,11 +187,11 @@ Passe terminée. Pas de marge ajoutée par-dessus les jours actés.
 | Poste                                        | Montant HT         |
 | -------------------------------------------- | ------------------ |
 | Cadrage (2 j, forfait)                       | 25 000 XPF         |
-| Socle (env, pipeline, domaine, DNS)          | 25 000 XPF         |
-| Reste (10,25 JH × 45 000)                    | 461 250 XPF        |
-| **Forfait HT**                               | **511 250 XPF**    |
-| Taxe 6 %                                     | 30 675 XPF         |
-| **Forfait TTC**                              | **541 925 XPF**    |
+| Socle (env, pipeline, domaine, DNS)          | 15 000 XPF         |
+| Reste (9,5 JH × 40 000)                      | 380 000 XPF        |
+| **Forfait HT**                               | **420 000 XPF**    |
+| Taxe 6 %                                     | 25 200 XPF         |
+| **Forfait TTC**                              | **445 200 XPF**    |
 
 ### Option — quota par créneau
 
@@ -200,23 +200,23 @@ Hors somme ci-dessus. Un plafond par emplacement (ex. 6 commandes par créneau).
 
 | Poste                                      | Montant HT        |
 | ------------------------------------------ | ----------------- |
-| Créneaux avec quota (1 j au lieu de 0,25)  | 45 000 XPF        |
-| Dashboard : compteur + fermer un créneau   | 22 500 XPF        |
-| Moins le créneau sans quota déjà inclus    | −11 250 XPF       |
-| **Option**                                 | **+56 250 XPF**   |
-| **Forfait HT si l’option est retenue**     | **567 500 XPF**    |
-| Taxe 6 %                                   | 34 050 XPF         |
-| **Forfait TTC si l’option est retenue**    | **601 550 XPF**    |
+| Créneaux avec quota (1 j au lieu de 0,25)  | 40 000 XPF        |
+| Dashboard : compteur + fermer un créneau   | 20 000 XPF        |
+| Moins le créneau sans quota déjà inclus    | −10 000 XPF       |
+| **Option**                                 | **+50 000 XPF**   |
+| **Forfait HT si l’option est retenue**     | **470 000 XPF**    |
+| Taxe 6 %                                   | 28 200 XPF         |
+| **Forfait TTC si l’option est retenue**    | **498 200 XPF**    |
 
 ### Échéancier
 
-Sur le forfait **511 250 HT** (sans l’option quota) :
+Sur le forfait **420 000 HT** (sans l’option quota) :
 
-1. **20 %** commande — 102 250 HT, soit **108 385 TTC**
-2. **30 %** démo parcours payant test — 153 375 HT, soit **162 578 TTC**
-3. **50 %** go-live — 255 625 HT, soit **270 962 TTC**
+1. **20 %** commande — 84 000 HT, soit **89 040 TTC**
+2. **30 %** démo parcours payant test — 126 000 HT, soit **133 560 TTC**
+3. **50 %** go-live — 210 000 HT, soit **222 600 TTC**
 
-Si l’option quota est retenue (567 500 HT) : **120 310 / 180 465 / 300 775 TTC**.
+Si l’option quota est retenue (470 000 HT) : **99 640 / 149 460 / 249 100 TTC**.
 
 
 
@@ -250,7 +250,7 @@ Hébergement **sur le droplet DigitalOcean** déjà utilisé par la vitrine (ent
 
 | Poste          | Détail                                              | Montant HT                         |
 | -------------- | --------------------------------------------------- | ---------------------------------- |
-| Nom de domaine | Achat initial **inclus** dans le forfait socle     | **0** (dans les 25 000)            |
+| Nom de domaine | Achat initial **inclus** dans le forfait socle     | **0** (dans les 15 000)            |
 | Redirection    | Mise en place dans #2 ; tenue DNS ensuite           | **300 / mois**                     |
 
 ### Abonnement mensuel (sans maintenance)
@@ -289,28 +289,28 @@ Sans cette option : interventions sur devis.
 
 | Nature                                                          | Montant HT                       |
 | --------------------------------------------------------------- | -------------------------------- |
-| **Application HT** (cadrage 25k, socle 25k, TJM 45k)            | **511 250 XPF**                  |
-| Taxe 6 %                                                        | **30 675 XPF**                   |
-| **Application TTC**                                             | **541 925 XPF**                  |
+| **Application HT** (cadrage 25k, socle 15k, TJM 40k)            | **420 000 XPF**                  |
+| Taxe 6 %                                                        | **25 200 XPF**                   |
+| **Application TTC**                                             | **445 200 XPF**                  |
 | **Abonnement mensuel** (héberg. vitrine+app ~20$ + redirection) | **2 700 XPF / mois**             |
 | **Nom de domaine**                                              | **inclus** dans le socle         |
-| **Option quota par créneau**                                   | **+56 250 HT** (567 500 HT)      |
+| **Option quota par créneau**                                   | **+50 000 HT** (470 000 HT)      |
 | **Option maintenance annuelle**                                 | **100 000 XPF / an** (forfait)   |
 
 
 **Offert avec l’application :** hébergement du **site web vitrine**.
 
 **Année 1 sans option maint.** (domaine déjà dans le socle) :  
-511 250 + (12 × 2 700) = **543 650 XPF HT** (576 269 TTC)
+420 000 + (12 × 2 700) = **452 400 XPF HT** (479 544 TTC)
 
 **Année 1 avec option maint. :**  
-543 650 + 100 000 = **643 650 XPF HT** (682 269 TTC)
+452 400 + 100 000 = **552 400 XPF HT** (585 544 TTC)
 
 **Année 1 avec option quota** (sans maint.) :  
-567 500 + (12 × 2 700) = **599 900 XPF HT** (635 894 TTC)
+470 000 + (12 × 2 700) = **502 400 XPF HT** (532 544 TTC)
 
 **Année 1 avec quota et maint. :**  
-599 900 + 100 000 = **699 900 XPF HT** (741 894 TTC)
+502 400 + 100 000 = **602 400 XPF HT** (638 544 TTC)
 
 ---
 
@@ -347,7 +347,10 @@ Sans cette option : interventions sur devis.
 | v28      | TJM 45k ; socle forfait 25k                          | 536 250     | 2 700     | quota +56,25k      | 568,7k / 592,5k     |
 | v29      | Échéancier 20 / 30 / 50 ; devis client               | 536 250     | 2 700     | quota +56,25k      | 568,7k / 592,5k     |
 | v30      | Maint. annuelle : forfait 100k, sans jours           | 536 250     | 2 700     | 100k/an forfait    | 568,7k / 592,5k     |
-| **v31**  | **Cadrage 25k ; taxe 6 % ; plus d’euros**            | **511 250** | **2 700** | **quota +56,25k**  | **543,7k / 567,5k** |
+| v31      | Cadrage 25k ; taxe 6 % ; plus d’euros                | 511 250     | 2 700     | quota +56,25k      | 543,7k / 567,5k     |
+| v32      | TJM 40k                                              | 460 000     | 2 700     | quota +50k         | 492,4k / 542,4k     |
+| v33      | Socle 15k ; recette 1,25 j                           | 440 000     | 2 700     | quota +50k         | 472,4k / 522,4k     |
+| **v34**  | **Vitrine + historique 0,25 j**                      | **420 000** | **2 700** | **quota +50k**     | **452,4k / 502,4k** |
 
 
 ---
