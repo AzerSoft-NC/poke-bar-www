@@ -55,7 +55,7 @@ Délai indicatif : **2 à 3 semaines** après l’acompte, la fourniture du menu
 
 |                                            | HT          | Taxe 6 % | TTC         |
 | ------------------------------------------ | ----------- | -------- | ----------- |
-| Conception, réalisation et mise en service | 460 000 XPF | 27 600   | **487 600** |
+| Conception, réalisation et mise en service | 440 000 XPF | 26 400   | **466 400** |
 
 
 ### Règlement
@@ -63,9 +63,9 @@ Délai indicatif : **2 à 3 semaines** après l’acompte, la fourniture du menu
 
 | Étape                                                         | Part | HT      | TTC     |
 | ------------------------------------------------------------- | ---- | ------- | ------- |
-| À la commande                                                 | 20 % | 92 000 | 97 520 |
-| Démonstration du parcours de paiement (environnement de test) | 30 % | 138 000 | 146 280 |
-| Mise en ligne                                                 | 50 % | 230 000 | 243 800 |
+| À la commande                                                 | 20 % | 88 000 | 93 280 |
+| Démonstration du parcours de paiement (environnement de test) | 30 % | 132 000 | 139 920 |
+| Mise en ligne                                                 | 50 % | 220 000 | 233 200 |
 
 
 ---
@@ -80,10 +80,10 @@ Un nombre maximum de commandes par créneau et par emplacement. Un créneau comp
 |                           | HT               | TTC         |
 | ------------------------- | ---------------- | ----------- |
 | Supplément                | **+ 50 000 XPF** |             |
-| Forfait avec cette option | 510 000 XPF      | **540 600** |
+| Forfait avec cette option | 490 000 XPF      | **519 400** |
 
 
-Règlement dans ce cas, TTC : 108 120 (20 %), 162 180 (30 %), 270 300 (50 %).
+Règlement dans ce cas, TTC : 103 880 (20 %), 155 820 (30 %), 259 700 (50 %).
 
 ---
 
@@ -120,10 +120,10 @@ Hors commissions du prestataire de paiement.
 
 |                                              | HT          | TTC     |
 | -------------------------------------------- | ----------- | ------- |
-| Forfait + 12 mois                            | 492 400 XPF | 521 944 |
-| Avec la maintenance annuelle                 | 592 400 XPF | 627 944 |
-| Avec la limite par créneau, sans maintenance | 542 400 XPF | 574 944 |
-| Avec la limite par créneau et la maintenance | 642 400 XPF | 680 944 |
+| Forfait + 12 mois                            | 472 400 XPF | 500 744 |
+| Avec la maintenance annuelle                 | 572 400 XPF | 606 744 |
+| Avec la limite par créneau, sans maintenance | 522 400 XPF | 553 744 |
+| Avec la limite par créneau et la maintenance | 622 400 XPF | 659 744 |
 
 
 ---
@@ -164,7 +164,7 @@ Tarif : **40 000 XPF HT** par jour, sauf les deux forfaits indiqués. Montants h
 | Poste                                                                                           | Jours   | Montant HT  |
 | ----------------------------------------------------------------------------------------------- | ------- | ----------- |
 | Cadrage (déplacements, rendez-vous, règles des deux emplacements)                               | forfait | 25 000      |
-| Mise en place : environnement, déploiement, redirection DNS                                    | forfait | 25 000      |
+| Mise en place : environnement, déploiement, redirection DNS                                    | forfait | 15 000      |
 | Système d’authentification sécurisé                                                             | 0,5     | 20 000      |
 | Fiches Les Quais Ferry et Ouen Toro                                                             | 0,25    | 10 000      |
 | Menu, prix, photos, disponibilité par emplacement                                               | 1       | 40 000      |
@@ -178,10 +178,10 @@ Tarif : **40 000 XPF HT** par jour, sauf les deux forfaits indiqués. Montants h
 | Historique et statut de paiement                                                                | 0,5     | 20 000      |
 | Statuts : reçue, en préparation, prête                                                          | 0,25    | 10 000      |
 | Site repris dans l’application, deux emplacements, lien commande                                | 0,5     | 20 000      |
-| Recette du parcours réel, correctifs, prise en main                                             | 1,5     | 60 000      |
-| **Total HT**                                                                                    |         | **460 000** |
-| Taxe 6 %                                                                                        |         | 27 600      |
-| **Total TTC**                                                                                   |         | **487 600** |
+| Recette du parcours réel, correctifs, prise en main                                             | 1,25    | 50 000      |
+| **Total HT**                                                                                    |         | **440 000** |
+| Taxe 6 %                                                                                        |         | 26 400      |
+| **Total TTC**                                                                                   |         | **466 400** |
 
 
 ### Option — limite par créneau
@@ -193,6 +193,6 @@ Tarif : **40 000 XPF HT** par jour, sauf les deux forfaits indiqués. Montants h
 | Tableau de bord : compteur et fermeture d’un créneau | 20 000      |
 | Moins le créneau sans plafond déjà inclus            | −10 000     |
 | **Supplément HT**                                    | **50 000**  |
-| **Total HT avec l’option**                           | **510 000** |
-| Taxe 6 %                                             | 30 600      |
-| **Total TTC avec l’option**                          | **540 600** |
+| **Total HT avec l’option**                           | **490 000** |
+| Taxe 6 %                                             | 29 400      |
+| **Total TTC avec l’option**                          | **519 400** |
