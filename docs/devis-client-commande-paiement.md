@@ -3,7 +3,7 @@
 # Devis — Commande en ligne et paiement
 
 **Devis n° :** AZR-D-2026-001  
-**Date :** 7 octobre 2026  
+**Date :** 10 octobre 2026  
 **Client :** Poke Bar, Nouméa  
 **Prestataire :** AzerSoft  
 **Objet :** site, click & collect et paiement carte, deux emplacements
@@ -55,7 +55,7 @@ Délai indicatif : **2 à 3 semaines** après l’acompte, la fourniture du menu
 
 |                                            | HT          | Taxe 6 % | TTC         |
 | ------------------------------------------ | ----------- | -------- | ----------- |
-| Conception, réalisation et mise en service | 511 250 XPF | 30 675   | **541 925** |
+| Conception, réalisation et mise en service | 460 000 XPF | 27 600   | **487 600** |
 
 
 ### Règlement
@@ -63,9 +63,9 @@ Délai indicatif : **2 à 3 semaines** après l’acompte, la fourniture du menu
 
 | Étape                                                         | Part | HT      | TTC     |
 | ------------------------------------------------------------- | ---- | ------- | ------- |
-| À la commande                                                 | 20 % | 102 250 | 108 385 |
-| Démonstration du parcours de paiement (environnement de test) | 30 % | 153 375 | 162 578 |
-| Mise en ligne                                                 | 50 % | 255 625 | 270 962 |
+| À la commande                                                 | 20 % | 92 000 | 97 520 |
+| Démonstration du parcours de paiement (environnement de test) | 30 % | 138 000 | 146 280 |
+| Mise en ligne                                                 | 50 % | 230 000 | 243 800 |
 
 
 ---
@@ -79,11 +79,11 @@ Un nombre maximum de commandes par créneau et par emplacement. Un créneau comp
 
 |                           | HT               | TTC         |
 | ------------------------- | ---------------- | ----------- |
-| Supplément                | **+ 56 250 XPF** |             |
-| Forfait avec cette option | 567 500 XPF      | **601 550** |
+| Supplément                | **+ 50 000 XPF** |             |
+| Forfait avec cette option | 510 000 XPF      | **540 600** |
 
 
-Règlement dans ce cas, TTC : 120 310 (20 %), 180 465 (30 %), 300 775 (50 %).
+Règlement dans ce cas, TTC : 108 120 (20 %), 162 180 (30 %), 270 300 (50 %).
 
 ---
 
@@ -120,10 +120,10 @@ Hors commissions du prestataire de paiement.
 
 |                                              | HT          | TTC     |
 | -------------------------------------------- | ----------- | ------- |
-| Forfait + 12 mois                            | 543 650 XPF | 576 269 |
-| Avec la maintenance annuelle                 | 643 650 XPF | 682 269 |
-| Avec la limite par créneau, sans maintenance | 599 900 XPF | 635 894 |
-| Avec la limite par créneau et la maintenance | 699 900 XPF | 741 894 |
+| Forfait + 12 mois                            | 492 400 XPF | 521 944 |
+| Avec la maintenance annuelle                 | 592 400 XPF | 627 944 |
+| Avec la limite par créneau, sans maintenance | 542 400 XPF | 574 944 |
+| Avec la limite par créneau et la maintenance | 642 400 XPF | 680 944 |
 
 
 ---
@@ -146,7 +146,7 @@ Hors commissions du prestataire de paiement.
 
 ---
 
-Devis n° AZR-D-2026-001, établi le 7 octobre 2026. Valable 30 jours. Taxe 6 %.
+Devis n° AZR-D-2026-001, établi le 10 octobre 2026. Valable 30 jours. Taxe 6 %.
 
 **AzerSoft SARL**  
 Raison sociale : AzerSoft SARL  
@@ -158,30 +158,30 @@ Siège : 8, rue de l'Îlot Noumba
 
 ## Annexe — détail du chiffrage
 
-Tarif : **45 000 XPF HT** par jour, sauf les deux forfaits indiqués. Montants hors taxes.
+Tarif : **40 000 XPF HT** par jour, sauf les deux forfaits indiqués. Montants hors taxes.
 
 
 | Poste                                                                                           | Jours   | Montant HT  |
 | ----------------------------------------------------------------------------------------------- | ------- | ----------- |
 | Cadrage (déplacements, rendez-vous, règles des deux emplacements)                               | forfait | 25 000      |
 | Mise en place : environnement, déploiement, redirection DNS                                    | forfait | 25 000      |
-| Système d’authentification sécurisé                                                             | 0,5     | 22 500      |
-| Fiches Les Quais Ferry et Ouen Toro                                                             | 0,25    | 11 250      |
-| Menu, prix, photos, disponibilité par emplacement                                               | 1       | 45 000      |
-| Composition du poké (format, base et mélange, légumes, protéine et mélange, sauce, suppléments) | 1       | 45 000      |
-| Écran de commande côté client                                                                   | 1       | 45 000      |
-| Panier                                                                                          | 0,5     | 22 500      |
-| Créneaux de retrait, sans limite de places                                                      | 0,25    | 11 250      |
-| Paiement carte (page du prestataire, configuration)                                             | 1,5     | 67 500      |
-| Confirmation de paiement, reçu e-mail et/ou WhatsApp                                            | 0,5     | 22 500      |
-| Tableau de bord des commandes du jour                                                           | 1       | 45 000      |
-| Historique et statut de paiement                                                                | 0,5     | 22 500      |
-| Statuts : reçue, en préparation, prête                                                          | 0,25    | 11 250      |
-| Site repris dans l’application, deux emplacements, lien commande                                | 0,5     | 22 500      |
-| Recette du parcours réel, correctifs, prise en main                                             | 1,5     | 67 500      |
-| **Total HT**                                                                                    |         | **511 250** |
-| Taxe 6 %                                                                                        |         | 30 675      |
-| **Total TTC**                                                                                   |         | **541 925** |
+| Système d’authentification sécurisé                                                             | 0,5     | 20 000      |
+| Fiches Les Quais Ferry et Ouen Toro                                                             | 0,25    | 10 000      |
+| Menu, prix, photos, disponibilité par emplacement                                               | 1       | 40 000      |
+| Composition du poké (format, base et mélange, légumes, protéine et mélange, sauce, suppléments) | 1       | 40 000      |
+| Écran de commande côté client                                                                   | 1       | 40 000      |
+| Panier                                                                                          | 0,5     | 20 000      |
+| Créneaux de retrait, sans limite de places                                                      | 0,25    | 10 000      |
+| Paiement carte (page du prestataire, configuration)                                             | 1,5     | 60 000      |
+| Confirmation de paiement, reçu e-mail et/ou WhatsApp                                            | 0,5     | 20 000      |
+| Tableau de bord des commandes du jour                                                           | 1       | 40 000      |
+| Historique et statut de paiement                                                                | 0,5     | 20 000      |
+| Statuts : reçue, en préparation, prête                                                          | 0,25    | 10 000      |
+| Site repris dans l’application, deux emplacements, lien commande                                | 0,5     | 20 000      |
+| Recette du parcours réel, correctifs, prise en main                                             | 1,5     | 60 000      |
+| **Total HT**                                                                                    |         | **460 000** |
+| Taxe 6 %                                                                                        |         | 27 600      |
+| **Total TTC**                                                                                   |         | **487 600** |
 
 
 ### Option — limite par créneau
@@ -189,10 +189,10 @@ Tarif : **45 000 XPF HT** par jour, sauf les deux forfaits indiqués. Montants h
 
 | Poste                                                | Montant HT  |
 | ---------------------------------------------------- | ----------- |
-| Créneaux avec un plafond (1 jour au lieu de 0,25)    | 45 000      |
-| Tableau de bord : compteur et fermeture d’un créneau | 22 500      |
-| Moins le créneau sans plafond déjà inclus            | −11 250     |
-| **Supplément HT**                                    | **56 250**  |
-| **Total HT avec l’option**                           | **567 500** |
-| Taxe 6 %                                             | 34 050      |
-| **Total TTC avec l’option**                          | **601 550** |
+| Créneaux avec un plafond (1 jour au lieu de 0,25)    | 40 000      |
+| Tableau de bord : compteur et fermeture d’un créneau | 20 000      |
+| Moins le créneau sans plafond déjà inclus            | −10 000     |
+| **Supplément HT**                                    | **50 000**  |
+| **Total HT avec l’option**                           | **510 000** |
+| Taxe 6 %                                             | 30 600      |
+| **Total TTC avec l’option**                          | **540 600** |
